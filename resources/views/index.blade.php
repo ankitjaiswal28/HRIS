@@ -194,7 +194,7 @@
     <div class="container">
         <div class="form">
             <div class="sign-in-section">
-                <h1>Log in</h1>
+                <h1>LogIn</h1>
                 <ul>
                     <li><img src="/asset/css/zondicons/zondicons/edit-pencil.svg" style="position: relative;margin-top: 0px; top: 3px;width:15px;"></li>
                     <li><img src="/asset/css/zondicons/zondicons/edit-pencil.svg" style="position: relative;margin-top: 0px; top: 3px;width:15px;"></li>

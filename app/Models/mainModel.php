@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Session\Session;
-
+use Carbon\Carbon;
+use DateTime;
 class mainModel extends Model
 {
     /**
@@ -107,5 +108,44 @@ class mainModel extends Model
     {
         $updates =  DB::table($table_name)->where([$keyname => $keyvalue, 'flag' => 'Show'])->update($data);
         return $updates;
+    }
+    /**
+     * This Function is to update the Logut Time of the User
+     * and Send Response To controller
+     * @param $data \Illuminate\Http\Request  $data will Have All Data To insert.
+     * @return \Illuminate\Http\Response Return Response Message
+     */
+    public function leaveAttendence($data)
+    {
+        $userId = $data['user_id'];
+        $columndata['out_Date'] = $data['out_Date'];
+        $columndata['out_time'] = $data['out_time'];
+        $columndata['Stutus'] = $data['Stutus'];
+        $timaestamp = $data['timaestamp'];
+        // DB::enableQuerylog();
+        $countdetails= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId, 'Stutus' => 'IN'])->get()->count();
+        $message = '';
+        if($countdetails == 1) {
+            $details= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId, 'Stutus' => 'IN'])->get()->first();
+            $attendenceId = $details->attendenceId;
+            $InDate = $details->in_Date;
+            $InTime = $details->in_time;
+            $InTimeDate = $InDate . ' ' . $InTime;
+            $message = $InTime;
+            $start  = new Carbon($InTimeDate);
+            $end    = new Carbon($timaestamp);
+            $totalhours = $start->diff($end)->format('%H:%I:%S') . ' Hrs';
+            $columndata['total_hours'] = $totalhours;
+            // echo $difference;
+            $updated = DB::table('mst_tbl_add_attdencence')->where(['attendenceId'=>$attendenceId])->update($columndata);
+            if($updated > 0) {
+                $message = 'Done';
+            }
+        } else {
+            $message = 'Not Done';
+        }
+        // $aa= DB::getQuerylog();
+        // print_r($aa);
+        return $message;
     }
 }

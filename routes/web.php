@@ -41,8 +41,9 @@ Route::group(['middleware' => ['athuthenticate']],function () {
     });
     Route::group(['middleware' => ['admin']],function (){
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
-        Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');;
-        Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');;
+        Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
+        Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
+        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
     });
 
 

@@ -387,7 +387,7 @@ window.onclick = function(event) {
 }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="/js/stopwatch.js"></script>
+{{-- <script src="/js/stopwatch.js"></script> --}}
 <script>
 /*
 var d = new Date();
@@ -410,6 +410,7 @@ document.getElementById("demo").innerHTML = d.getDate() + '/' + d.getMonth() + '
         },
         success: function(data) {
             console.log(data);
+           // return;
             if(data === 'IN') {
                 $('#resume').hide();
                 $("#checkout").show();
@@ -474,10 +475,8 @@ $('#resume').click(function(){
     $('#resume').hide();
 });
 $('#leave').click(function(){
-    $('#sw_reset').click();
-    $("#checkin").show();
-    $("#checkout").hide();
-    $('#resume').hide();
+    LeaveAttendence();
+
 });
 
 function AddAtendence() {
@@ -498,11 +497,49 @@ function AddAtendence() {
         },
         success: function(data) {
             console.log(data);
+            return;
             var response = data.trim();
             if(response =='Done') {
                 $("#checkin").hide();
                 $("#checkout").show();
                 $("#sw_start").click();
+
+               //  window.location.href = 'Admin/admindahboard';
+            }else {
+                alert('Some Thing Went Wrong')
+            }
+        },
+    })
+}
+function LeaveAttendence() {
+    var today = new Date();
+    var timestamp  = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate() + ' ' +today.getHours()+':'+ today.getMinutes() + ':' +today.getSeconds() ;
+    // alert('fdfdf')
+    //console.log(timestamp);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: '/leaveatendence',
+        type: 'POST',
+        data: {
+            timestamp: timestamp
+        },
+        success: function(data) {
+            console.log(data);
+            // return ;
+            var response = data.trim();
+            if(response =='Done') {
+                location.reload();
+               // $('#sw_reset').click();
+                $("#checkin").show();
+                $("#checkout").hide();
+                $('#resume').hide();
+                /*$("#checkin").hide();
+                $("#checkout").show();
+                $("#sw_start").click();*/
             }else {
                 alert('Some Thing Went Wrong')
             }

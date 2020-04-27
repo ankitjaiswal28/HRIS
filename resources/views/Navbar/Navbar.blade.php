@@ -54,7 +54,7 @@
                     style="margin-right: 25px;min-width: 23rem !important;padding-bottom: 0px;!important;border-radius: 8px;">
 
                     <div class="noti-title">
-                        <span class="new-noti-title">Notifications</span>
+                        <span class="new-noti-title">Notificaations</span>
                         <span class="noti-count" id="noti-container-count">2</span>
                     </div>
                     <div class="scrollbar" id="style-1">

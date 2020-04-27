@@ -26,8 +26,18 @@ Route::group(['middleware' => ['athuthenticate']],function () {
     Route::group(['middleware' => ['superadmin']],function (){
         Route::get('SuperAdmin/superadmindahboard' , 'SuperAdmin\DashboardController@index')->name('SuperAdmin/superadmindahboard');
         Route::get('Superadmin/client' , 'SuperAdmin\NavbarController@index')->name('Superadmin/client');
-        Route::post('/createclient', 'SuperAdmin\NavbarController@createClient')->name('/createclient');;
-        Route::get('Superadmin/user' , 'SuperAdmin\NavbarController@index')->name('Superadmin/user');;
+        Route::post('/createclient', 'SuperAdmin\NavbarController@createClient')->name('/createclient');
+        Route::get('Superadmin/user' , 'SuperAdmin\NavbarController@index')->name('Superadmin/user');
+
+        /////////////////////          Client Operation     ////////////////////////////////
+        Route::get('SuperAdmin/Show_client' , 'SuperAdmin\TableController@Show_client')->name('SuperAdmin/Show_client');
+
+        Route::get('Superadmin/show_Edit_client' , 'SuperAdmin\TableController@show_Edit_client')->name('SuperAdmin/show_Edit_client');
+        Route::post('/show_client_datatbl' , 'SuperAdmin\TableController@show_client_datatbl')->name('show_client_datatbl');
+        Route::post('/updateclient', 'SuperAdmin\TableController@updateclient')->name('/updateclient');
+        Route::get('user/delete/{id}','SuperAdmin\TableController@destroy')->name('user/delete');
+        Route::get('user/edit/{id}','SuperAdmin\TableController@edit')->name('user/edit');
+        ///////////////////////////////////////////////////////////////////////////////////
     });
     Route::group(['middleware' => ['admin']],function (){
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');

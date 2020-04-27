@@ -21,13 +21,10 @@
                 <a class="nav-link" href="#">Role</a>
             </li> --}}
             <li class="nav-item">
-                <a class="nav-link"  href="/Superadmin/client">Client Creation</a>
+                <a class="nav-link"  href="/SuperAdmin/Show_client">Client</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/Superadmin/client">Client</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/Superadmin/Module">Module</a>
+                <a class="nav-link"  href="/SuperAdmin/Module">Module</a>
             </li>
         @endif
         @if (session('roleId') == '2')

@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="row">
                         <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add Client</h1>
+                            <h1 class="left_border font_grey" style="float: left;">Edit Client</h1>
                         </div>
                         <div class="col-md-2">
                             <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
@@ -24,42 +24,39 @@
                     </div>
                     <div class="padding_20" style="padding: 0px 35px;">
                         <form action="#" name="client_form" id="client_form" class="form_class" data-parsley-validate autocomplete="off">
+
                             <div class="row">
                                 <div class=" col-sm-12 col-xs-12 col-md-12">
+                                    <input type="hidden" name="client_id" id="client_id" value="{{$data->CLIENT_ID}}">
                                     <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="companyname" name="companyname"  autocomplete="off"  placeholder="" style="clear:both" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
+                                    <input type="text" class="effect-16" id="companyname" name="companyname"  autocomplete="off"  placeholder="" style="clear:both" data-parsley-trigger="blur" required="" value="{{$data->COMPANY_NAME}}">
                                         <label>Company Name</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    {{-- <input type="text" class="effect-16" id="adminname" name="adminname"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required=""> --}}
-                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="adminname" name="adminname" data-parsley-trigger="blur" required="">
+                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="adminname" name="adminname" data-parsley-trigger="blur" required="" value="{{$data->ADMIN_NAME}}">
                                         <label>Admin Name</label>
                                         <span class="focus-border" ></span>
 
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="mobileno" name="mobileno"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
+                                    <input type="text" class="effect-16" id="mobileno" name="mobileno"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required="" value="{{$data->ADMIN_MOB_NO}}">
                                         <label>Admin Contact No</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
+                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" value="{{$data->ADMIN_EMAILID}}">
                                         <label>Admin Email</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="prefix" placeholder="" style="clear:both" name="prefix"  autocomplete="off"  data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both" name= "fff"  autocomplete="off" > --}}
+                                    <input type="text" class="effect-16" id="prefix" placeholder="" style="clear:both" name="prefix"  autocomplete="off"  data-parsley-trigger="blur" required="" value="{{$data->CLIENT_PREFIX}}">
                                         <label>Client Prefix</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="password" placeholder="" style="clear:both" name="pwn"  autocomplete="new-password"> --}}
+                                    <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required=""
+                                    value="{{$data->PASSWORDS}}">
                                         <label>Password</label>
                                         <span class="focus-border"></span>
                                     </div>
@@ -67,9 +64,7 @@
                             </div>
                             <div style="margin: 15px 0px;">
                             <button type="button" name="submit_id" id="btn_id"  class="btnn" style="border: none;">Submit</button>
-                            <img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
-                                {{-- <button type="submit" class="btnn" style="border: none;">Submit</button> --}}
-                                {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
+                            <img src="/asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
                             </div>
                         </form>
                     </div>
@@ -129,6 +124,7 @@
             if ($(this).parsley().validate() !== true) isValid = false;
         });
         if (isValid) {
+            alert("OK and Processed!");
             $('#loading-image').show();
             $.ajaxSetup({
                 headers: {
@@ -136,9 +132,10 @@
                 }
             });
             $.ajax({
-                url: '/createclient',
+                url: '/updateclient',
                 type: 'POST',
                 data: {
+                    clientid: $('#client_id').val(),
                     companyname: $('#companyname').val(),
                     adminname: $('#adminname').val(),
                     mobileno: $('#mobileno').val(),
@@ -160,7 +157,7 @@
                          } else {
                              alert('Admin Craeted Sucessfuly');
                              // window.location.href = 'SuperAdmin/superadmindahboard';
-                             var url = '{{ route("SuperAdmin/superadmindahboard") }}';
+                             var url = '{{ route("SuperAdmin/Show_client") }}';
                              window.location.href = url;
                              //window.location.href ='Superadmin/client'
                          }
@@ -211,7 +208,7 @@ fileInput.addEventListener( "change", function( event ) {
 </script>
 <script>
     $(window).load(function(){
-		$(".colll-3 input").val("");
+		// $(".colll-3s input").val("");
 
 		$(".input-effect input").focusout(function(){
 			if($(this).val() != ""){

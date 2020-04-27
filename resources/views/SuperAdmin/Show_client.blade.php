@@ -79,7 +79,7 @@
 			closeOnConfirm: false,
 			closeOnCancel: true
 		});
-		function(isConfirm){
+		/*function(isConfirm){
 			if (isConfirm) {
 
 				var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -97,9 +97,9 @@
 					}
 				});
 				}
-			}
+			}*/
 	}
 
-<script>
+</script>
 
 @endsection

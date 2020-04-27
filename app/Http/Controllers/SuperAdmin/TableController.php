@@ -11,6 +11,11 @@ use Yajra\Datatables\Datatables;
 
 class TableController extends Controller
 {
+    /**
+     * Show the All Clients created in Data Table.
+     *
+     * @return \Illuminate\Http\Response Return The Data Table Of All Records Of Data Table
+     */
     public function show_client_datatbl()
     {
         $details= DB::table('sup_tbl_client')->where(['Flag'=>'Show'])->get();
@@ -49,6 +54,7 @@ class TableController extends Controller
         return view('SuperAdmin/show_Edit_client');
     }
 
+
     public function updateclient(Request $request)
     {
         $details = new mainModel();
@@ -58,7 +64,7 @@ class TableController extends Controller
         $adminname = $request->adminname;
         $mobileno = $request->mobileno;
         $email = $request->email;
-        $prefix = $request->prefix;
+       //  $prefix = $request->prefix;
         $pwd = $request->pwd;
         $orignaldatabase = $request->session()->get('databasename');
         $encryptPassword = Crypt::encrypt($pwd);
@@ -67,17 +73,16 @@ class TableController extends Controller
         $data['ADMIN_NAME'] = $adminname;
         $data['ADMIN_MOB_NO'] = $mobileno;
         $data['ADMIN_EMAILID'] = $email;
-        $data['CLIENT_PREFIX'] = $prefix;
-        // $data['PASSWORDS'] = $encryptPassword;
-        // $data['orignaldatabase'] = $orignaldatabase;
+       // $data['CLIENT_PREFIX'] = $prefix;
+        $data['PASSWORDS'] = $encryptPassword;
+        $data['orignaldatabase'] = $orignaldatabase;
 
         $table_name = 'sup_tbl_client';
         $keyvalue = $clientid;
         $keyname = 'CLIENT_ID';
        $responsemessg = $details->clientupdate($table_name,$keyname,$keyvalue,$data);
-
-    //    print_r($responsemessg);
-    //    return  $responsemessg;
+       // print_r($responsemessg);
+       return  $responsemessg;
     }
 
     public function Show_client()
@@ -89,7 +94,18 @@ class TableController extends Controller
     public function edit($id)
 	{
         $id = Crypt::decrypt($id);
-       $data = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->get()->first();
+       $userdata = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->get()->first();
+       $dataofUser['CLIENT_ID'] = $userdata->CLIENT_ID;
+       $dataofUser['COMPANY_NAME'] = $userdata->COMPANY_NAME;
+       $dataofUser['ADMIN_MOB_NO'] = $userdata->ADMIN_MOB_NO;
+       $dataofUser['ADMIN_EMAILID'] = $userdata->ADMIN_EMAILID;
+       $dataofUser['CLIENT_PREFIX'] = $userdata->CLIENT_PREFIX;
+       $dataofUser['ADMIN_NAME'] = $userdata->ADMIN_NAME;
+       $password = $userdata->PASSWORDS;
+       $dataofUser['PASSWORDS'] = Crypt::decrypt($password);
+       $data = (object) $dataofUser;
+       /// print_r($data);
+       // $data
         return view('SuperAdmin/show_Edit_client',compact('data'));
     }
     public function destroy($id)

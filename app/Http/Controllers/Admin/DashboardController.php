@@ -29,30 +29,50 @@ class DashboardController extends Controller
      */
     public function SaveAtdendence(Request $request)
     {
-        // userid
-       // echo $username = $request['timestamp'];
-        // $date = Carbon::now();
-        // // echo $date1 = date('Y-m-d',strtotime($date));
-        // $tim1 =  date('H:i:s',strtotime($date));
-        // $details = new mainModel();
-        // $now = Carbon::now()->timestamp;
-        // print_r($now);
+        print_r($_SERVER);
+        exit();
         $details = new mainModel();
         $UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');
-        $timaestamp = date("Y-m-d H:i:s");
+        // $timaestamp = date("Y-m-d H:i:s");
+        $date = date('Y-m-d');
+        $time = date(' H:i:s');
         $data['user_id'] = $UserId;
         $data['shift'] = $UserShift;
-        $data['in_time_Date'] = $timaestamp;
+        $data['in_Date'] = $date;
+        $data['in_time'] = $time;
         $data['Stutus'] = 'IN';
         $id = $details->insertRecords($data,'mst_tbl_add_attdencence');
         $message = '';
         $retVal = ($id != '') ? $message = 'Done' : $message = 'Error';
         return $retVal;
-        //print_r($data);
-        // $data[''] = $UserId;
-        // $data[''] = $UserId;
-        // echo $UserId;
+    }
+    /**
+     * This Function Will Will Put Logout  The Atttendence
+     * Of the User
+     * @param  \Illuminate\Http\Request  $request All Session Data
+     * @return \Illuminate\Http\Response
+     */
+    public function leaveAttendence(Request $request)
+    {
+        $details = new mainModel();
+        $UserShift = '1 Shift';
+        $UserId = $request->session()->get('userid');
+        // $timaestamp = date("Y-m-d H:i:s");
+        $date = date('Y-m-d');
+        $time = date(' H:i:s');
+        $data['user_id'] = $UserId;
+        // $data['shift'] = $UserShift;
+        $data['out_Date'] = $date;
+        $data['out_time'] = $time;
+        $data['timaestamp'] = date("Y-m-d H:i:s");
+        $data['Stutus'] = 'OUT';
+        $updated = $details->leaveAttendence($data);
+        //$updated = DB::table('mst_tbl_add_attdencence')->where(['user_id'=>$UserId])->update($data);
+        // $id = $details->insertRecords($data,'mst_tbl_add_attdencence');
+        $message = '';
+        $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error';
+        return $updated;
     }
 
     /**
@@ -75,10 +95,12 @@ class DashboardController extends Controller
     public function getAttendence(Request $request)
     {
         $userId = $request['userId'];
-        $countdetails= DB::table('mst_tbl_add_attdencence')->where('in_time_Date', '>=', Carbon::today())->where(['user_id'=>$userId])->get()->count();
+        $countdetails= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId])->get()->count();
+        // print_r($countdetails);
+        // exit;
         $Status = '';
         if ($countdetails != 0) {
-            $details= DB::table('mst_tbl_add_attdencence')->where('in_time_Date', '>=', Carbon::today())->where(['user_id'=>$userId])->get()->first();
+            $details= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId])->get()->first();
             $Status = $details->Stutus;
         } else {
             $Status = '';

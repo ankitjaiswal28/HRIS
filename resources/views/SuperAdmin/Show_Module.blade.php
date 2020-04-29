@@ -10,7 +10,7 @@
         </div>
         <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
                     class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
-                href="{{ url('/Superadmin/client') }}"><i class="fa fa-plus fafa_add_circle_right"
+                href="{{ url('/SuperAdmin/Module') }}"><i class="fa fa-plus fafa_add_circle_right"
                     aria-hidden="true"></i></a></div>
     </div>
 </div>
@@ -20,10 +20,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Company Name</th>
-                <th> Admin Name</th>
-                <th>Email</th>
-                <th>Assgin Module</th>
+                <th>Module Name</th>
+                <th>Module Link</th>
+                {{-- <th>Assgin Module</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -49,17 +48,15 @@
     serverSide: true,
     searchable: true,
     ajax : {
-    url : path + '/show_client_datatbl',
+    url : path + '/show_module_datatbl',
     type : 'post',
     data : {_token: CSRF_TOKEN},
     },
     columns: [
         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-        { data: 'COMPANY_NAME', name: 'COMPANY_NAME' },
-        { data: 'ADMIN_NAME', name: 'ADMIN_NAME' },
-        { data: 'ADMIN_EMAILID', name: 'ADMIN_EMAILID' },
-         { data: 'assgin', name: 'assgin' },
-
+        { data: 'moduleName', name: 'moduleName' },
+        { data: 'moduleLink', name: 'moduleLink' },
+        // { data: 'assgin', name: 'assgin' },
         { data: 'action', name: 'action' }
 
 

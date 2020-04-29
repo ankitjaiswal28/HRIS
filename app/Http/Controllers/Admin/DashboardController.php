@@ -29,8 +29,8 @@ class DashboardController extends Controller
      */
     public function SaveAtdendence(Request $request)
     {
-        print_r($_SERVER);
-        exit();
+        // print_r($_SERVER);
+        // exit();
         $details = new mainModel();
         $UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');

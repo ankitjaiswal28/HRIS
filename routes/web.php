@@ -28,8 +28,15 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('Superadmin/client' , 'SuperAdmin\NavbarController@index')->name('Superadmin/client');
         Route::post('/createclient', 'SuperAdmin\NavbarController@createClient')->name('/createclient');
         Route::get('Superadmin/user' , 'SuperAdmin\NavbarController@index')->name('Superadmin/user');
+        Route::get('SuperAdmin/Module' , 'SuperAdmin\NavbarController@showModule')->name('SuperAdmin/Module');
+        Route::get('SuperAdmin/Show_Module' , 'SuperAdmin\NavbarController@Show_Module')->name('SuperAdmin/Show_Module');
+        Route::post('/show_module_datatbl' , 'SuperAdmin\NavbarController@show_module_datatbl')->name('show_module_datatbl');
+        Route::get('user/ShowEditModule/{id}','SuperAdmin\NavbarController@ShowEditModule')->name('user/ShowEditModule');
+        Route::post('/updatemodule', 'SuperAdmin\NavbarController@updateModule')->name('/updatemodule');
+        Route::get('user/showAllModule/{id}','SuperAdmin\TableController@showAllModule')->name('user/showAllModule');
+        Route::post('/updateModules' , 'SuperAdmin\TableController@AssinedMOdule')->name('updateModules');
 
-        /////////////////////          Client Operation     ////////////////////////////////
+        /////////////////////           Client Operation     ////////////////////////////////
         Route::get('SuperAdmin/Show_client' , 'SuperAdmin\TableController@Show_client')->name('SuperAdmin/Show_client');
 
         Route::get('Superadmin/show_Edit_client' , 'SuperAdmin\TableController@show_Edit_client')->name('SuperAdmin/show_Edit_client');
@@ -37,6 +44,8 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/updateclient', 'SuperAdmin\TableController@updateclient')->name('/updateclient');
         Route::get('user/delete/{id}','SuperAdmin\TableController@destroy')->name('user/delete');
         Route::get('user/edit/{id}','SuperAdmin\TableController@edit')->name('user/edit');
+        /** Add Module */
+        Route::post('/addmodule', 'SuperAdmin\NavbarController@AddModule')->name('/addmodule');
         ///////////////////////////////////////////////////////////////////////////////////
     });
     Route::group(['middleware' => ['admin']],function (){

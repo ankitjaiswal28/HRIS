@@ -157,7 +157,7 @@ class mainModel extends Model
                 Config::set('database.connections.dynamicsql.database', $userDataBaseName);
                 Config::set('database.default', 'dynamicsql');
                 $getUser = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'emailId' => $getEmailID])->get()->first();
-                $userId = $getallClientUser->userId;
+                $userId = $getUser->userId;
                 $clientallUser = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'emailId' => $ADMIN_EMAILID])->where('userId', '!=', $userId)->get()->count();
                 if ($clientallUser == 0) {
                     /** Update User Table */
@@ -236,5 +236,97 @@ class mainModel extends Model
         // $aa= DB::getQuerylog();
         // print_r($aa);
         return $message;
+    }
+    /**
+     * This Function is Will Give All Modules the Details
+     * and Send Response To controller
+     * @return \Illuminate\Http\Response Return Response all Detais  of Module
+     */
+    public function allModule()
+    {
+        $details= DB::table('sup_tbl_module')->where(['Flag'=>'Show'])->get();
+        return $details;
+    }
+    /**
+     * This Function is Wil Craete The Module
+     * and Send Response To controller
+     * @param $data \Illuminate\Http\Request  $data will Have All Data To Create .
+     * *@param $data \Illuminate\Http\Request  $tableName will Have TableName .
+     * @return \Illuminate\Http\Response Return Response Message of Module  Craeted
+     */
+    public function AddModuletobase($data, $tableName)
+    {
+
+        $tablename = $tableName;
+
+        $details['moduleName'] = $data['moduleName'];
+        $details['moduleLink'] =   $data['moduleLink'];
+        $details['Flag'] =   $data['Flag'];
+        $details['created_at'] =   $data['created_at'];
+        $message = '';
+        // DB::enableQuerylog();
+        $countdetails= DB::table('sup_tbl_module')->where(['Flag'=>'Show', 'moduleName' => $data['moduleName']])->get()->count();
+       // $aa= DB::getQuerylog();
+        // print_r($aa);exit;
+        /*print_r($countdetails);exit;*/
+        if ($countdetails == 0) {
+            $updated =  $this->insertRecords($details, $tablename);
+            $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error' ;
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function is Update The Module
+     * and Send Response To controller
+     * @param $data \Illuminate\Http\Request  $data will Have All Data To Update.
+     * @return \Illuminate\Http\Response Return Response Message of Module Updated Craeted
+     */
+    public function updateModule($data)
+    {
+        $modelId = $data['moduleId'];
+        $details['moduleName'] = $data['modulename'];
+        $details['updated_at'] =  $data['updated_at'];
+        $message = '';
+        // DB::enableQuerylog();
+        $countdetails= DB::table('sup_tbl_module')->where(['Flag'=>'Show', 'moduleName' => $data['modulename']])->where('moduleId', '!=', $modelId)->get()->count();
+      //  $aa= DB::getQuerylog();
+         // print_r($aa);exit;
+        // print_r($countdetails);exit;
+        if ($countdetails == 0) {
+            $updated = DB::table('sup_tbl_module')->where(['moduleId'=>$modelId])->update($details);
+            $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error' ;
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function is to Assined Module To Client
+     * And Create Module In Clients DataBase
+     * @param $data \Illuminate\Http\Request  $data will have Assined User and Client Id
+     * @return \Illuminate\Http\Response Return Response Message to The Controller
+     */
+    public function AssinedModuletoClient($data)
+    {
+        $CLIENT_ID = $data['ClientId'];
+        // $Assinderuser = $data['Assinderuser'];
+        $Assinderuser = explode(",",$data['Assinderuser']);
+        // $aaa = array($Assinderuser);
+        $userClient = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $CLIENT_ID])->get()->first();
+        $Prefix = $userClient->CLIENT_PREFIX;
+        $databasename = $Prefix . '_management';
+        $i = 0;
+        $getModules = DB::table('sup_tbl_module')->where(['Flag' => 'Show'])->whereIn('moduleId', $Assinderuser)->get();
+        foreach ($getModules as $key => $value) {
+            $aaryofDetails[$key] = $value;
+            print_r($aaryofDetails[$key]->moduleName);
+            $i++;
+        }
+      //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
+
     }
 }

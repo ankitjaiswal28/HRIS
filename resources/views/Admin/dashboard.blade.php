@@ -497,7 +497,7 @@ function AddAtendence() {
         },
         success: function(data) {
             console.log(data);
-            return;
+            // return;
             var response = data.trim();
             if(response =='Done') {
                 $("#checkin").hide();

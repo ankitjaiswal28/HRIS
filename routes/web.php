@@ -41,3 +41,9 @@ Route::group(['middleware' => ['athuthenticate']],function () {
 Route::get('Admin/adduser', function () {
     return view('Admin.Add_Userr');
 });
+
+
+///////////project master///////////////////////////////////
+Route::get('project/showdata','Admin\ProjectMasterController@index')->name('project/showdata');
+Route::get('project/create','Admin\ProjectMasterController@create')->name('project/create');
+Route::post('project/addproject','Admin\ProjectMasterController@addproject')->name('project/addproject');

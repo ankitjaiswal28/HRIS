@@ -63,11 +63,13 @@ class LoginController extends Controller
 
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
+                    $client_id = $details['CLIENT_ID'];
                     $setDatabasename = strtolower($database).'_management';
                     // strtolower($str)
                     $request->session()->put('username', $username);
                     $request->session()->put('roleId', $role_Id);
                     $request->session()->put('userid', $user_id);
+                    $request->session()->put('clientid', $client_id);
                     $request->session()->put('databasename', $setDatabasename);
                     $retVal = $role_Id .'_,' . $userImage;
                 } else {

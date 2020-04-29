@@ -29,6 +29,9 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/Superadmin/Module">Module</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="">User</a>
+            </li>
         @endif
         @if (session('roleId') == '2')
              <li class="nav-item active">
@@ -38,7 +41,7 @@
                 <a class="nav-link" href="/Superadmin/index">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Superadmin/dashboard">Dashboard</a>
+                <a class="nav-link" href="/project/showdata">Project Master</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Role</a>

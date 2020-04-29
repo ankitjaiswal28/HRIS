@@ -21,15 +21,15 @@ class TableController extends Controller
         $details= DB::table('sup_tbl_client')->where(['Flag'=>'Show'])->get();
         return Datatables::of($details)
         ->addIndexColumn()
+        ->addColumn('assgin', function ($query) {
+            return '<a href="'.action('SuperAdmin\TableController@showAllModule', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'">Assgin</a>';
+        })
         ->addColumn('action', function ($query) {
             return '<a href="'.action('SuperAdmin\TableController@edit', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
             <a href="'.action('SuperAdmin\TableController@destroy', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/close.svg"
-            style="width: 15px;    filter: invert(0.5);" alt=""></a>
-
-
-            ';
+            style="width: 15px;    filter: invert(0.5);" alt=""></a>';
         })
-        ->rawColumns(['action'])
+        ->rawColumns(['action', 'assgin'])
        ->make(true);
     //    ->addColumn('delete', function ($query) {
     //     return '<div class="">
@@ -53,8 +53,46 @@ class TableController extends Controller
     {
         return view('SuperAdmin/show_Edit_client');
     }
+    /**
+     * Show the All Clients created in Data Table.
+     *
+     * @return \Illuminate\Http\Response Return The Data Table Of All Records Of Data Table
+     */
+    public function showAllModule($id)
+    {
+        $id = Crypt::decrypt($id);
+        $getDetails = DB::table('sup_tbl_module')->where(['Flag'=>'Show'])->get();
+        $getAssinedUser = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->get()->first();
+        $AssinedUser = $getAssinedUser->AssginModuleId;
+        $clinetDetais['COMPANY_NAME'] = $getAssinedUser->COMPANY_NAME;
+        $clinetDetais['id'] = $id;
+        // print_r($getDetails[0]->moduleName);
+        return view('SuperAdmin/Edit_Module',compact('getDetails', 'AssinedUser', 'clinetDetais'));
+    }
+
+     /**
+     * It will Assgined All User Details To Client
+     *  @param  \Illuminate\Http\Request  $request will have All User Detials To upadate
+     * @return \Illuminate\Http\Response Return Updated All User Message
+     */
+    public function AssinedMOdule(Request $request)
+    {
+        $model = new mainModel();
+        $assinedUser = $request->modulename;
+        // print_r($request->modulename);
+        $data['Assinderuser'] = implode(",",$assinedUser);
+        $data['ClientId'] = $request->ClientId;
+        $response = $model->AssinedModuletoClient($data);
+        print_r($response);
+    }
 
 
+     /**
+     * It Will Update The Client Of user
+     *
+     *  @param  \Illuminate\Http\Request  $request will Have all datas
+     * @return \Illuminate\Http\Response Return Updated All User Message
+     */
     public function updateclient(Request $request)
     {
         $details = new mainModel();

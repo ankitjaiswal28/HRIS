@@ -312,23 +312,75 @@ class mainModel extends Model
     public function AssinedModuletoClient($data)
     {
         $CLIENT_ID = $data['ClientId'];
-        // $Assinderuser = $data['Assinderuser'];
-        $Assinderuser = explode(",", $data['Assinderuser']);
+        $modulesId['AssginModuleId'] = $data['Assinderuser'];
+        $modulesId['updated_at'] = $data['updated_at'];
+       // $modulesId = $data['Assinderuser'];
+        $Assinderuser = explode(",",$data['Assinderuser']);
+        // print_r($Assinderuser);exit();
         // $aaa = array($Assinderuser);
         $userClient = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $CLIENT_ID])->get()->first();
         $Prefix = $userClient->CLIENT_PREFIX;
         $databasename = $Prefix . '_management';
         $i = 0;
         $getModules = DB::table('sup_tbl_module')->where(['Flag' => 'Show'])->whereIn('moduleId', $Assinderuser)->get();
+        $updated = DB::table('sup_tbl_client')->where(['CLIENT_ID' => $CLIENT_ID])->update($modulesId);
+        Config::set('database.connections.dynamicsql.database', $databasename);
+        Config::set('database.default', 'dynamicsql');
         foreach ($getModules as $key => $value) {
             $aaryofDetails[$key] = $value;
-            print_r($aaryofDetails[$key]->moduleName);
+            $moduleId = $aaryofDetails[$key]->moduleId;
+            $columnData['ClientModuleId'] = $moduleId;
+            $columnData['moduleName'] = $aaryofDetails[$key]->moduleName;
+            $columnData['moduleLink'] = $aaryofDetails[$key]->moduleLink;
+            $columnData['created_at'] = $data['updated_at'];
+            $columnData['Flag'] = 'Show';
+            $countOfIds = DB::table('mst_tbl_module')->where(['ClientModuleId' => $moduleId])->get()->count();
+            if ($countOfIds == 0) {
+                $insertIds = $this->insertRecords($columnData, 'mst_tbl_module');
+                $arrayModel[] = $insertIds;
+            } else {
+                $detailsofIds = DB::table('mst_tbl_module')->where(['ClientModuleId' => $moduleId])->get()->first();
+                $newColumn['Flag'] = 'Show';
+                $newColumn['updated_at'] = $data['updated_at'];
+                $newFlag = DB::table('mst_tbl_module')->where(['moduleId' => $detailsofIds->moduleId])->update($newColumn);
+                $arrayModel[] = $moduleId;
+            }
+            $columnData = [];
+            $newColumn = [];
+
+           // $arrayModel[] = $aaryofDetails[$key]->moduleId;
             $i++;
         }
-        //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
+        $databasename = $data['databasename'];
+        $done['Flag'] = 'Delete';
+        $done['updated_at'] = $data['updated_at'];
+        $allModulesUpdated = DB::table('mst_tbl_module')->whereNotIn('moduleId', $arrayModel)->update($done);
+        $arrayModel = [];
+        $done = [];
+        $message = '';
+        if($allModulesUpdated > 0 | $allModulesUpdated == 0 ) {
+            $message ='Done';
+        } else {
+            $message ='Errror';
+        }
+       // print_r($allModulesUpdated);exit;
+        // $retVal = ($allModulesUpdated >=  0) ? 'Error' : 'Done' ;
+       return $message;
+      //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
 
     }
-
+    /**
+     * This Function will Give All Records
+     * @param $tablename \Illuminate\Http\Request  $tablename Tabel Name.
+     * @return \Illuminate\Http\Response Return All Data
+     */
+    public function showAllData($tablename)
+    {
+        // print_r(session('databasename'));
+        // echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
+        $details= DB::table($tablename)->where(['Flag'=>'Show'])->get();
+        return $details;
+    }
     /** project modules start */
 
     public function showallproject()
@@ -336,6 +388,4 @@ class mainModel extends Model
         $showdata = DB::table('mst_tbl_project_master')->where('FLAG','Show')->get();
         return $showdata;
     }
-
-    /** project module end */
 }

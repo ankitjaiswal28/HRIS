@@ -69,7 +69,7 @@ class LoginController extends Controller
                     $request->session()->put('username', $username);
                     $request->session()->put('roleId', $role_Id);
                     $request->session()->put('userid', $user_id);
-                    $request->session()->put('clientid', $client_id);
+                    $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
                     $retVal = $role_Id .'_,' . $userImage;
                 } else {
@@ -79,6 +79,7 @@ class LoginController extends Controller
                     $request->session()->put('username', $username);
                     $request->session()->put('roleId', $role_Id);
                     $request->session()->put('userid', $user_id);
+                    $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
                     $retVal = $role_Id .'_,' . $userImage;
                 }

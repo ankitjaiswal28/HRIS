@@ -57,6 +57,12 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('project/create','Admin\ProjectMasterController@create')->name('project/create');
         Route::post('project/addproject','Admin\ProjectMasterController@addproject')->name('project/addproject');
         Route::post('/show_all_data','Admin\ProjectMasterController@show_all_project')->name('show_all_data');
+        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+        Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
+        Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
+        Route::post('/craeteRoles' , 'Admin\RoleController@addRoles')->name('/craeteRoles');
+        Route::post('/show_role_datatbl' , 'Admin\RoleController@allRecodrds')->name('/show_role_datatbl');
+        Route::get('user/showAllClientModule/{id}','Admin\RoleController@showAllClientModule')->name('user/showAllClientModule');
     });
 
 

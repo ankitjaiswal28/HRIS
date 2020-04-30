@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Session\Session;
 use Carbon\Carbon;
 use DateTime;
+
 class mainModel extends Model
 {
     /**
@@ -144,7 +145,7 @@ class mainModel extends Model
         /** Check Emaild Exits In Sup_tbl_client*/
         $createdUser = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'ADMIN_EMAILID' => $ADMIN_EMAILID])->where('CLIENT_ID', '!=', $CLIENT_ID)->get()->count();
         $message = '';
-        if($createdUser == 0) {
+        if ($createdUser == 0) {
             /** Fetch Client Prefix For User Database */
             $getcreatedUser = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $CLIENT_ID])->get()->first();
             $getEmailID = $getcreatedUser->ADMIN_EMAILID;
@@ -152,8 +153,8 @@ class mainModel extends Model
             /** Check Email Id Exits In sup_tbl_all Client */
             $clientuserId = $getallClientUser->userId;
             $createdallUser = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'emailId' => $ADMIN_EMAILID])->where('userId', '!=', $clientuserId)->get()->count();
-            if($createdallUser == 0){
-                $userDataBaseName = $getcreatedUser->CLIENT_PREFIX. '_management';
+            if ($createdallUser == 0) {
+                $userDataBaseName = $getcreatedUser->CLIENT_PREFIX . '_management';
                 Config::set('database.connections.dynamicsql.database', $userDataBaseName);
                 Config::set('database.default', 'dynamicsql');
                 $getUser = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'emailId' => $getEmailID])->get()->first();
@@ -162,7 +163,7 @@ class mainModel extends Model
                 if ($clientallUser == 0) {
                     /** Update User Table */
                     $usertbl =  DB::table('mst_user_tbl')->where(['userId' => $userId, 'Flag' => 'Show'])->update($mst_user_tbl);
-                    if($usertbl != '') {
+                    if ($usertbl != '') {
                         Config::set('database.connections.mysql.database', $orignaldatabase);
                         Config::set('database.default', 'mysql');
                         /** Update Super Admin sup_tbl_all_client_user User Table */
@@ -172,15 +173,13 @@ class mainModel extends Model
                             if ($suptbl != '') {
                                 $message = 'Done';
                             } else {
-                                $message ='Error';
+                                $message = 'Error';
                             }
-
                         } else {
-                            $message ='Error';
+                            $message = 'Error';
                         }
-
                     } else {
-                        $message ='Error';
+                        $message = 'Error';
                     }
                     // print_r($clientallUser);
 
@@ -212,10 +211,10 @@ class mainModel extends Model
         $columndata['Stutus'] = $data['Stutus'];
         $timaestamp = $data['timaestamp'];
         // DB::enableQuerylog();
-        $countdetails= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId, 'Stutus' => 'IN'])->get()->count();
+        $countdetails = DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id' => $userId, 'Stutus' => 'IN'])->get()->count();
         $message = '';
-        if($countdetails == 1) {
-            $details= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId, 'Stutus' => 'IN'])->get()->first();
+        if ($countdetails == 1) {
+            $details = DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id' => $userId, 'Stutus' => 'IN'])->get()->first();
             $attendenceId = $details->attendenceId;
             $InDate = $details->in_Date;
             $InTime = $details->in_time;
@@ -226,8 +225,8 @@ class mainModel extends Model
             $totalhours = $start->diff($end)->format('%H:%I:%S') . ' Hrs';
             $columndata['total_hours'] = $totalhours;
             // echo $difference;
-            $updated = DB::table('mst_tbl_add_attdencence')->where(['attendenceId'=>$attendenceId])->update($columndata);
-            if($updated > 0) {
+            $updated = DB::table('mst_tbl_add_attdencence')->where(['attendenceId' => $attendenceId])->update($columndata);
+            if ($updated > 0) {
                 $message = 'Done';
             }
         } else {
@@ -244,7 +243,7 @@ class mainModel extends Model
      */
     public function allModule()
     {
-        $details= DB::table('sup_tbl_module')->where(['Flag'=>'Show'])->get();
+        $details = DB::table('sup_tbl_module')->where(['Flag' => 'Show'])->get();
         return $details;
     }
     /**
@@ -265,13 +264,13 @@ class mainModel extends Model
         $details['created_at'] =   $data['created_at'];
         $message = '';
         // DB::enableQuerylog();
-        $countdetails= DB::table('sup_tbl_module')->where(['Flag'=>'Show', 'moduleName' => $data['moduleName']])->get()->count();
-       // $aa= DB::getQuerylog();
+        $countdetails = DB::table('sup_tbl_module')->where(['Flag' => 'Show', 'moduleName' => $data['moduleName']])->get()->count();
+        // $aa= DB::getQuerylog();
         // print_r($aa);exit;
         /*print_r($countdetails);exit;*/
         if ($countdetails == 0) {
             $updated =  $this->insertRecords($details, $tablename);
-            $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error' ;
+            $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error';
         } else {
             $message = 'Already';
         }
@@ -291,13 +290,13 @@ class mainModel extends Model
         $details['updated_at'] =  $data['updated_at'];
         $message = '';
         // DB::enableQuerylog();
-        $countdetails= DB::table('sup_tbl_module')->where(['Flag'=>'Show', 'moduleName' => $data['modulename']])->where('moduleId', '!=', $modelId)->get()->count();
-      //  $aa= DB::getQuerylog();
-         // print_r($aa);exit;
+        $countdetails = DB::table('sup_tbl_module')->where(['Flag' => 'Show', 'moduleName' => $data['modulename']])->where('moduleId', '!=', $modelId)->get()->count();
+        //  $aa= DB::getQuerylog();
+        // print_r($aa);exit;
         // print_r($countdetails);exit;
         if ($countdetails == 0) {
-            $updated = DB::table('sup_tbl_module')->where(['moduleId'=>$modelId])->update($details);
-            $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error' ;
+            $updated = DB::table('sup_tbl_module')->where(['moduleId' => $modelId])->update($details);
+            $retVal = ($updated != '') ? $message = 'Done' : $message = 'Error';
         } else {
             $message = 'Already';
         }
@@ -314,7 +313,7 @@ class mainModel extends Model
     {
         $CLIENT_ID = $data['ClientId'];
         // $Assinderuser = $data['Assinderuser'];
-        $Assinderuser = explode(",",$data['Assinderuser']);
+        $Assinderuser = explode(",", $data['Assinderuser']);
         // $aaa = array($Assinderuser);
         $userClient = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $CLIENT_ID])->get()->first();
         $Prefix = $userClient->CLIENT_PREFIX;
@@ -326,7 +325,17 @@ class mainModel extends Model
             print_r($aaryofDetails[$key]->moduleName);
             $i++;
         }
-      //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
+        //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
 
     }
+
+    /** project modules start */
+
+    public function showallproject()
+    {
+        $showdata = DB::table('mst_tbl_project_master')->where('FLAG','Show')->get();
+        return $showdata;
+    }
+
+    /** project module end */
 }

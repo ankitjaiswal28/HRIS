@@ -9,52 +9,60 @@
             </div>
         </div>
         <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
-                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
-                href="{{ url('project/create') }}"><i class="fa fa-plus fafa_add_circle_right"
-                    aria-hidden="true"></i></a></div>
+                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a href="{{ url('project/create') }}"><i class="fa fa-plus fafa_add_circle_right"
+                    aria-hidden="true"></i></a>
+        </div>
     </div>
 </div>
 <br>
 <div class="margin_left_right">
-    <table id="example" class="table table-hover" style="width:100%">
+    <table id="client-table" class="table table-hover" style="width:100%">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Project Name</th>
-                <th>Project Description</th>
-                {{-- <th>Project Start Date</th> --}}
+                 <th>Project Description</th>
                 <th>Project Target Hours</th>
                 <th>Project Cost</th>
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Core Team Solution</td>
-                <td class="grey_font">XYZ</td>
-                {{-- <td class="grey_font">coretram@cts.com</td> --}}
-                <td class="grey_font">9999999999</td>
-                <td class="grey_font">CTS</td>
-                <td class="grey_font"><a href=""><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"
-                            style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
-                    <a href=""><img src="/asset/css/zondicons/zondicons/close.svg"
-                            style="width: 15px;    filter: invert(0.5);" alt=""></a>
-                </td>
-            </tr>
-        </tbody>
+
     </table>
 </div>
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>
 <script>
-    $('#example').DataTable({
+   $(function() {
+        var path = {!! json_encode(url('/')) !!};
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $('#client-table').DataTable({
         language: {
         searchPlaceholder: "Search records",
         search: "<i class='fa fa-search' aria-hidden='true'></i>",
         paginate: {
-      next: '<span class="typcn typcn-arrow-right-outline"></span>', // or '→'
-      previous: '<span class="typcn typcn-arrow-left-outline"></span>' // or '←'
-    }
-      }
-   });
+        next: '<span class="typcn typcn-arrow-right-outline"></span>', // or '→'
+        previous: '<span class="typcn typcn-arrow-left-outline"></span>' // or '←'
+        }
+    },
+    processing: true,
+    serverSide: true,
+    searchable: true,
+    ajax : {
+    url : path + '/show_all_data',
+    type : 'post',
+    data : {_token: CSRF_TOKEN},
+    },
+    columns: [
+        { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+        {data:'PROJECT_NAME' , name:'PROJECT_NAME'},
+        {data:'PROJECT_DESCRIPTION' , name:'PROJECT_DESCRIPTION'},
+        {data:'PROJECT_TARGET_HR' , name:'PROJECT_TARGET_HR'},
+        {data:'PROJECT_COST' , name:'PROJECT_COST'},
+        { data: 'action', name: 'action' }
+        ]
+});
+});
 </script>
 @endsection

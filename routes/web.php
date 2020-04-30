@@ -52,7 +52,11 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
         Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
         Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
-        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');        ///////////project master///////////////////////////////////
+        Route::get('project/showdata','Admin\ProjectMasterController@index')->name('project/showdata');
+        Route::get('project/create','Admin\ProjectMasterController@create')->name('project/create');
+        Route::post('project/addproject','Admin\ProjectMasterController@addproject')->name('project/addproject');
+        Route::post('/show_all_data','Admin\ProjectMasterController@show_all_project')->name('show_all_data');
     });
 
 
@@ -63,7 +67,4 @@ Route::get('Admin/adduser', function () {
 });
 
 
-///////////project master///////////////////////////////////
-Route::get('project/showdata','Admin\ProjectMasterController@index')->name('project/showdata');
-Route::get('project/create','Admin\ProjectMasterController@create')->name('project/create');
-Route::post('project/addproject','Admin\ProjectMasterController@addproject')->name('project/addproject');
+

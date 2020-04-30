@@ -79,9 +79,13 @@ class TableController extends Controller
     {
         $model = new mainModel();
         $assinedUser = $request->modulename;
+        $timaestamp = date("Y-m-d H:i:s");
+        $orignaldatabase = $request->session()->get('databasename');
         // print_r($request->modulename);
         $data['Assinderuser'] = implode(",",$assinedUser);
         $data['ClientId'] = $request->ClientId;
+        $data['updated_at'] = $timaestamp;
+        $data['databasename'] = $orignaldatabase;
         $response = $model->AssinedModuletoClient($data);
         print_r($response);
     }

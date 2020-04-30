@@ -53,6 +53,11 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
         Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
         Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+        Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
+        Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
+        Route::post('/craeteRoles' , 'Admin\RoleController@addRoles')->name('/craeteRoles');
+        Route::post('/show_role_datatbl' , 'Admin\RoleController@allRecodrds')->name('/show_role_datatbl');
+        Route::get('user/showAllClientModule/{id}','Admin\RoleController@showAllClientModule')->name('user/showAllClientModule');
     });
 
 

@@ -38,7 +38,7 @@
                 <a class="nav-link" href="/Superadmin/dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Role</a>
+                <a class="nav-link" href="/Admin/role">Role</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link"  href="/Superadmin/Module">Module</a>

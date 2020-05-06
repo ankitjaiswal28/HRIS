@@ -113,17 +113,20 @@
 
                 },
                 success: function(data) {
-                    console.log(data);
-                    var res = data;
-                    var response = res.trim();
-                    if (response == 'done') {
-                        alert("Project Added Successfully!");
-                        history.back();
-                    } else if (response == 'already') {
-                        alert("User Already Exsist!");
-                        history.back();
+                        console.log('Data', data)
+                       //  return;
+                        var response = data.trim();
+                         if(response == 'Done'){
+                             alert('Project Created Successfully.')
+                             var url = '{{ route("project/showdata") }}';
+                              window.location.href = url;
+                         } else if(response == 'Already') {
+                             alert('Project Name Already Exits');
+                              $('#PROJECT_NAME').val('');
+                         } else {
+                             alert('Something Went Wrong')
+                         }
                     }
-                }
             });
 
         });

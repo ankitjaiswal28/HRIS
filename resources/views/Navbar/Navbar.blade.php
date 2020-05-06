@@ -32,7 +32,7 @@
         @endif
         @if (session('roleId') == '2')
              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/Admin/admindahboard">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/Superadmin/index">About</a>

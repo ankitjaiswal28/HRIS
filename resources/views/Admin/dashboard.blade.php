@@ -24,7 +24,7 @@
         </div>
         <div style="float:right;">
             <a href="" class="btnn"><img src="/asset/css/zondicons/zondicons/date-add.svg" class="edit_icon"
-                    style="-webkit-filter: invert(1);">Apply Leave</a> <a class="btnn a_btn" id="popup-btn"><img
+                    style="-webkit-filter: invert(1);">Apply Leave</a> <a class="btnn a_btn"  href="{{ url('timesheet/showdata') }}"><img
                     src="/asset/css/zondicons/zondicons/time.svg" class="edit_icon"
                     style="-webkit-filter: invert(1);">Timesheet</a>
         </div>

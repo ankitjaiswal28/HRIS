@@ -52,11 +52,23 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
         Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
         Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
-        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');        ///////////project master///////////////////////////////////
+        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+         ///////////project master///////////////////////////////////
         Route::get('project/showdata','Admin\ProjectMasterController@index')->name('project/showdata');
         Route::get('project/create','Admin\ProjectMasterController@create')->name('project/create');
         Route::post('project/addproject','Admin\ProjectMasterController@addproject')->name('project/addproject');
         Route::post('/show_all_data','Admin\ProjectMasterController@show_all_project')->name('show_all_data');
+        Route::get('project/editproject/{projectid}','Admin\ProjectMasterController@edit_project')->name('project/editproject');
+        Route::post('/update_all_data','Admin\ProjectMasterController@update_project')->name('update_all_data');
+        //////////////////PROJECT MASTER END////////////////////////
+        /////////////////////time sheet//////////////////////////////
+        Route::get('timesheet/showdata','Admin\TimeSheetController@index')->name('timesheet/showdata');
+        Route::post('timesheet/createdata','Admin\TimeSheetController@add_timesheet')->name('timesheet/createdata');
+        Route::post('/show_all_timesheet','Admin\TimeSheetController@show_all_timesheet')->name('/show_all_timesheet');
+        Route::post('/timesheet_get_data','Admin\TimeSheetController@timesheet_get_data')->name('/timesheet_get_data');
+        Route::post('/update_timesheet','Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
+
+        //////////////////////////////////////////////////////////////
         Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
         Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
         Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');

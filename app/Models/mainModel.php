@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Session\Session;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\Crypt;
 
 class mainModel extends Model
 {
@@ -314,8 +315,8 @@ class mainModel extends Model
         $CLIENT_ID = $data['ClientId'];
         $modulesId['AssginModuleId'] = $data['Assinderuser'];
         $modulesId['updated_at'] = $data['updated_at'];
-       // $modulesId = $data['Assinderuser'];
-        $Assinderuser = explode(",",$data['Assinderuser']);
+        // $modulesId = $data['Assinderuser'];
+        $Assinderuser = explode(",", $data['Assinderuser']);
         // print_r($Assinderuser);exit();
         // $aaa = array($Assinderuser);
         $userClient = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $CLIENT_ID])->get()->first();
@@ -348,7 +349,7 @@ class mainModel extends Model
             $columnData = [];
             $newColumn = [];
 
-           // $arrayModel[] = $aaryofDetails[$key]->moduleId;
+            // $arrayModel[] = $aaryofDetails[$key]->moduleId;
             $i++;
         }
         $databasename = $data['databasename'];
@@ -358,15 +359,15 @@ class mainModel extends Model
         $arrayModel = [];
         $done = [];
         $message = '';
-        if($allModulesUpdated > 0 | $allModulesUpdated == 0 ) {
-            $message ='Done';
+        if ($allModulesUpdated > 0 | $allModulesUpdated == 0) {
+            $message = 'Done';
         } else {
-            $message ='Errror';
+            $message = 'Errror';
         }
-       // print_r($allModulesUpdated);exit;
+        // print_r($allModulesUpdated);exit;
         // $retVal = ($allModulesUpdated >=  0) ? 'Error' : 'Done' ;
-       return $message;
-      //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
+        return $message;
+        //  DB::statement('Create Table ' . $databasename . '.' . 'mst_tbl_module'
 
     }
     /**
@@ -378,14 +379,117 @@ class mainModel extends Model
     {
         // print_r(session('databasename'));
         // echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
-        $details= DB::table($tablename)->where(['Flag'=>'Show'])->get();
+        $details = DB::table($tablename)->where(['Flag' => 'Show'])->get();
         return $details;
     }
+
     /** project modules start */
 
     public function showallproject()
     {
-        $showdata = DB::table('mst_tbl_project_master')->where('FLAG','Show')->get();
+        $showdata = DB::table('mst_tbl_project_master')->where('FLAG', 'Show')->get();
         return $showdata;
+    }
+
+    public function addprojectdata($data, $tablename)
+    {
+
+        $message = '';
+
+        $countprodata = DB::table('mst_tbl_project_master')->where(['FLAG' => 'Show', 'PROJECT_NAME' => $data['PROJECT_NAME']])->get()->count();
+
+        if ($countprodata > 0) {
+            $message = 'Already';
+        } else {
+            $insertdata = $this->insertRecords($data, $tablename);
+            $retVal = ($insertdata != '') ? $message = 'Done' : $message = 'Error';
+        }
+        return $message;
+    }
+
+    public function updateproject($data)
+    {
+        $message = '';
+
+        $PROJECT_ID = $data['PROJECT_ID'];
+        $pro_details['PROJECT_NAME'] = $data['PROJECT_NAME'];
+        $pro_details['PROJECT_DESCRIPTION'] = $data['PROJECT_DESCRIPTION'];
+        $pro_details['PROJECT_TARGET_HR'] = $data['PROJECT_TARGET_HR'];
+        $pro_details['PROJECT_COST'] = $data['PROJECT_COST'];
+        $pro_details['UPDATE_BY'] = $data['UPDATE_BY'];
+        $pro_details['UPDATE_AT'] = $data['UPDATE_AT'];
+
+        // print_r($pro_details);
+        // exit;
+        // DB::enableQuerylog();
+
+        $updatedata = DB::table('mst_tbl_project_master')->where(['PROJECT_ID' => $PROJECT_ID])->update($pro_details);
+        $retVal = ($updatedata != '') ? $message = 'Done' : $message = 'Error';
+
+        return $message;
+    }
+
+    /** Time sheet module start */
+
+    public function addtimesheet($data, $tablename)
+    {
+        $message = '';
+        $insertdata = $this->insertRecords($data, $tablename);
+        $retVal = ($insertdata != '') ? $message = 'Done' : $message = 'Error';
+
+        return $message;
+    }
+
+    public function showalltimesheet()
+    {
+        $user_id = session('userid');
+        // $showdata = DB::table('mst_tbl_timesheet')->where(['FLAG'=>'Show' , 'USER_ID'=>$user_id])->get();
+        $showdata = DB::table('mst_tbl_timesheet')
+            ->select('*')
+            ->leftjoin('mst_tbl_project_master', 'mst_tbl_project_master.PROJECT_ID', '=', 'mst_tbl_timesheet.PROJECT_ID')
+            ->where(['mst_tbl_timesheet.FLAG' => 'Show', 'mst_tbl_timesheet.USER_ID' => $user_id])
+            ->orderBy('mst_tbl_timesheet.TIMESHEET_ID', 'DESC')
+            ->get();
+        return $showdata;
+    }
+
+    public function timesheet_get_data($data)
+    {
+        $update_timesheet_id = $data['autoid'];
+        $details = DB::table('mst_tbl_timesheet')
+            ->leftjoin('mst_tbl_project_master', 'mst_tbl_project_master.PROJECT_ID', '=', 'mst_tbl_timesheet.PROJECT_ID')
+            ->where(['mst_tbl_timesheet.TIMESHEET_ID' => $update_timesheet_id])->get();
+        return $details;
+    }
+
+
+    public function updatetimesheet($data)
+    {
+        $message = '';
+
+        $TIMESHEET_ID = $data['TIMESHEET_ID'];
+        $TS_details['USER_ID'] = $data['USER_ID'];
+        $TS_details['PROJECT_ID'] = $data['PROJECT_ID'];
+        $TS_details['TIMESHEET_DATE'] = $data['TIMESHEET_DATE'];
+        $TS_details['DESCRIPTION'] = $data['DESCRIPTION'];
+        $TS_details['START_HR'] = $data['START_HR'];
+        $TS_details['START_MIN'] = $data['START_MIN'];
+        $TS_details['STOP_HR'] = $data['STOP_HR'];
+        $TS_details['STOP_MIN'] = $data['STOP_MIN'];
+        $TS_details['START_TIME'] = $data['START_TIME'];
+        $TS_details['STOP_TIME'] = $data['STOP_TIME'];
+        $TS_details['TOTAL_HR'] = $data['TOTAL_HR'];
+        $TS_details['TOTAL_MIN'] = $data['TOTAL_MIN'];
+        $TS_details['UPDATED_BY'] = $data['UPDATED_BY'];
+        $TS_details['UPDATED_AT'] = $data['UPDATED_AT'];
+
+//  print_r($TS_details);
+//  DB::enableQuerylog();
+        // exit;
+        $updatetsdata = DB::table('mst_tbl_timesheet')->where(['TIMESHEET_ID' => $TIMESHEET_ID])->update($TS_details);
+        $retVal = ($updatetsdata != '') ? $message = 'Done' : $message = 'Error';
+
+        return $message;
+
     }
 }

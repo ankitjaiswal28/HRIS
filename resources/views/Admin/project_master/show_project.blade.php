@@ -64,5 +64,44 @@
         ]
 });
 });
+
+</script>
+<script>
+    function deleteFunction(id,event) {
+        alert("dvdffs");
+
+		event.preventDefault(); // prevent form submit
+
+		swal({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "No, cancel!",
+			closeOnConfirm: false,
+			closeOnCancel: true
+		});
+		/*function(isConfirm){
+			if (isConfirm) {
+
+				var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+				var base_url = {!! json_encode(url('/')) !!};
+				$.ajax({
+					url: base_url+'/user/delete/'+id,
+					type: 'post',
+					data:{
+					      id:id,_token:CSRF_TOKEN,
+						 },
+					success:function(data)
+					{
+						swal("User Deleted " , "info");
+						$('#table_id').DataTable().ajax.reload();
+					}
+				});
+				}
+			}*/
+	}
 </script>
 @endsection

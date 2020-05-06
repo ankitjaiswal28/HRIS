@@ -30,8 +30,8 @@ class DashboardController extends Controller
      */
     public function SaveAtdendence(Request $request)
     {
-        print_r($_SERVER);
-        exit();
+        // print_r($_SERVER);
+        // exit();
         $details = new mainModel();
         $UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');
@@ -68,6 +68,8 @@ class DashboardController extends Controller
         $data['out_time'] = $time;
         $data['timaestamp'] = date("Y-m-d H:i:s");
         $data['Stutus'] = 'OUT';
+        // print_r($data);
+        // exit;
         $updated = $details->leaveAttendence($data);
         //$updated = DB::table('mst_tbl_add_attdencence')->where(['user_id'=>$UserId])->update($data);
         // $id = $details->insertRecords($data,'mst_tbl_add_attdencence');

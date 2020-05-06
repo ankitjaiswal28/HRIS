@@ -1,0 +1,68 @@
+@extends('layout.app')
+@section('content')
+<div>
+    <div class="row" style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
+        <div style="padding:8px 35px;">
+            <div>
+                <h3 style="margin-bottom: 0px;color:white"><i class="typcn typcn-home-outline" aria-hidden="true"></i> |
+                    Project</h3>
+            </div>
+        </div>
+        <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
+                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a href="{{ url('project/create') }}"><i class="fa fa-plus fafa_add_circle_right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+<br>
+<div class="margin_left_right">
+    <table id="client-table" class="table table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Project Name</th>
+                 <th>Project Description</th>
+                <th>Project Target Hours</th>
+                <th>Project Cost</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+<script src="/asset/js/jquery.js"></script>
+<script src="/asset/js/datatables.min.js"></script>
+<script>
+   $(function() {
+        var path = {!! json_encode(url('/')) !!};
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $('#client-table').DataTable({
+        language: {
+        searchPlaceholder: "Search records",
+        search: "<i class='fa fa-search' aria-hidden='true'></i>",
+        paginate: {
+        next: '<span class="typcn typcn-arrow-right-outline"></span>', // or '→'
+        previous: '<span class="typcn typcn-arrow-left-outline"></span>' // or '←'
+        }
+    },
+    processing: true,
+    serverSide: true,
+    searchable: true,
+    ajax : {
+    url : path + '/show_all_data',
+    type : 'post',
+    data : {_token: CSRF_TOKEN},
+    },
+    columns: [
+        { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+        {data:'PROJECT_NAME' , name:'PROJECT_NAME'},
+        {data:'PROJECT_DESCRIPTION' , name:'PROJECT_DESCRIPTION'},
+        {data:'PROJECT_TARGET_HR' , name:'PROJECT_TARGET_HR'},
+        {data:'PROJECT_COST' , name:'PROJECT_COST'},
+        { data: 'action', name: 'action' }
+        ]
+});
+});
+</script>
+@endsection

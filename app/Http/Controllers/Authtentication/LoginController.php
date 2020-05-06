@@ -53,30 +53,41 @@ class LoginController extends Controller
             if($retVal === 'Done') {
                 $role_Id = $details['roleId'];
                 if ($role_Id == 1) {
+                    $user_name = $details['username'];
                     // $retVal = 'superadmindashboard';
-                    $request->session()->put('username', $username);
+                    $request->session()->put('emailId', $username);
+                    $request->session()->put('username', $user_name);
                     $request->session()->put('roleId', $role_Id);
                     $request->session()->put('userid', $user_id);
                     $request->session()->put('databasename', 'hris_management');
                     $retVal = $role_Id .'_,';
                 } elseif ($role_Id == 2) {
-
+                    $user_name = $details['username'];
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
+                    $CLIENT_ID = $details['CLIENT_ID'];
+
+                    // $client_id = $details['CLIENT_ID'];
                     $setDatabasename = strtolower($database).'_management';
                     // strtolower($str)
-                    $request->session()->put('username', $username);
+                    $request->session()->put('emailId', $username);
+                    $request->session()->put('username', $user_name);
                     $request->session()->put('roleId', $role_Id);
                     $request->session()->put('userid', $user_id);
+                    $request->session()->put('CLIENT_ID', $CLIENT_ID);
+                    $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
                     $retVal = $role_Id .'_,' . $userImage;
                 } else {
+                    $user_name = $details['username'];
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
                     $setDatabasename = strtolower($database).'_management';
-                    $request->session()->put('username', $username);
+                    $request->session()->put('emailId', $username);
+                    $request->session()->put('username', $user_name);
                     $request->session()->put('roleId', $role_Id);
                     $request->session()->put('userid', $user_id);
+                    $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
                     $retVal = $role_Id .'_,' . $userImage;
                 }

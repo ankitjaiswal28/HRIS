@@ -50,7 +50,7 @@
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="prefix" placeholder="" style="clear:both" name="prefix"  autocomplete="off"  data-parsley-trigger="blur" required="" value="{{$data->CLIENT_PREFIX}}">
+                                    <input type="text" class="effect-16" id="prefix" placeholder="" style="clear:both;cursor: not-allowed;" name="prefix"  autocomplete="off"  data-parsley-trigger="blur" disabled required="" value="{{$data->CLIENT_PREFIX}}">
                                         <label>Client Prefix</label>
                                         <span class="focus-border"></span>
                                     </div>
@@ -140,27 +140,23 @@
                     adminname: $('#adminname').val(),
                     mobileno: $('#mobileno').val(),
                     email: $('#email').val(),
-                    prefix: $('#prefix').val(),
+                    // prefix: $('#prefix').val(),
                     pwd: $('#pwd').val(),
                     },
                     success: function(data) {
                         console.log('Data', data)
                          var response = data.trim();
-                         if(response == 'Error'){
-                             alert('Something Went Wrong')
-                         } else if(response == 'Email ID Already Exits') {
+                         if(response == 'Already') {
                               alert('Email ID Already Exits');
                               $('#email').val('');
-                         }else if(response == 'PreFix Already Exits') {
-                             alert('PreFix Already Exits');
-                             $('#prefix').val('');
-                         } else {
-                             alert('Admin Craeted Sucessfuly');
-                             // window.location.href = 'SuperAdmin/superadmindahboard';
+                         }else if(response == 'Done') {
+                             alert('Admin Update Sucessfuly');
                              var url = '{{ route("SuperAdmin/Show_client") }}';
-                             window.location.href = url;
-                             //window.location.href ='Superadmin/client'
+                              window.location.href = url;
+                         } else {
+                             alert('Something Went Wrong')
                          }
+
                     },
                     complete: function() {
 						$('#loading-image').hide();
@@ -169,6 +165,11 @@
       }
     })
  });
+ $("input").blur(function(){
+    if($(this).val() == '') {
+        $(this).removeClass("has-content");
+    }
+});
 </script>
 <script>
     function readURL(input) {
@@ -208,15 +209,20 @@ fileInput.addEventListener( "change", function( event ) {
 </script>
 <script>
     $(window).load(function(){
-		// $(".colll-3s input").val("");
+        var inputs = document.getElementsByTagName('input'),
+        empty = 0;
 
-		$(".input-effect input").focusout(function(){
-			if($(this).val() != ""){
-				$(this).addClass("has-content");
-			}else{
-				$(this).removeClass("has-content");
-			}
-		})
+    for (var i = 1, len = inputs.length - 1; i < len; i++) {
+        empty += !inputs[i].value;
+        var tag = inputs[i];
+        if(inputs[i].value != '') {
+            var id = $(tag).attr('id');
+            $('#' + id).addClass("has-content");
+        } else {
+            var id = $(tag).attr('id');
+            $('#' + id).removeClass("has-content");
+        }
+    }
 	});
 
 </script>

@@ -15,13 +15,16 @@
     </div>
 </div>
 <br>
+<img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
 <div class="margin_left_right">
     <table id="client-table" class="table table-hover" style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Company Name</th>
+                <th> Admin Name</th>
                 <th>Email</th>
+                <th>Assgin Module</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -55,6 +58,9 @@
         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
         { data: 'COMPANY_NAME', name: 'COMPANY_NAME' },
         { data: 'ADMIN_NAME', name: 'ADMIN_NAME' },
+        { data: 'ADMIN_EMAILID', name: 'ADMIN_EMAILID' },
+         { data: 'assgin', name: 'assgin' },
+
         { data: 'action', name: 'action' }
 
 
@@ -63,43 +69,39 @@
 });
 </script>
 <script>
-	function deleteFunction(id,event) {
-        alert("dvdffs");
-
-		event.preventDefault(); // prevent form submit
-
-		swal({
-			title: "Are you sure?",
-			text: "You won't be able to revert this!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes, delete it!",
-			cancelButtonText: "No, cancel!",
-			closeOnConfirm: false,
-			closeOnCancel: true
-		});
-		function(isConfirm){
-			if (isConfirm) {
-
-				var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-				var base_url = {!! json_encode(url('/')) !!};
-				$.ajax({
-					url: base_url+'/user/delete/'+id,
-					type: 'post',
-					data:{
-					      id:id,_token:CSRF_TOKEN,
-						 },
-					success:function(data)
-					{
-						swal("User Deleted " , "info");
-						$('#table_id').DataTable().ajax.reload();
-					}
-				});
+function deleteClient(id,event) {
+    event.preventDefault(); // prevent form submit
+    $('#loading-image').show();
+        if (confirm("Are You Sure You Want to Delete Client!")) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/user/delete/' + id ,
+                type: 'get',
+                success: function(data) {
+                        console.log('Data', data);
+                         var response = data.trim();
+                         if(response == 'Done'){
+                            alert('User Deleted Sucessfuly');
+                         } else {
+                             alert('Something Went Wrong');
+                         }
+                         location.reload();
+                },
+                complete: function() {
+                    $('#loading-image').hide();
 				}
-			}
-	}
+                });
+           //  alert(id);
+        } else {
+              alert("You Cancel The Request");
+            txt = "You pressed Cancel!";
+        }
+}
 
-<script>
+</script>
 
 @endsection

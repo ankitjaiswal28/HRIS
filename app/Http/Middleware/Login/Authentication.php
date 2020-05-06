@@ -21,9 +21,9 @@ class Authentication
         if (!$request->session()->exists('roleId')) {
             return redirect('/');
         } else {
-            $getDatBasename = $request->session()->get('databasename');
-            Config::set('database.connections.dynamicsql.database', $getDatBasename);
-            Config::set('database.default', 'dynamicsql');
+            // $getDatBasename = $request->session()->get('databasename');
+            // Config::set('database.connections.dynamicsql.database', $getDatBasename);
+            // Config::set('database.default', 'dynamicsql');
             return $next($request);
         }
         // return $next($request);

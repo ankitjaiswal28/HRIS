@@ -109,6 +109,8 @@ class mainModel extends Model
         if ($newUser == 0) {
             $checkprefix = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_PREFIX' => $prefix])->get()->count();
             if ($checkprefix == 0) {
+                // Config::set('database.connections.dynamicsql.database', $databsename);
+                // Config::set('database.default', 'dynamicsql');
                 DB::statement('Create database ' . $databsename);
                 $tables = DB::select("SELECT  table_name FROM information_schema.tables WHERE table_schema = '$originalDB' and TABLE_NAME NOT LIKE 'sup_%' ORDER BY table_name");
                 $i = 0;
@@ -139,14 +141,19 @@ class mainModel extends Model
                     $newdata['created_at'] = $timaestamp;
                     $userId = $this->insertRecords($newdata, 'sup_tbl_all_client_user');
                     if ($userId > 0) {
-                        Config::set('database.connections.dynamicsql.database', $databsename);
-                        Config::set('database.default', 'dynamicsql');
+
                         $userdata['username'] = $adminname;
                         $userdata['emailId'] = $email;
                         $userdata['passwords'] = $pwd;
                         $userdata['Flag'] = 'Show';
                         $userdata['created_at'] = $timaestamp;
                         $userdata['roleId'] = 2;
+                        DB::disconnect('mysql');
+                        Config::set('database.connections.mysql.database', $databsename);
+                        // Config::set('database.connections.dynamicsql.database', $databsename);
+                        // Config::set('database.default', 'dynamicsql');
+                //         echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
+                //  print_r($databsename);exit;
                         $cilentuserId = $this->insertRecords($userdata, 'mst_user_tbl');
                         if ($cilentuserId > 0) {
                             Config::set('database.connections.mysql.database', $originalDB);

@@ -53,8 +53,6 @@ Route::group(['middleware' => ['athuthenticate']],function () {
     });
     Route::group(['middleware' => ['admin']],function (){
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
-<<<<<<< HEAD
-        Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
         Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
         Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
         Route:: get('/applyleave', 'Admin\ApplyleaveController@applyleave')->name('/applyleave');
@@ -81,7 +79,6 @@ Route::group(['middleware' => ['athuthenticate']],function () {
 
 
 
-=======
 
                ///////////project master///////////////////////////////////
         Route::get('project/showdata','Admin\ProjectMasterController@index')->name('project/showdata');
@@ -108,13 +105,13 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('Admin/Add_User' , 'Admin\UserController@AddUser')->name('Admin/Add_User');
         Route::post('/createUser', 'Admin\UserController@createUser')->name('/createUser');
         Route::get('deletethisUser/{id}','Admin\UserController@destroy')->name('deletethisUser');
+        Route::get('/editUser/{id}','Admin\UserController@editUser')->name('/editUser');
 
 
 
     });
     Route::group(['middleware' => ['user']],function (){
         Route::get('User/dashboard' , 'User\DashboardController@index')->name('User/dashboard');
->>>>>>> a18a727566605479b313dcc7f6fadb04d1b10abd
     });
 
 

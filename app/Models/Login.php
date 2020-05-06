@@ -47,6 +47,7 @@ class Login extends Model
                 Config::set('database.default', 'dynamicsql');
 
                 $getclientDetails = DB::table('mst_user_tbl')->where(['flag'=>'Show','emailId'=>$username])->get()->first();
+               // print_r($getclientDetails);exit;
                 $aaryofDetails = [];
                 foreach ($getclientDetails as $key => $value){
                     $aaryofDetails[$key] = $value;

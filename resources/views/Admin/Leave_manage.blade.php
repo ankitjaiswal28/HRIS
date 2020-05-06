@@ -450,7 +450,7 @@
 
 {{-- ///////////////////////          Approve request POPUP          /////////////////////// --}}
 <div id="approve_popup-wrapper" class="popup-container">
-    <div class="popup-content" style="width: 35%;">
+    <div class="popup-content" style="width: 40%;">
         <div class="flip-card-3D-wrapper" style="width: 100% !important;left: 0px;">
             <div class="">
                 <span id="approve_close" style="right: -8px !important;top: -19px !important;">&times;</span>

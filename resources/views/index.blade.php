@@ -247,7 +247,7 @@
                         data: formData,
                         success: function(data) {
                             var response = data.trim();
-                            // console.log(data);
+                            console.log(data);
                             // return;
                             if(response === 'NotFound') {
                                 alert('Email Id Not Found')

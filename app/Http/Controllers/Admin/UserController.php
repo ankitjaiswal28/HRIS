@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\mainModel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -34,6 +35,7 @@ class UserController extends Controller
         ->addIndexColumn()
         ->addColumn('master_roleId', function ($query) {
             $masterROles = $query->master_roleId;
+            return $masterROles;
         })
         ->addColumn('PRIMARY_MANGER', function ($query) {
             if ($query->PRIMARY_MANGER != null) {
@@ -47,7 +49,7 @@ class UserController extends Controller
         })
         ->addColumn('action', function ($query) {
             $id = Crypt::encrypt($query->userId);
-            return '<a href="'.action('Admin\ModuleController@ShowEditModule', Crypt::encrypt($query->userId)).'" id="userform'.$query->userId.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
+            return '<a href="'.action('Admin\UserController@editUser', Crypt::encrypt($query->userId)).'" id="userform'.$query->userId.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
                 <a href="javascript:void(0)" onclick="deleteUser('."'$id'".',event)"><img src="/asset/css/zondicons/zondicons/close.svg"
                 style="width: 15px;    filter: invert(0.5);" alt=""></a>
                 ';
@@ -127,9 +129,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editUser($id)
     {
-        //
+        $model = new mainModel();
+        $id = Crypt::decrypt($id);
+        $users = DB::table('mst_user_tbl')->where(['Flag' => 'Show'])->where('userId', '!=', $id)->get();
+        $roles = $model->showAllData('mst_tbl_master_role');
+        // $users = $model->showAllData('mst_user_tbl');
+        // print_r($users);
+         return view('Admin.EditUser', compact('roles', 'users'));
     }
 
     /**

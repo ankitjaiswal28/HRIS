@@ -18,17 +18,11 @@ class superadminmiddleware
         if (!$request->session()->exists('roleId')) {
             return redirect('/');
         } else {
-            // echo $request->session()->get('roleId');
-            if ($request->session()->get('roleId') == 1) {
-                $getDatBasename = $request->session()->get('databasename');
-            Config::set('database.connections.dynamicsql.database', $getDatBasename);
-            Config::set('database.default', 'dynamicsql');
+            // echo $request->session()->exists('roleId');
+            //echo $getDatBasename = $request->session()->get('databasename');
+            // Config::set('database.connections.dynamicsql.database', $getDatBasename);
+            // Config::set('database.default', 'dynamicsql');
             return $next($request);
-            } else {
-                return redirect('/');
-            }
-
-
         }
     }
 }

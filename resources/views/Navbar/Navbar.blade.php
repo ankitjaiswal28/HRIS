@@ -47,12 +47,14 @@
                 <a class="nav-link" href="/Admin/admindahboard">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-<<<<<<< HEAD
                 <a class="nav-link" href="/Leave_manage">Leave</a>
-=======
-                <a class="nav-link" href="/project/showdata">Project Master</a>
->>>>>>> a18a727566605479b313dcc7f6fadb04d1b10abd
+
             </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="/project/showdata">Project Master</a>
+
+            </li>
+
             {{-- <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
                 <span class="caret"></span></a>
@@ -309,15 +311,15 @@
                 </a>
                 <div class="dropdown-menu profile_open animated fadeInUp not_show" aria-labelledby="navbarDropdownMenuLink" id="profile_pict">
                     <div class="profile_div">
-                        <div class="hris_prfile">
+                        <div class="hris_prfile" style="width: max-content;">
                             <img src="/asset/images/Anonymous_Mask.png" alt="" class="profile_icon">
                             <div>
                                 <h6 class="bold_txt">{{session('username')}}</h6>
                                 <h6>{{session('emailId')}}</h6>
                             </div><br>
                             <div>
-                                <span style="float:left"><a href="" class="btnn">My Account</a></span>
-                                <span style="float:right"><a href="\logout" class="btnn">Logout</a></span>
+                                <span style="float:left"><a href="" class="btnn" style="margin: 10px !important;">My Account</a></span>
+                                <span style="float:right"><a href="\logout" class="btnn" style="margin: 10px !important;">Logout</a></span>
                             </div><br>
                         </div>
                     </div>

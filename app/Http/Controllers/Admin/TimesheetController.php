@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Crypt;
 
 class TimeSheetController extends Controller
 {
-
     public function index()
     {
         $getdata = DB::table('mst_tbl_project_master')->where(['FLAG' => 'Show'])->get();

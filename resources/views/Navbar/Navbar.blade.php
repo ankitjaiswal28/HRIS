@@ -1,6 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-lightt bottom-shadow" style="">
-    <a class="navbar-brand" href="{{ url('/') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+ @if (session('roleId') == '1')
+ <a class="navbar-brand" href="{{ url('SuperAdmin/superadmindahboard') }}"><img src="/asset/images/sharedocs_enterpriser.png"
             style="width: 200px;background: white;" alt=""></a>
+  @endif
+ @if (session('roleId') == '2')
+  <a class="navbar-brand" href="{{ url('Admin/admindahboard') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+            style="width: 200px;background: white;" alt=""></a>
+ @endif
+ @if (session('roleId') == '3')
+ <a class="navbar-brand" href="{{ url('Admin/admindahboard') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+            style="width: 200px;background: white;" alt=""></a>
+ @endif
+    {{-- <a class="navbar-brand" href="{{ url('/') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+            style="width: 200px;background: white;" alt=""></a> --}}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -35,6 +47,39 @@
                 <a class="nav-link" href="/Admin/admindahboard">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/Leave_manage">Leave</a>
+
+            </li>
+              <li class="nav-item">
+                 <a class="nav-link" href="/project/showdata">Project Master</a>
+
+            </li>
+
+            {{-- <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Page 1-1</a></li>
+                  <li><a href="#">Page 1-2</a></li>
+                  <li><a href="#">Page 1-3</a></li>
+                </ul>
+              </li> --}}
+
+            <li class="nav-item">
+                <a class="nav-link" href="/Admin/role">Role</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/Module">Module</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/User">User</a>
+            </li>
+        @endif
+        @if (session('roleId') == '3')
+             <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="/Superadmin/index">About</a>
             </li>
             <li class="nav-item">
@@ -44,8 +89,11 @@
                 <a class="nav-link" href="/Admin/role">Role</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/Superadmin/Module">Module</a>
+                <a class="nav-link"  href="/Admin/Module">Module</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/User">User</a>
+            </li> --}}
         @endif
 
             <li class="nav-item">
@@ -263,15 +311,15 @@
                 </a>
                 <div class="dropdown-menu profile_open animated fadeInUp not_show" aria-labelledby="navbarDropdownMenuLink" id="profile_pict">
                     <div class="profile_div">
-                        <div class="hris_prfile">
+                        <div class="hris_prfile" style="width: max-content;">
                             <img src="/asset/images/Anonymous_Mask.png" alt="" class="profile_icon">
                             <div>
-                                <h6 class="bold_txt">Abhishek</h6>
-                                <h6>abhishek.jaiswar@hridayamsoft.com</h6>
+                                <h6 class="bold_txt">{{session('username')}}</h6>
+                                <h6>{{session('emailId')}}</h6>
                             </div><br>
                             <div>
-                                <span style="float:left"><a href="" class="btnn">My Account</a></span>
-                                <span style="float:right"><a href="\logout" class="btnn">Logout</a></span>
+                                <span style="float:left"><a href="" class="btnn" style="margin: 10px !important;">My Account</a></span>
+                                <span style="float:right"><a href="\logout" class="btnn" style="margin: 10px !important;">Logout</a></span>
                             </div><br>
                         </div>
                     </div>

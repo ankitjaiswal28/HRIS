@@ -3,7 +3,7 @@
 namespace App\Http\Middleware\Login\Superadmin;
 
 use Closure;
-
+use Illuminate\Support\Facades\Config;
 class superadminmiddleware
 {
     /**

@@ -185,12 +185,15 @@
                     },
                     success: function(data) {
                         console.log('Data', data)
-                        // return;
+                         // return;
                          var response = data.trim();
                          if(response == 'Done') {
                              alert('Role Added Sucessfuly');
                              var url = '{{ route("Admin/role") }}';
                              window.location.href = url;
+                         } else if(response == 'Already') {
+                             alert('Role Already  Exits');
+                             $("#role_name").val('');
                          } else {
                              alert('Something Went Wrong');
                              // window.location.href = 'SuperAdmin/superadmindahboard';

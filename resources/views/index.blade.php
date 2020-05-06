@@ -247,7 +247,7 @@
                         data: formData,
                         success: function(data) {
                             var response = data.trim();
-                            // console.log(data);
+                            console.log(data);
                             // return;
                             if(response === 'NotFound') {
                                 alert('Email Id Not Found')
@@ -265,7 +265,8 @@
                                     console.log('Admin');
                                     window.location.href = 'Admin/admindahboard';
                                 } else {
-                                    console.log('User');
+                                    window.location.href = 'User/dashboard';
+                                    // console.log('User');
                                 }
                                 console.log(getAaary);
                                //  alert('Succesfuly Login') console.log(data);

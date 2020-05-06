@@ -301,21 +301,21 @@
         if (day.getMonth() !== currentMonth) {
             element.className += " datepicker-list-item-outday"; // Out month days class
         }
-        if (Date.now() - DAY_TIME - day > 0) {
-            element.className += " datepicker-list-item-unavaliable"; // Unavaliable or past days class
-        } else {
-            element.addEventListener("mousedown", evt => selectDay(day));
-            if (selectedInitialDate && selectedEndDate) {
-                if (
-                    day.getTime() === selectedInitialDate.getTime() ||
-                    day.getTime() === selectedEndDate.getTime()
-                ) {
-                    element.className += " datepicker-list-item-selected"; // Selected days class
-                } else if (day > selectedInitialDate && day < selectedEndDate) {
-                    element.className += " datepicker-list-item-between"; // Between selected days class
-                }
+        // if (Date.now() - DAY_TIME - day > 0) {
+        //     element.className += " datepicker-list-item-unavaliable"; // Unavaliable or past days class
+        // } else {
+        element.addEventListener("mousedown", evt => selectDay(day));
+        if (selectedInitialDate && selectedEndDate) {
+            if (
+                day.getTime() === selectedInitialDate.getTime() ||
+                day.getTime() === selectedEndDate.getTime()
+            ) {
+                element.className += " datepicker-list-item-selected"; // Selected days class
+            } else if (day > selectedInitialDate && day < selectedEndDate) {
+                element.className += " datepicker-list-item-between"; // Between selected days class
             }
         }
+        // }
         return element;
     }
 

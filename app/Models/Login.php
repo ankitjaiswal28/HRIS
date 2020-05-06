@@ -39,10 +39,21 @@ class Login extends Model
                 foreach ($getallDetails as $key => $value){
                     $aaryofDetails[$key] = $value;
                 }
+                $prefix = $aaryofDetails['CLIENT_PREFIX'];
+                $CLIENT_ID = $aaryofDetails['CLIENT_ID'];
                 $getDatBasename = strtolower($aaryofDetails['CLIENT_PREFIX']). '_management';
                 // Set Dynamic Database.
                 Config::set('database.connections.dynamicsql.database', $getDatBasename);
                 Config::set('database.default', 'dynamicsql');
+
+                $getclientDetails = DB::table('mst_user_tbl')->where(['flag'=>'Show','emailId'=>$username])->get()->first();
+               // print_r($getclientDetails);exit;
+                $aaryofDetails = [];
+                foreach ($getclientDetails as $key => $value){
+                    $aaryofDetails[$key] = $value;
+                }
+                $aaryofDetails['CLIENT_PREFIX'] = $prefix;
+                $aaryofDetails['CLIENT_ID'] = $CLIENT_ID;
                 //echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
                //  print_r($getDatBasename);
             }

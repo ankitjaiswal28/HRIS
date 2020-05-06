@@ -404,7 +404,7 @@ a:hover {
     border: 10px solid #000;
     border-color: transparent transparent #fff;
     margin-top: -27px;
-    margin-left: 219px;
+    margin-left: 214px;
 }
 
 
@@ -529,7 +529,7 @@ a:hover {
 
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 1px solid #dee2e6 !important;
+    border-bottom: 1px solid #dddddd !important;
     border-top: 0px solid white !important;
 }
 
@@ -542,7 +542,7 @@ a:hover {
     line-height: 0.9 !important;
     color: #00a8cc;
     background-color: #fff0 !important;
-    border: 0px solid #dee2e6 !important;
+    border: 0px solid #dddddd !important;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
@@ -1019,27 +1019,31 @@ div.dataTables_wrapper div.dataTables_filter input {
 .scrollbar {
     height: 300px;
     overflow-y: scroll;
+    cursor: pointer;
 }
 
 .force-overflow {
-    min-height: 450px;
+    /* min-height: 450px; */
 }
 
 #style-1::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
     border-radius: 10px;
-    background-color: #F5F5F5;
+    background-color: #f8f9fd;
+    cursor: pointer;
 }
 
 #style-1::-webkit-scrollbar {
-    width: 6px;
-    background-color: #F5F5F5;
+    width: 10px;
+    background-color: #f8f9fd;
+    cursor: pointer;
 }
 
 #style-1::-webkit-scrollbar-thumb {
     /* border-radius: 10px; */
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #142850;
+    cursor: pointer;
 }
 
 
@@ -2243,12 +2247,132 @@ button:focus {
     border-radius: 10px;
     background: #f8f9fd;
 }
+
 .parsley-errors-list {
     margin-bottom: 0px;
     list-style-type: none;
     padding-left: 0px;
 }
-.parsley-required,.parsley-type{
+
+.parsley-required,
+.parsley-type {
     float: left;
     color: red;
+}
+
+
+/* ////////////////////////////////        Apply leave       ///////////////////////////////// */
+
+.margin_bottom-0 {
+    margin-bottom: 0px;
+}
+
+.leave_p_tag {
+    padding: 0px 10px;
+    line-height: 16px;
+    font-size: 15px;
+}
+
+.leave_btn_card {
+    border-radius: 5px;
+    padding: 0px 5px;
+    float: right;
+    margin-right: -5px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.approved_color {
+    color: white;
+    background: #4caf50bd;
+}
+
+.cancelled_color {
+    color: white;
+    background: #c81912;
+}
+
+.pending_color {
+    color: white;
+    background: #f0a500;
+}
+
+.planned_leave_color {
+    border-left: 5px solid #f2d614;
+}
+
+.planned_leave_text_color {
+    color: #f2d614;
+}
+
+.Unplanned_leave_color {
+    border-left: 5px solid #64d5fe;
+}
+
+.Unplanned_leave_text_color {
+    color: #64d5fe;
+}
+
+.Maternity_leave_color {
+    border-left: 5px solid #ab4afc;
+}
+
+.Maternity_leave_text_color {
+    color: #ab4afc;
+}
+
+.grey_color {
+    color: grey;
+}
+
+.left_date {
+    font-size: 13px;
+    margin-left: -5px;
+}
+
+.no-sort::after {
+    display: none!important;
+}
+
+.no-sort::before {
+    display: none!important;
+}
+
+.no-sort {
+    pointer-events: none!important;
+    cursor: default!important;
+}
+
+
+/* .table_scroll {
+    display: block !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+} */
+
+.padding_left_0 {
+    padding-left: 0px !important;
+}
+
+.padding_right_0 {
+    padding-right: 0px !important;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.ralway_font {
+    font-family: "Raleway";
+    font-weight: 900;
+}
+
+.margin_bottom_0 {
+    margin-bottom: 0px !important;
+}
+
+.right_floated_h6 {
+    float: right;
+    margin-top: 15px;
+    color: grey;
 }

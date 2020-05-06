@@ -147,7 +147,8 @@
                     pwd: $('#pwd').val(),
                     },
                     success: function(data) {
-                        console.log('Data', data)
+                        console.log('Data', data);
+                       // return;
                          var response = data.trim();
                          if(response == 'Error'){
                              alert('Something Went Wrong')
@@ -156,6 +157,9 @@
                               $('#email').val('');
                          }else if(response == 'PreFix Already Exits') {
                              alert('PreFix Already Exits');
+                             $('#prefix').val('');
+                         } else if(response == 'Database Already Exits') {
+                             alert('Database Already Exits');
                              $('#prefix').val('');
                          } else {
                              alert('Admin Craeted Sucessfuly');

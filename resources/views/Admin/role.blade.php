@@ -14,6 +14,7 @@
     </div>
 </div>
 <br>
+<img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
 <div class="margin_left_right">
     <table id="example" class="table table-hover" style="width:100%">
         <thead>
@@ -80,5 +81,38 @@ $('#example').DataTable({
     }
       }
    });*/
+   function deleteRole(id,event) {
+    event.preventDefault(); // prevent form submit
+    $('#loading-image').show();
+        if (confirm("Are You Sure You Want to Delete Client!")) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/deleteAdminRole/' + id ,
+                type: 'get',
+                success: function(data) {
+                        console.log('Data', data);
+                        // return;
+                         var response = data.trim();
+                         if(response == 'Done'){
+                            alert('Role Deleted Sucessfuly');
+                         } else {
+                             alert('Something Went Wrong');
+                         }
+                         location.reload();
+                },
+                complete: function() {
+                    $('#loading-image').hide();
+				}
+                });
+           //  alert(id);
+        } else {
+              alert("You Cancel The Request");
+            txt = "You pressed Cancel!";
+        }
+}
 </script>
 @endsection

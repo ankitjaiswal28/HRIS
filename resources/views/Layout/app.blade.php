@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/asset/css/datatables.min.css">
 
     <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
     {{-- <link rel="stylesheet" href="/asset/css/dataTables.bootstrap4.min.css"> --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> --}}
@@ -23,6 +24,10 @@
 <body style="background:#f9f9f9">
 
 {{-- {{ session('roleId') }} --}}
+@if (session('roleId') == '3')
+    @include('Navbar.Navbar')
+    @yield('content')
+@endif
 @if (session('roleId') == '2')
     @include('Navbar.Navbar')
     @yield('content')
@@ -50,6 +55,7 @@
 {{-- <script src="/asset/js/jquery.js"></script> --}}
 <script src="/asset/js/datatables.min.js"></script>
 <script src="/asset/js/parsley.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 @yield('scriptcontent')
 {{-- <script src="/asset/js/bootstrap.min.js"></script> --}}
 {{-- <script src="/js/datatable-basic.js"></script> --}}

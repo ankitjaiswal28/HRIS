@@ -301,7 +301,6 @@ class mainModel extends Model
         // print_r($aa);
         return $message;
     }
-<<<<<<< HEAD
 
     public function show_leavedata(){
         $details= DB::table('mst_tbl_leaves')->orderBy('LEAVE_ID', 'desc')->get();
@@ -360,7 +359,7 @@ class mainModel extends Model
     {
         $updatess =  DB::table($table_name)->where([$keyname => $keyvalue])->update($data);
         return $updatess;
-=======
+    }
     /**
      * This Function is Will Give All Modules the Details
      * and Send Response To controller
@@ -935,7 +934,6 @@ class mainModel extends Model
 
         // Config::set('database.connections.dynamicsql.database', $databasename);
         // Config::set('database.default', 'dynamicsql');
->>>>>>> a18a727566605479b313dcc7f6fadb04d1b10abd
     }
 
 }

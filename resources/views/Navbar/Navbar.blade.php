@@ -1,6 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-lightt bottom-shadow" style="">
-    <a class="navbar-brand" href="{{ url('/') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+ @if (session('roleId') == '1')
+ <a class="navbar-brand" href="{{ url('SuperAdmin/superadmindahboard') }}"><img src="/asset/images/sharedocs_enterpriser.png"
             style="width: 200px;background: white;" alt=""></a>
+  @endif
+ @if (session('roleId') == '2')
+  <a class="navbar-brand" href="{{ url('Admin/admindahboard') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+            style="width: 200px;background: white;" alt=""></a>
+ @endif
+ @if (session('roleId') == '3')
+ <a class="navbar-brand" href="{{ url('Admin/admindahboard') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+            style="width: 200px;background: white;" alt=""></a>
+ @endif
+    {{-- <a class="navbar-brand" href="{{ url('/') }}"><img src="/asset/images/sharedocs_enterpriser.png"
+            style="width: 200px;background: white;" alt=""></a> --}}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -44,8 +56,31 @@
                 <a class="nav-link" href="/Admin/role">Role</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/Superadmin/Module">Module</a>
+                <a class="nav-link"  href="/Admin/Module">Module</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/User">User</a>
+            </li>
+        @endif
+        @if (session('roleId') == '3')
+             <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            {{-- <li class="nav-item">
+                <a class="nav-link" href="/Superadmin/index">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/project/showdata">Project Master</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Admin/role">Role</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/Module">Module</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/User">User</a>
+            </li> --}}
         @endif
 
             <li class="nav-item">
@@ -266,8 +301,8 @@
                         <div class="hris_prfile">
                             <img src="/asset/images/Anonymous_Mask.png" alt="" class="profile_icon">
                             <div>
-                                <h6 class="bold_txt">Abhishek</h6>
-                                <h6>abhishek.jaiswar@hridayamsoft.com</h6>
+                                <h6 class="bold_txt">{{session('username')}}</h6>
+                                <h6>{{session('emailId')}}</h6>
                             </div><br>
                             <div>
                                 <span style="float:left"><a href="" class="btnn">My Account</a></span>

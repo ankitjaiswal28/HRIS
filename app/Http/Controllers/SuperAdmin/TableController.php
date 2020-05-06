@@ -8,7 +8,7 @@ use App\Models\mainModel;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
-
+use Illuminate\Support\Facades\Config;
 class TableController extends Controller
 {
     /**
@@ -25,28 +25,13 @@ class TableController extends Controller
             return '<a href="'.action('SuperAdmin\TableController@showAllModule', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'">Assgin</a>';
         })
         ->addColumn('action', function ($query) {
+            $id = Crypt::encrypt($query->CLIENT_ID);
             return '<a href="'.action('SuperAdmin\TableController@edit', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
-            <a href="'.action('SuperAdmin\TableController@destroy', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/close.svg"
+            <a href="javascript:void(0)" onclick="deleteClient('."'$id'".',event)"><img src="/asset/css/zondicons/zondicons/close.svg"
             style="width: 15px;    filter: invert(0.5);" alt=""></a>';
         })
         ->rawColumns(['action', 'assgin'])
        ->make(true);
-    //    ->addColumn('delete', function ($query) {
-    //     return '<div class="">
-    //<button  type="button" style="background: none;border: none;" onclick="deleteFunction('.$query->CLIENT_ID.',event)"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"
-    //        style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></button>
-    //     <form action="'.action('UsersController@destroy', Crypt::encrypt($query->user_id)).'" id="userform'.$query->user_id.'"method="post">
-    //     '.csrf_field().'
-    //     <input name="_method" type="hidden" value="PATCH">
-    //     <center><button  type="submit"  class = "tdbutton " onclick="deleteFunction('.$query->user_id.',event)"><img class="imgresp" src="'.asset('images/icon/delete.png').'"></button>
-    //     </form></div>';
-    // })
-
-    // ->addColumn('edit',function($query){
-    //     return '<center><a href="' . action('UsersController@edit',Crypt::encrypt($query->user_id)) .'" ><img class="imgresp" src="'.asset('images/icon/edit.png').'"></a></center>';
-    // })
-    // ->rawColumns(['edit','delete'])
-        // return view('SuperAdmin/Show_client');
     }
 
     public function show_Edit_client()
@@ -78,7 +63,13 @@ class TableController extends Controller
     public function AssinedMOdule(Request $request)
     {
         $model = new mainModel();
-        $assinedUser = $request->modulename;
+        if ($request->modulename == '') {
+            $assinedUser = '';
+        } else {
+            $assinedUser = $request->modulename;
+        }
+        // print_r($assinedUser);
+        // exit;
         $timaestamp = date("Y-m-d H:i:s");
         $orignaldatabase = $request->session()->get('databasename');
         // print_r($request->modulename);
@@ -87,7 +78,8 @@ class TableController extends Controller
         $data['updated_at'] = $timaestamp;
         $data['databasename'] = $orignaldatabase;
         $response = $model->AssinedModuletoClient($data);
-        print_r($response);
+        return $response;
+        // print_r($response);
     }
 
 
@@ -152,12 +144,13 @@ class TableController extends Controller
     }
     public function destroy($id)
 	{
-        // print_r($id);
-	 	$id = Crypt::decrypt($id);
-        $Delete_query = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update(['Flag'=>'Deleted']);
-        // print_r($Delete_query);
-		return view("Superadmin/Show_client");
+        $model = new mainModel();
+        $id = Crypt::decrypt($id);
+        $timaestamp = date("Y-m-d H:i:s");
+        $data['updated_at'] = $timaestamp;
+        $response = $model->deleteClient($id, $data);
+        return $response;
 
-	}
+    }
 
 }

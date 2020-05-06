@@ -17,7 +17,7 @@
                 <div class="">
                     <div class="row">
                         <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add Role</h1>
+                            <h1 class="left_border font_grey" style="float: left;">Edit Role</h1>
                         </div>
                         <div class="col-md-2">
                             <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
@@ -43,9 +43,10 @@
                                 </div>
                                 <div id="avatars">
                                     <form action="#" name="addRole_form" id="addRole_form" class="form_class" data-parsley-validate autocomplete="off">
+                                    <input type="hidden" name="roleId" id="roleId" value={{$Details->MASTER_ROLE_ID}} />
                                         <label style="">Select Icon</label>
                                         <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user.png" checked />
+                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user.png"  />
                                             <img src="/asset/images/Avatar/user.png" alt="" />
                                         </label>
 
@@ -84,7 +85,7 @@
                             <div class=" col-sm-12 col-xs-12 col-md-12">
                                 <div class="colll-3 input-effect">
                                     <input class="effect-16" type="text" placeholder="" style="clear:both"
-                                        id="role_name" data-parsley-trigger="blur" required="">
+                                        id="role_name" data-parsley-trigger="blur" required="" value = "<?php echo $Details->MASTER_ROLE_NAME;?>" />
                                     <label>Role Name</label>
                                     <span class="focus-border"></span>
                                 </div>
@@ -154,17 +155,14 @@
             } else {
                  roleIconImages = $('input[name="avatar"]:checked').val();
             }
-          console.log(roleIconImages);
-            //return;
-        // Validate all input fields.
+
         var isValid = true;
         $('input').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
         if (isValid) {
-            // console.log( $("#role_icon")[0].files[0].FILE);
             var role_name = $("#role_name").val();
-            // var role_avatar = $('input[name="avatar"]:checked').val();
+            var roleId = $("#roleId").val();
             $('#loading-image').show();
            //  var formData = new FormData($("#addRole_form")[0]);
             $.ajaxSetup({
@@ -173,7 +171,7 @@
                 }
             });
             $.ajax({
-                url: '/craeteRoles',
+                url: '/updateRoleName',
                 type: 'POST',
                 //  data: formData,
                  // processData: false,
@@ -181,20 +179,20 @@
                data: {
                     role_name: role_name,
                     roleIconImages: roleIconImages,
-                    // logo: role_icon,
+                    roleId: roleId,
                     },
                     success: function(data) {
                         console.log('Data', data)
                          // return;
                          var response = data.trim();
                          if(response == 'Done') {
-                             alert('Role Added Sucessfuly');
+                             alert('Role Updated Sucessfuly');
                              var url = '{{ route("Admin/role") }}';
                              window.location.href = url;
                          } else if(response == 'Already') {
                              alert('Role Already  Exits');
                              $("#role_name").val('');
-                         } else {
+                        } else {
                              alert('Something Went Wrong');
                              // window.location.href = 'SuperAdmin/superadmindahboard';
 
@@ -272,15 +270,23 @@ fileInput.addEventListener( "change", function( event ) {
 </script>
 <script>
     $(window).load(function(){
-		$(".colll-3 input").val("");
+        var id = "<?php echo $Details->ICON_NAME;?>"
+        //alert(id);
+        $('input[name="avatar"]:checked').val(id);
+        var inputs = document.getElementsByTagName('input'),
+        empty = 0;
 
-		$(".input-effect input").focusout(function(){
-			if($(this).val() != ""){
-				$(this).addClass("has-content");
-			}else{
-				$(this).removeClass("has-content");
-			}
-		})
+    for (var i = 1, len = inputs.length - 1; i < len; i++) {
+        empty += !inputs[i].value;
+        var tag = inputs[i];
+        if(inputs[i].value != '') {
+            var id = $(tag).attr('id');
+            $('#' + id).addClass("has-content");
+        } else {
+            var id = $(tag).attr('id');
+            $('#' + id).removeClass("has-content");
+        }
+    }
 	});
 
 </script>

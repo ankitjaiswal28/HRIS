@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Middleware\Login;
-// use Illuminate\Support\Facades\Session;
-use Session;
-use Illuminate\Support\Facades\Config;
+namespace App\Http\Middleware\Login\User;
 
 use Closure;
+use Illuminate\Support\Facades\Config;
 
-class Authentication
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -21,11 +19,17 @@ class Authentication
         if (!$request->session()->exists('roleId')) {
             return redirect('/');
         } else {
-            $getDatBasename = $request->session()->get('databasename');
+            // echo $request->session()->get('roleId');
+            if ($request->session()->get('roleId') == 3) {
+                $getDatBasename = $request->session()->get('databasename');
             Config::set('database.connections.dynamicsql.database', $getDatBasename);
             Config::set('database.default', 'dynamicsql');
             return $next($request);
+            } else {
+                return redirect('/');
+            }
+
+
         }
-        // return $next($request);
     }
 }

@@ -5,7 +5,7 @@
         <div style="padding:8px 35px;">
             <div>
                 <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> |
-                    Client's</h3>
+                    Module's</h3>
             </div>
         </div>
         <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
@@ -15,6 +15,7 @@
     </div>
 </div>
 <br>
+<img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
 <div class="margin_left_right">
     <table id="client-table" class="table table-hover" style="width:100%">
         <thead>
@@ -65,42 +66,39 @@
 });
 </script>
 <script>
-	function deleteFunction(id,event) {
-        alert("dvdffs");
-
-		event.preventDefault(); // prevent form submit
-
-		swal({
-			title: "Are you sure?",
-			text: "You won't be able to revert this!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes, delete it!",
-			cancelButtonText: "No, cancel!",
-			closeOnConfirm: false,
-			closeOnCancel: true
-		});
-		/*function(isConfirm){
-			if (isConfirm) {
-
-				var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-				var base_url = {!! json_encode(url('/')) !!};
-				$.ajax({
-					url: base_url+'/user/delete/'+id,
-					type: 'post',
-					data:{
-					      id:id,_token:CSRF_TOKEN,
-						 },
-					success:function(data)
-					{
-						swal("User Deleted " , "info");
-						$('#table_id').DataTable().ajax.reload();
-					}
-				});
+	function deleteModule(id,event) {
+    event.preventDefault(); // prevent form submit
+    $('#loading-image').show();
+        if (confirm("Are You Sure You Want to Delete Client!")) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/deleteModule/' + id ,
+                type: 'get',
+                success: function(data) {
+                        console.log('Data', data);
+                        // return;
+                         var response = data.trim();
+                         if(response == 'Done'){
+                            alert('Module Deleted Sucessfuly');
+                         } else {
+                             alert('Something Went Wrong');
+                         }
+                         location.reload();
+                },
+                complete: function() {
+                    $('#loading-image').hide();
 				}
-			}*/
-	}
+                });
+           //  alert(id);
+        } else {
+              alert("You Cancel The Request");
+            txt = "You pressed Cancel!";
+        }
+}
 
 </script>
 

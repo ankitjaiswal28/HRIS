@@ -23,6 +23,9 @@ Route::get('/logout', 'Authtentication\LoginController@Logout');
 
 /** This Applying Midle Ware On The ROutes */
 Route::group(['middleware' => ['athuthenticate']],function () {
+    Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
+    Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
+    Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
     Route::group(['middleware' => ['superadmin']],function (){
         Route::get('SuperAdmin/superadmindahboard' , 'SuperAdmin\DashboardController@index')->name('SuperAdmin/superadmindahboard');
         Route::get('Superadmin/client' , 'SuperAdmin\NavbarController@index')->name('Superadmin/client');
@@ -38,10 +41,10 @@ Route::group(['middleware' => ['athuthenticate']],function () {
 
         /////////////////////           Client Operation     ////////////////////////////////
         Route::get('SuperAdmin/Show_client' , 'SuperAdmin\TableController@Show_client')->name('SuperAdmin/Show_client');
-
         Route::get('Superadmin/show_Edit_client' , 'SuperAdmin\TableController@show_Edit_client')->name('SuperAdmin/show_Edit_client');
         Route::post('/show_client_datatbl' , 'SuperAdmin\TableController@show_client_datatbl')->name('show_client_datatbl');
         Route::post('/updateclient', 'SuperAdmin\TableController@updateclient')->name('/updateclient');
+        Route::get('deleteModule/{id}','SuperAdmin\NavbarController@destroy')->name('deleteModule');
         Route::get('user/delete/{id}','SuperAdmin\TableController@destroy')->name('user/delete');
         Route::get('user/edit/{id}','SuperAdmin\TableController@edit')->name('user/edit');
         /** Add Module */
@@ -50,19 +53,38 @@ Route::group(['middleware' => ['athuthenticate']],function () {
     });
     Route::group(['middleware' => ['admin']],function (){
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
-        Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
-        Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
-        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');        ///////////project master///////////////////////////////////
+
+               ///////////project master///////////////////////////////////
         Route::get('project/showdata','Admin\ProjectMasterController@index')->name('project/showdata');
         Route::get('project/create','Admin\ProjectMasterController@create')->name('project/create');
         Route::post('project/addproject','Admin\ProjectMasterController@addproject')->name('project/addproject');
         Route::post('/show_all_data','Admin\ProjectMasterController@show_all_project')->name('show_all_data');
-        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+
         Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
         Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
         Route::post('/craeteRoles' , 'Admin\RoleController@addRoles')->name('/craeteRoles');
         Route::post('/show_role_datatbl' , 'Admin\RoleController@allRecodrds')->name('/show_role_datatbl');
         Route::get('user/showAllClientModule/{id}','Admin\RoleController@showAllClientModule')->name('user/showAllClientModule');
+        Route::get('/editRoleName/{id}','Admin\RoleController@editRoleName')->name('/editRoleName');
+        Route::post('/updateRoleName' , 'Admin\RoleController@updateRoles')->name('/updateRoleName');
+        Route::get('Admin/Module' , 'Admin\ModuleController@showModule')->name('Admin/Module');
+        Route::post('/show_admin_module_datatbl' , 'Admin\ModuleController@show_module_datatbl')->name('show_admin_module_datatbl');
+        Route::get('deleteAdminModule/{id}','Admin\ModuleController@destroy')->name('deleteAdminModule');
+        Route::get('ShowAdminEditModule/{id}','Admin\ModuleController@ShowEditModule')->name('ShowAdminEditModule');
+        Route::post('/updateAdminmodule', 'Admin\ModuleController@updateModule')->name('/updateAdminmodule');
+        Route::get('deleteAdminRole/{id}','Admin\RoleController@destroy')->name('deleteAdminRole');
+        Route::post('/updateAdminModules' , 'Admin\RoleController@AssinedMOdule')->name('updateAdminModules');
+        Route::get('Admin/User','Admin\UserController@listofUser')->name('Admin/User');
+        Route::post('/show_alluser_datatbl' , 'Admin\UserController@show_alluser_datatbl')->name('/show_alluser_datatbl');
+        Route::get('Admin/Add_User' , 'Admin\UserController@AddUser')->name('Admin/Add_User');
+        Route::post('/createUser', 'Admin\UserController@createUser')->name('/createUser');
+        Route::get('deletethisUser/{id}','Admin\UserController@destroy')->name('deletethisUser');
+
+
+
+    });
+    Route::group(['middleware' => ['user']],function (){
+        Route::get('User/dashboard' , 'User\DashboardController@index')->name('User/dashboard');
     });
 
 

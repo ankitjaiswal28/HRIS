@@ -4,7 +4,7 @@
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><i class="fa fa-chevron-left" aria-hidden="true"
             style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
-        font-size: 18px;">All Employee</span><i class="fa fa-close" aria-hidden="true"
+        font-size: 18px;">Add User</span><i class="fa fa-close" aria-hidden="true"
             style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
 <div class="flip-card-3D-wrapper" style="width: 35% !important;">
@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="row">
                         <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add Client</h1>
+                            <h1 class="left_border font_grey" style="float: left;">Add User</h1>
                         </div>
                         <div class="col-md-2">
                             <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
@@ -26,35 +26,43 @@
                         <form action="#" name="client_form" id="client_form" class="form_class" data-parsley-validate autocomplete="off">
                             <div class="row">
                                 <div class=" col-sm-12 col-xs-12 col-md-12">
-                                    <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="companyname" name="companyname"  autocomplete="off"  placeholder="" style="clear:both" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
-                                        <label>Company Name</label>
+                                    <div class="">
+                                    <select class="js-example-basic-multiple" name="roles[]" multiple="multiple" id="roles" data-parsley-trigger="change" required="required">
+                                    <?php
+                                     $length = count($roles);
+                                    for($i = 0 ; $i < $length; $i ++) {
+                                        ?>
+                                        <option value={{$roles[$i]->MASTER_ROLE_ID}}><?php echo $roles[$i]->MASTER_ROLE_NAME?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                    </select>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    {{-- <input type="text" class="effect-16" id="adminname" name="adminname"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required=""> --}}
-                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="adminname" name="adminname" data-parsley-trigger="blur" required="">
-                                        <label>Admin Name</label>
+                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="username" name="username" data-parsley-trigger="blur" required="">
+                                        <label>User Name</label>
                                         <span class="focus-border" ></span>
 
                                     </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="mobileno" name="mobileno"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
-                                        <label>Admin Contact No</label>
+                                    <div class="">
+                                    <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger">
+                                    <?php
+                                     $length = count($users);
+                                    for($j = 0 ; $j < $length; $j++) {
+                                        ?>
+                                        <option value={{$users[$j]->userId}}><?php echo $users[$j]->username?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                    </select>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
                                     <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
-                                        <label>Admin Email</label>
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="prefix" placeholder="" style="clear:both" name="prefix"  autocomplete="off"  data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both" name= "fff"  autocomplete="off" > --}}
-                                        <label>Client Prefix</label>
+                                        <label>User Email</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
@@ -115,6 +123,16 @@
 <script src="/asset/js/jquery_213.min.js"></script>
 <script>
  $(document).ready(function() {
+     $('.js-example-basic-multiple').select2();
+     $("#roles").select2({
+    placeholder: "Roles",
+    allowClear: true
+});
+$("#reportingmanger").select2({
+    placeholder: "Reporting Mangers",
+    allowClear: true
+})
+
      $('#loading-image').bind('ajaxStart', function() {
          $(this).show();
 	}).bind('ajaxStop', function() {
@@ -128,6 +146,10 @@
         $('input').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
+        // console.log('Welcome' + isValid);
+       //  $("#roles").val();
+       // console.log('roles' + $("#roles").val());
+        // return
         if (isValid) {
             $('#loading-image').show();
             $.ajaxSetup({
@@ -136,35 +158,28 @@
                 }
             });
             $.ajax({
-                url: '/createclient',
+                url: '/createUser',
                 type: 'POST',
                 data: {
-                    companyname: $('#companyname').val(),
-                    adminname: $('#adminname').val(),
-                    mobileno: $('#mobileno').val(),
+                    roles: $("#roles").val(),
+                    username: $('#username').val(),
+                    reportingmanger: $('#reportingmanger').val(),
                     email: $('#email').val(),
-                    prefix: $('#prefix').val(),
                     pwd: $('#pwd').val(),
                     },
                     success: function(data) {
                         console.log('Data', data);
-                        // return;
+                         // return;
                          var response = data.trim();
-                         if(response == 'Error'){
+                         if(response == 'Erorr'){
                              alert('Something Went Wrong')
-                         } else if(response == 'Email ID Already Exits') {
+                         } else if(response == 'Already') {
                               alert('Email ID Already Exits');
                               $('#email').val('');
-                         }else if(response == 'PreFix Already Exits') {
-                             alert('PreFix Already Exits');
-                             $('#prefix').val('');
-                         } else if(response == 'Database Already Exits') {
-                             alert('Database Already Exits');
-                             $('#prefix').val('');
                          } else {
-                             alert('Admin Craeted Sucessfuly');
+                             alert('User Craeted Sucessfuly');
                              // window.location.href = 'SuperAdmin/superadmindahboard';
-                             var url = '{{ route("SuperAdmin/superadmindahboard") }}';
+                             var url = '{{ route("Admin/User") }}';
                              window.location.href = url;
                              //window.location.href ='Superadmin/client'
                          }

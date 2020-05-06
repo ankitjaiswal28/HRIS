@@ -21,7 +21,10 @@ class mainModel extends Model
     {
         // print_r(session('databasename'));
         // echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
+        // DB::enableQuerylog();
         $insert =  DB::table($tablename)->insertGetId($data);
+        // $aa= DB::getQuerylog();
+        // print_r($aa);exit;
         return $insert;
     }
     /**
@@ -30,6 +33,60 @@ class mainModel extends Model
      * @param $data \Illuminate\Http\Request  $data will Have All Data To insert.
      * @return \Illuminate\Http\Response Return Response Message of Client Craeted
      */
+
+
+    public function insert_leave_manage_model($data)
+    {
+        $leave_type_name = $data['leave_type_name'];
+        $allote_day = $data['allote_day'];
+        $message = '';
+        $newleave = DB::table('mst_tbl_leave_type')->where(['LEAVE_TYPE_NAME' => $leave_type_name , 'FLAG' => 'Show'])->get()->count();
+        if ($newleave == 0) {
+            $columnname['LEAVE_TYPE_NAME'] = $leave_type_name;
+            $columnname['ALLOTED_DAYS'] = $allote_day;
+            $columnname['FLAG'] = "Show";
+            $Leave_type_id = $this->insertRecords($columnname, 'mst_tbl_leave_type');
+        }else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    public function insert_apply_leave($data)
+    {
+        $leave_type = $data['leave_type'];
+        $start_leave_date = $data['start_leave_date'];
+        $end_leave_date= $data['end_leave_date'];
+        $user_id = $data['user_id'];
+        $username = $data['username'];
+        $today_date = $data['today_date'];
+        $leave_status = $data['leave_status'];
+        $leave_reason = $data['leave_reason'];
+        $leave_days = $data['leave_days'];
+        $Start_datewithday = $data['Start_datewithday'];
+        $message = '';
+        $newleave = DB::table('mst_tbl_leaves')->where(['LEAVE_REASON' => $leave_reason])->get()->count();
+        // print_r($newleave);
+        if ($newleave == 0) {
+            $columnname['USER_ID'] = $user_id;
+            $columnname['USER_NAME'] = $username;
+            $columnname['CURRENT_DATE'] = $today_date;
+            $columnname['LEAVE_TYPE'] = $leave_type;
+            $columnname['START_LEAVE_DATE'] = $start_leave_date;
+            $columnname['END_LEAVE_DATE'] = $end_leave_date;
+            $columnname['LEAVE_REASON'] = $leave_reason;
+            $columnname['LEAVE_STATUS'] = $leave_status;
+            $columnname['LEAVE_DAYS'] = $leave_days;
+            $columnname['START_DATEWITHDAY'] = $Start_datewithday;
+
+            //print_r($columnname);
+            $Leave_ID = $this->insertRecords($columnname, 'mst_tbl_leaves');
+        }else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
     public function clientCreation($data)
     {
         // $originalDB = Session :: get('databasename');;
@@ -148,4 +205,64 @@ class mainModel extends Model
         // print_r($aa);
         return $message;
     }
+
+    public function show_leavedata(){
+        $details= DB::table('mst_tbl_leaves')->orderBy('LEAVE_ID', 'desc')->get();
+        return $details;
+    }
+
+    public function all_leave_type(){
+        $details= DB::table('mst_tbl_leave_type')->where(['FLAG' => 'Show'])->get();
+        return $details;
+    }
+
+    public function unplanned_pending_leave($id){
+
+        $details= DB::table('mst_tbl_leaves')->where(['USER_ID' => $id])->get();
+        return $details;
+    }
+
+
+    public function show_leave_type(){
+        $details= DB::table('mst_tbl_leave_type')->where(['FLAG' => 'Show'])->get();
+        return $details;
+    }
+
+    public function show_leave_pending_req(){
+        $details= DB::table('mst_tbl_leaves')->where(['LEAVE_STATUS' => 'Pending'])->orderBy('LEAVE_ID', 'desc')->get();
+        return $details;
+    }
+
+    public function show_leave_pending_req_count(){
+        $details= DB::table('mst_tbl_leaves')->where(['LEAVE_STATUS' => 'Pending'])->get()->count();
+        return $details;
+    }
+
+    public function update_leave_manage_data($data)
+    {
+        $update_leave_type_id = $data['autoid'];
+        $details= DB::table('mst_tbl_leave_type')->where(['LEAVE_TYPE_ID'=>$update_leave_type_id])->get();
+        return $details;
+    }
+    public function update_leave_manage_codeee($table_name, $keyname, $keyvalue, $data)
+    {
+
+        // DB::enableQuerylog();
+        $updatess =  DB::table($table_name)->where([$keyname => $keyvalue, 'FLAG' => 'Show'])->update($data);
+        //  $aa= DB::getQuerylog();
+        return $updatess;
+    }
+    public function approve_leave_manage_data($data)
+    {
+        $approve_leave_type_id = $data['autoid'];
+        $details= DB::table('mst_tbl_leaves')->where(['LEAVE_ID'=>$approve_leave_type_id])->get();
+        return $details;
+    }
+
+    public function approve_leave_with_user_id($table_name, $keyname, $keyvalue, $data)
+    {
+        $updatess =  DB::table($table_name)->where([$keyname => $keyvalue])->update($data);
+        return $updatess;
+    }
+
 }

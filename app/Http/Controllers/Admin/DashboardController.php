@@ -21,6 +21,7 @@ class DashboardController extends Controller
         return view('Admin.dashboard');
     }
 
+
     /**
      * This Function Will Will Save The Atttendence
      * Of the User

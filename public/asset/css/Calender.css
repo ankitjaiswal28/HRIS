@@ -1,0 +1,205 @@
+:root {
+    --color-primary: rgb(20, 40, 80);
+    --color-primary-light3: rgba(32, 166, 243, 0.3);
+    --color-primary-light7: rgb(20, 40, 80);
+    --color-base: rgb(246, 247, 248);
+    --color-letters: rgb(1, 22, 39);
+    --color-letters-light1: rgb(1, 22, 39, 0.1);
+    --color-danger: rgb(255, 51, 102);
+}
+
+button {
+    /* border: none;
+  background-color: var(--color-primary);
+  color: var(--color-base);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(1, 22, 39, 0.3);
+  transition: all 0.1s ease-in-out; */
+    border: none;
+    background-color: rgb(248, 249, 253);
+    color: rgb(0, 0, 0);
+    /* padding: 10px; */
+    border-radius: 5px;
+    cursor: pointer;
+    /* box-shadow: 0 0 3px rgba(1, 22, 39, 0.3); */
+    transition: all 0.1s ease-in-out;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    transform: scale(0.9);
+    box-shadow: 0 0 3px rgba(1, 22, 39, 0.3);
+}
+
+#datepicker {
+    position: relative;
+    color: var(--color-letters);
+}
+
+#datepicker-container {
+    /* position: absolute; */
+    top: 30px;
+    width: auto;
+    height: 300px;
+    padding: 15px;
+    border-radius: 5px;
+    left: 50%;
+    /* margin-left: 100px; */
+    background-color: #f8f9fd;
+    box-shadow: 0 0 2px rgba(1, 22, 39, 0.3);
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.datepicker-header {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.datepicker-button-change {
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+#datepicker-indicator {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    user-select: none;
+}
+
+#datepicker-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0px;
+}
+
+.datepicker-week-container {
+    all: unset;
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.datepicker-list-item-container {
+    all: unset;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.datepicker-list-item-container:hover {
+    background-color: var(--color-primary-light7);
+    color: var(--color-base);
+}
+
+.datepicker-list-item-outday {
+    opacity: 0.3;
+}
+
+.datepicker-list-item-selected {
+    background-color: var(--color-primary);
+    color: var(--color-base);
+}
+
+.datepicker-list-item-between {
+    background-color: var(--color-primary-light3);
+    color: var(--color-primary);
+    animation: day-between 0.5s ease-in-out;
+}
+
+.datepicker-list-item-unavaliable {
+    cursor: not-allowed;
+    color: var(--color-danger);
+}
+
+.datepicker-list-item-unavaliable:hover {
+    background-color: transparent;
+    color: var(--color-danger);
+}
+
+.datepicker-list-item-today::after {
+    content: " ";
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-letters-light1);
+    position: absolute;
+    border: 3px solid var(--color-letters-light1);
+    border-radius: 5px;
+    top: 0px;
+    left: 0px;
+}
+
+.datepicker-list-item-selected::after {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--color-primary);
+    border-radius: 5px;
+    top: 0px;
+    left: 0px;
+}
+
+#datepicker-week-title {
+    all: unset;
+    display: none;
+    min-height: 30px;
+    align-items: stretch;
+    padding-top: 15px;
+}
+
+#datepicker-week-title>li {
+    all: unset;
+    flex: 1;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#datepicker-selected-text {}
+
+.datepicker-footer,
+.datepicker-End-footer {
+    min-height: 25px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+#datepicker-clear-button {
+    display: none;
+}
+
+@keyframes day-between {
+    0% {
+        color: var(--color-letters);
+        background-color: transparent;
+    }
+    100% {
+        color: var(--color-primary);
+        background-color: var(--color-primary-light3);
+    }
+}

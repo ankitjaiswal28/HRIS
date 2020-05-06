@@ -29,14 +29,21 @@
         @endif
         @if (session('roleId') == '2')
              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/Admin/admindahboard">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Superadmin/index">About</a>
+                <a class="nav-link" href="/Leave_manage">Leave</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Superadmin/dashboard">Dashboard</a>
-            </li>
+            {{-- <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Page 1-1</a></li>
+                  <li><a href="#">Page 1-2</a></li>
+                  <li><a href="#">Page 1-3</a></li>
+                </ul>
+              </li> --}}
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Role</a>
             </li>

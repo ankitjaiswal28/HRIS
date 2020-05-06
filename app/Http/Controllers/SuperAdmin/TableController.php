@@ -20,8 +20,6 @@ class TableController extends Controller
             return '<a href="'.action('SuperAdmin\TableController@edit', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
             <a href="'.action('SuperAdmin\TableController@destroy', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/close.svg"
             style="width: 15px;    filter: invert(0.5);" alt=""></a>
-
-
             ';
         })
         ->rawColumns(['action'])
@@ -76,7 +74,7 @@ class TableController extends Controller
         $keyname = 'CLIENT_ID';
        $responsemessg = $details->clientupdate($table_name,$keyname,$keyvalue,$data);
 
-    //    print_r($responsemessg);
+    //    print_rv($responsemessg);
     //    return  $responsemessg;
     }
 

@@ -4,7 +4,7 @@
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><i class="fa fa-chevron-left" aria-hidden="true"
             style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
-        font-size: 18px;">Edit User</span><i class="fa fa-close" aria-hidden="true"
+        font-size: 18px;">Edit User<?php print_r($details);?></span><i class="fa fa-close" aria-hidden="true"
             style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
 <div class="flip-card-3D-wrapper" style="width: 35% !important;">
@@ -30,10 +30,17 @@
                                     <select class="js-example-basic-multiple" name="roles[]" multiple="multiple" id="roles" data-parsley-trigger="change" required="required">
                                     <?php
                                      $length = count($roles);
+                                     $assinroles = explode(",", $details['master_roleId']);
+                                     // array($details['master_roleId']);
+                                     print_r($assinroles);
                                     for($i = 0 ; $i < $length; $i ++) {
                                         ?>
-                                        <option value={{$roles[$i]->MASTER_ROLE_ID}}><?php echo $roles[$i]->MASTER_ROLE_NAME?></option>
-
+                                        <option value={{$roles[$i]->MASTER_ROLE_ID}} <?php if (in_array($roles[$i]->MASTER_ROLE_ID, $assinroles))
+                                        {
+                                            echo 'selected';
+                                        }
+                                        ?>
+                                        ><?php echo $roles[$i]->MASTER_ROLE_NAME?></option>
                                         <?php
                                     }
                                     ?>
@@ -41,7 +48,7 @@
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="username" name="username" data-parsley-trigger="blur" required="">
+                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="username" name="username" data-parsley-trigger="blur" required="" value ={{$details['username']}}>
                                         <label>User Name</label>
                                         <span class="focus-border" ></span>
 
@@ -50,9 +57,17 @@
                                     <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger">
                                     <?php
                                      $length = count($users);
+                                     $assinmanagers = explode(",", $details['REPORTING_MANGERS']);
+                                     // array($details['REPORTING_MANGERS']);
                                     for($j = 0 ; $j < $length; $j++) {
                                         ?>
-                                        <option value={{$users[$j]->userId}}><?php echo $users[$j]->username?></option>
+                                        <option value={{$users[$j]->userId}}
+                                        <?php if (in_array($users[$j]->userId, $assinmanagers))
+                                        {
+                                            echo 'selected';
+                                        }
+                                        ?>
+                                        ><?php echo $users[$j]->username?></option>
 
                                         <?php
                                     }
@@ -61,12 +76,12 @@
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
+                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" value= {{$details['emailId']}} >
                                         <label>User Email</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="">
+                                    <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="" value= {{$details['passwords']}}>
                                         {{-- <input class="effect-16" type="password" placeholder="" style="clear:both" name="pwn"  autocomplete="new-password"> --}}
                                         <label>Password</label>
                                         <span class="focus-border"></span>
@@ -229,16 +244,21 @@ fileInput.addEventListener( "change", function( event ) {
 });
 </script>
 <script>
-    $(window).load(function(){
-		$(".colll-3 input").val("");
+ $(window).load(function(){
+        var inputs = document.getElementsByTagName('input'),
+        empty = 0;
 
-		$(".input-effect input").focusout(function(){
-			if($(this).val() != ""){
-				$(this).addClass("has-content");
-			}else{
-				$(this).removeClass("has-content");
-			}
-		})
+    for (var i = 1, len = inputs.length - 1; i < len; i++) {
+        empty += !inputs[i].value;
+        var tag = inputs[i];
+        if(inputs[i].value != '') {
+            var id = $(tag).attr('id');
+            $('#' + id).addClass("has-content");
+        } else {
+            var id = $(tag).attr('id');
+            $('#' + id).removeClass("has-content");
+        }
+    }
 	});
 
 </script>

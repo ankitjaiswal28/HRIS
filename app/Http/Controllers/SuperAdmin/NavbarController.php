@@ -58,7 +58,7 @@ class NavbarController extends Controller
             $id = Crypt::encrypt($query->moduleId);
             $newmodels = new mainModel();
             // DB::enableQuerylog();
-            $get = DB::table('sup_tbl_client')->where(['Flag'=>'Show'])->whereIn('AssginModuleId', $array)->get()->count();
+            $get = DB::table('sup_tbl_client')->where(['Flag'=>'Show'])->where('AssginModuleId', 'like', '%' . $number . '%')->get()->count();
             if ($get > 0) {
                 return '<a href="'.action('SuperAdmin\NavbarController@ShowEditModule', Crypt::encrypt($query->moduleId)).'" id="userform'.$query->moduleId.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
             <a href="javascript:void(0)">Already Assined</a>

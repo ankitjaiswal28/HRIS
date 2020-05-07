@@ -35,7 +35,17 @@ class UserController extends Controller
         ->addIndexColumn()
         ->addColumn('master_roleId', function ($query) {
             $masterROles = $query->master_roleId;
-            return $masterROles;
+            $sql = "SELECT GROUP_CONCAT(MASTER_ROLE_NAME ,'') as 'MASTER_ROLE_NAME' FROM mst_tbl_master_role WHERE MASTER_ROLE_ID IN($masterROles) ";
+            $info = DB::select(DB::raw($sql));
+            // print_r();
+            return $info[0]->MASTER_ROLE_NAME;
+        })
+        ->addColumn('REPORTING_MANGERS', function ($query) {
+            $REPORTING = $query->REPORTING_MANGERS;
+            $sql = "SELECT GROUP_CONCAT(username ,'') as 'REPORTING_MANGERS' FROM mst_user_tbl WHERE userId IN($REPORTING) ";
+            $info = DB::select(DB::raw($sql));
+            // print_r();
+            return $info[0]->REPORTING_MANGERS;
         })
         ->addColumn('PRIMARY_MANGER', function ($query) {
             if ($query->PRIMARY_MANGER != null) {
@@ -54,7 +64,7 @@ class UserController extends Controller
                 style="width: 15px;    filter: invert(0.5);" alt=""></a>
                 ';
         })
-        ->rawColumns(['action', 'assgin', 'PRIMARY_MANGER' ,'master_roleId'])
+        ->rawColumns(['action', 'assgin', 'PRIMARY_MANGER' ,'master_roleId','REPORTING_MANGERS'])
        ->make(true);
 
     }
@@ -135,9 +145,17 @@ class UserController extends Controller
         $id = Crypt::decrypt($id);
         $users = DB::table('mst_user_tbl')->where(['Flag' => 'Show'])->where('userId', '!=', $id)->get();
         $roles = $model->showAllData('mst_tbl_master_role');
+        $assinedusers = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $id])->get()->first();
+        $details['userId'] = $assinedusers->userId;
+        $details['username'] = $assinedusers->username;
+        $details['emailId'] = $assinedusers->emailId;
+        $passwords = $assinedusers->passwords;
+        $details['passwords'] = Crypt::decrypt($passwords);
+        $details['master_roleId'] = $assinedusers->master_roleId;
+        $details['REPORTING_MANGERS'] = $assinedusers->REPORTING_MANGERS;
         // $users = $model->showAllData('mst_user_tbl');
         // print_r($users);
-         return view('Admin.EditUser', compact('roles', 'users'));
+         return view('Admin.EditUser', compact('roles', 'users', 'details'));
     }
 
     /**

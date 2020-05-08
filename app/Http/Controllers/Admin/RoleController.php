@@ -77,7 +77,7 @@ class RoleController extends Controller
         })
         ->addColumn('action', function ($query) {
             $id = Crypt::encrypt($query->MASTER_ROLE_ID);
-            return '<a href="'.action('Admin\ModuleController@ShowEditModule', Crypt::encrypt($query->MASTER_ROLE_ID)).'" id="userform'.$query->MASTER_ROLE_ID.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
+            return '<a href="'.action('Admin\RoleController@editRoleName', Crypt::encrypt($query->MASTER_ROLE_ID)).'" id="userform'.$query->MASTER_ROLE_ID.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
                 <a href="javascript:void(0)" onclick="deleteRole('."'$id'".',event)"><img src="/asset/css/zondicons/zondicons/close.svg"
                 style="width: 15px;    filter: invert(0.5);" alt=""></a>
                 ';

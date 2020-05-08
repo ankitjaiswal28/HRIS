@@ -27,6 +27,7 @@
                             <div class="row">
                                 <div class=" col-sm-12 col-xs-12 col-md-12">
                                     <div class="">
+                                        <input type="hidden" id ="clientuserId" value="{{$details['userId']}}">
                                     <select class="js-example-basic-multiple" name="roles[]" multiple="multiple" id="roles" data-parsley-trigger="change" required="required">
                                     <?php
                                      $length = count($roles);
@@ -161,10 +162,12 @@ $("#reportingmanger").select2({
         $('input').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
-        // console.log('Welcome' + isValid);
-       //  $("#roles").val();
-       // console.log('roles' + $("#roles").val());
-        // return
+        // var roles = $("#roles").val();
+        // var username =  $('#username').val();
+        // var reportingmanger = $('#reportingmanger').val()
+        // var email = $("#email").val()
+        // var pwd = $("#pwd").val()
+        // var clientuserId = $("#clientuserId").val()
         if (isValid) {
             $('#loading-image').show();
             $.ajaxSetup({
@@ -173,7 +176,7 @@ $("#reportingmanger").select2({
                 }
             });
             $.ajax({
-                url: '/createUser',
+                url: '/updateUser',
                 type: 'POST',
                 data: {
                     roles: $("#roles").val(),
@@ -181,6 +184,7 @@ $("#reportingmanger").select2({
                     reportingmanger: $('#reportingmanger').val(),
                     email: $('#email').val(),
                     pwd: $('#pwd').val(),
+                    clientuserId: $('#clientuserId').val(),
                     },
                     success: function(data) {
                         console.log('Data', data);
@@ -192,7 +196,7 @@ $("#reportingmanger").select2({
                               alert('Email ID Already Exits');
                               $('#email').val('');
                          } else {
-                             alert('User Craeted Sucessfuly');
+                             alert('User Updated Sucessfuly');
                              // window.location.href = 'SuperAdmin/superadmindahboard';
                              var url = '{{ route("Admin/User") }}';
                              window.location.href = url;

@@ -23,9 +23,7 @@ Route::get('/logout', 'Authtentication\LoginController@Logout');
 
 /** This Applying Midle Ware On The ROutes */
 Route::group(['middleware' => ['athuthenticate']],function () {
-    Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
-    Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
-    Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+    
     Route::group(['middleware' => ['superadmin']],function (){
         Route::get('SuperAdmin/superadmindahboard' , 'SuperAdmin\DashboardController@index')->name('SuperAdmin/superadmindahboard');
         Route::get('Superadmin/client' , 'SuperAdmin\NavbarController@index')->name('Superadmin/client');
@@ -53,8 +51,6 @@ Route::group(['middleware' => ['athuthenticate']],function () {
     });
     Route::group(['middleware' => ['admin']],function (){
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
-        Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
-        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
          ///////////project master///////////////////////////////////
         Route:: get('/applyleave', 'Admin\ApplyleaveController@applyleave')->name('/applyleave');
         Route::post('/insert_applyleave', 'Admin\ApplyleaveController@insert_applyleave')->name('/insert_applyleave');
@@ -97,7 +93,7 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/update_timesheet','Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
 
         //////////////////////////////////////////////////////////////
-        Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+        
 
         Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
         Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
@@ -119,12 +115,17 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/createUser', 'Admin\UserController@createUser')->name('/createUser');
         Route::get('deletethisUser/{id}','Admin\UserController@destroy')->name('deletethisUser');
         Route::get('/editUser/{id}','Admin\UserController@editUser')->name('/editUser');
+        Route::post('/updateUser', 'Admin\UserController@updateUser')->name('/updateUser');
 
 
 
     });
     Route::group(['middleware' => ['user']],function (){
         Route::get('User/dashboard' , 'User\DashboardController@index')->name('User/dashboard');
+
+        Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
+    Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
+    Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
     });
 
 

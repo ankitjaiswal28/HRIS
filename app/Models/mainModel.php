@@ -9,6 +9,7 @@ use Illuminate\Contracts\Session\Session;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\Crypt;
+use phpDocumentor\Reflection\Types\Null_;
 
 class mainModel extends Model
 {
@@ -1043,6 +1044,127 @@ class mainModel extends Model
 
         // Config::set('database.connections.dynamicsql.database', $databasename);
         // Config::set('database.default', 'dynamicsql');
+    }
+    public function updateUserCraetion($data)
+    {
+        // print_r($data);exit;
+        $orignalDb = $data['orignalDb'];
+        $CLIENT_ID = $data['CLIENT_ID'];
+        $clientuserId = $data['clientuserId'];
+        $userid = $data['userid'];
+        $encryptPassword = $data['encryptPassword'];
+        $email = $data['email'];
+        $username = $data['username'];
+        $MASTER_ROLE_ID = $data['MASTER_ROLE_ID'];
+        $REPORTING_MANAGER = $data['REPORTING_MANAGER'];
+        $dynamicdatabase = $data['dynamicdatabase'];
+        $timaestamp = date("Y-m-d H:i:s");
+        $fetchdeatails = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $clientuserId])->get()->first();
+        $firstEmail = $fetchdeatails->emailId;
+        $clientREPORTING_MANGERS = $fetchdeatails->REPORTING_MANGERS;
+        // DB::enableQuerylog();
+        $clientnewUser = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'emailId' => $email])->where('emailId', '!=', $firstEmail)->get()->count();
+        // $aa= DB::getQuerylog();
+        // print_r($aa);exit;
+        if ($clientnewUser == 0) {
+            Config::set('database.connections.mysql.database', $orignalDb);
+            Config::set('database.default', 'mysql');
+            $dyanimicfetchdeatails = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'emailId' => $firstEmail, 'CLIENT_ID' => $CLIENT_ID])->get()->first();
+            $firstuserId = $dyanimicfetchdeatails->userId;
+            $dynamiclientnewUser = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'emailId' => $email])->where('emailId', '!=', $firstEmail)->get()->count();
+            if ($dynamiclientnewUser == 0) {
+                    $newdata['emailId'] = $email;
+                    $newdata['passwords'] = $encryptPassword;
+                    $newdata['username'] = $username;
+                    $newdata['updated_at'] = $timaestamp;
+                    $userId = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','userId'=>$firstuserId])->update($newdata);
+                    if ($userId != '') {
+                        Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
+                        Config::set('database.default', 'dynamicsql');
+                        $userdata['username'] = $username;
+                        $userdata['emailId'] = $email;
+                        $userdata['passwords'] = $encryptPassword;
+                        $userdata['updated_at'] = $timaestamp;
+                        $userdata['CREATED_BY'] = $userid;
+                        $userdata['master_roleId'] = $MASTER_ROLE_ID;
+                        $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
+                        if ($clientREPORTING_MANGERS != $REPORTING_MANAGER) {
+                            $userdata['PRIMARY_MANGER'] = null;
+                            $userdata['SECOND_MANGER'] = null;
+                            $userdata['THIRD_MANGER'] = null;    
+                        }
+                        $clintsuserId = DB::table('mst_user_tbl')->where(['Flag'=>'Show','userId'=>$clientuserId])->update($userdata);
+                        if ($clintsuserId !='') {
+                            $message = 'Done';
+                        } else {
+                            $message = 'Erorr';
+                        }                                         
+                    } else {
+                        $message = 'Erorr';
+                    }
+            } else {
+                $message = 'Already';
+            }
+            
+                        
+        }else {
+            $message = 'Already';
+        }
+        return $message;
+        exit;
+        Config::set('database.connections.mysql.database', $orignalDb);
+        Config::set('database.default', 'mysql');
+        $newUser = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'emailId' => $email])->get()->count();
+        $message = '';
+        if ($newUser == 0) {
+            Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
+            Config::set('database.default', 'dynamicsql');
+            $clientnewUser = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'emailId' => $email])->get()->count();
+            if ($clientnewUser == 0) {
+                $userdata['username'] = $username;
+                $userdata['emailId'] = $email;
+                $userdata['passwords'] = $encryptPassword;
+                $userdata['Flag'] = 'Show';
+                $userdata['created_at'] = $timaestamp;
+                // $userdata['roleId'] = $ROLEID;
+                $userdata['CREATED_BY'] = $userid;
+                $userdata['master_roleId'] = $MASTER_ROLE_ID;
+                $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
+                $cilentuserId = $this->insertRecords($userdata, 'mst_user_tbl');
+                if ($cilentuserId != '') {
+                    Config::set('database.connections.mysql.database', $orignalDb);
+                    Config::set('database.default', 'mysql');
+                    $newdata['CLIENT_ID'] = $CLIENT_ID;
+                    $newdata['emailId'] = $email;
+                    $newdata['passwords'] = $encryptPassword;
+                    // $newdata['roleId'] = $ROLEID;
+                    $newdata['username'] = $username;
+                    $newdata['Flag'] = 'Show';
+                    $newdata['created_at'] = $timaestamp;
+                    $userId = $this->insertRecords($newdata, 'sup_tbl_all_client_user');
+                    if ($userId != '') {
+                        $message = 'Done';
+                    } else {
+                        $message = 'Erorr';
+                    }
+                } else {
+                    $message = 'Erorr';
+                }
+
+                // $message = 'Done';
+            } else {
+                $message = 'Already';
+            }
+
+
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+        // print_r($newUser);
+        
+        // exit();
+        // return $message;
     }
 
 }

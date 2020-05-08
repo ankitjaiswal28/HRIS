@@ -20,7 +20,7 @@ class UserMiddleware
             return redirect('/');
         } else {
             // echo $request->session()->get('roleId');
-            if ($request->session()->get('roleId') == 3) {
+            if ($request->session()->get('roleId') == 3 || $request->session()->get('roleId') == 2) {
                 $getDatBasename = $request->session()->get('databasename');
             Config::set('database.connections.dynamicsql.database', $getDatBasename);
             Config::set('database.default', 'dynamicsql');

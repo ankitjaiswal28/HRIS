@@ -165,9 +165,34 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateUser(Request $request)
     {
-        //
+        $model = new mainModel();
+        $orignalDb =$request->session()->get('orignaldb');
+        $dynamicdatabase =$request->session()->get('databasename');
+        $userid =$request->session()->get('userid');
+        $CLIENT_ID =$request->session()->get('CLIENT_ID');
+        $Roles = $request->roles;
+        $username = $request->username;
+        $reportingmanger = $request->reportingmanger;
+        $email = $request->email;
+        $pwd = $request->pwd;
+        $clientuserId = $request->clientuserId;
+        $MASTER_ROLE_ID = implode(",",$Roles);
+        $REPORTING_MANAGER = implode(",",$reportingmanger);
+        $encryptPassword = Crypt::encrypt($pwd);
+        $data['orignalDb'] = $orignalDb;
+        $data['userid'] = $userid;
+        $data['encryptPassword'] = $encryptPassword;
+        $data['email'] = $email;
+        $data['username'] = $username;
+        $data['MASTER_ROLE_ID'] = $MASTER_ROLE_ID;
+        $data['REPORTING_MANAGER'] = $REPORTING_MANAGER;
+        $data['dynamicdatabase'] = $dynamicdatabase;
+        $data['CLIENT_ID'] = $CLIENT_ID;
+        $data['clientuserId'] = $clientuserId;
+        $response = $model->updateUserCraetion($data);
+        return $response;
     }
 
     /**

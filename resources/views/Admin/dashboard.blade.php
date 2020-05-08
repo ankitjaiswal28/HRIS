@@ -446,7 +446,7 @@ document.getElementById("demo").innerHTML = d.getDate() + '/' + d.getMonth() + '
         },
         success: function(data) {
             console.log(data);
-           // return;
+           //return;
             if(data === 'IN') {
                 $('#resume').hide();
                 $("#checkout").show();

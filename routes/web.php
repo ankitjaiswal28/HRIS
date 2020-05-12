@@ -23,7 +23,7 @@ Route::get('/logout', 'Authtentication\LoginController@Logout');
 
 /** This Applying Midle Ware On The ROutes */
 Route::group(['middleware' => ['athuthenticate']],function () {
-    
+
     Route::group(['middleware' => ['superadmin']],function (){
         Route::get('SuperAdmin/superadmindahboard' , 'SuperAdmin\DashboardController@index')->name('SuperAdmin/superadmindahboard');
         Route::get('Superadmin/client' , 'SuperAdmin\NavbarController@index')->name('Superadmin/client');
@@ -93,7 +93,7 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/update_timesheet','Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
 
         //////////////////////////////////////////////////////////////
-        
+
 
         Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
         Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
@@ -117,6 +117,8 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('/editUser/{id}','Admin\UserController@editUser')->name('/editUser');
         Route::post('/updateUser', 'Admin\UserController@updateUser')->name('/updateUser');
 
+        /////////////////////////     USer Creation     //////////////////////////////////
+        Route::get('/User_Creation','Admin\UserController@User_Creation')->name('/User_Creation');
 
 
     });

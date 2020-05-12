@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="/asset/css/typicons_icons/typicons.min.css">
     {{-- <link rel="stylesheet" href="../../public/css/bootstrap.css"> --}}
     <link rel="stylesheet" href="/asset/css/datatables.min.css">
-
+    <link rel="stylesheet" href="/asset/css/calender_ui.css">
+    <link href="/asset/css/Timedropper.css" rel="stylesheet">
     <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 

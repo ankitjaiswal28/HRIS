@@ -62,30 +62,9 @@
     font-display: block;
 }
 
-@font-face {
-    font-family: Quicksand;
-    src: url(../Fonts/Quicksand/Quicksand-VariableFont_wght.ttf);
-    font-display: block;
-}
-
-@font-face {
-    font-family: Karla;
-    src: url(../Fonts/Karla/Karla-Regular.ttf);
-    font-display: block;
-}
-
-@font-face {
-    font-family: Poppins;
-    src: url(../Fonts/Poppins/Poppins-Regular.ttf);
-    font-display: block;
-}
-
-
-/* karla , sanserif */
-
 html,
 body {
-    font-family: Karla !important;
+    font-family: KayakSansBold !important;
     /* letter-spacing: 0px; */
 }
 
@@ -2242,11 +2221,9 @@ button:focus {
 }
 
 .h4_middle_line span {
-    text-transform: uppercase;
     color: #333333;
     background: #f8f9fd;
     padding: 0 40px;
-    font-weight: 600;
 }
 
 .neuphormic_shadow {
@@ -2398,42 +2375,4 @@ button:focus {
     float: right;
     margin-top: 15px;
     color: grey;
-}
-
-
-/* //////////////////////////////////////////////////////////////////// */
-
-.counter {
-    display: inline-flex;
-    cursor: pointer;
-    height: 97% !important;
-    width: 80%;
-    max-width: 100%;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    font-size: calc(1em + 1vmin);
-    transition: height .2s ease-in-out;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.2);
-    /* margin: 1em 0; */
-}
-
-.percentage {
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 0;
-    right: 0;
-    vertical-align: middle;
-    transform: translate3d(0, -50%, 0);
-    font-size: 50px;
-}
-
-.circleProgressCanvas {
-    border-radius: 50%;
-    height: 100%;
-    width: 100%;
-    background: #f8f9fd;
 }

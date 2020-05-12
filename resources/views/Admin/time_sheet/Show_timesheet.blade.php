@@ -1,9 +1,11 @@
 @extends('Layout.app')
 @section('content')
-<link rel="stylesheet" href="/asset/css/Calender.css">
 <div class="main_card">
-    {{-- <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/') }}"><i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
-        font-size: 18px;">All Employee</span></a><i class="fa fa-close" aria-hidden="true" style="position: relative;float:right;top: 2px;font-size:20px"></i></div> --}}
+    <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/') }}"><i
+        class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i><span
+        class="bold_text" style="
+        font-size: 18px;">All Employee</span></a><i class="fa fa-close" aria-hidden="true"
+        style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
 <div class="container-fluid">
     <div class="row no_left_margin">
@@ -15,13 +17,16 @@
                         <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
                             <div class="form-group">
                                 <label for="leavetype" class="grey">PROJECT NAME</label>
-                                <select class="form-control" id="PROJECT_ID" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
+                                <select class="form-control" id="PROJECT_ID"
+                                    style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
 
                                     <option>--SELECT--</option>
                                     @foreach ($projectlist as $projectlists)
-                                    <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}</option>
+                                    <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}
+                                    </option>
 
-                                    {{-- <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}</option> --}}
+                                    {{-- <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}
+                                    </option> --}}
                                     @endforeach
 
                                 </select>
@@ -30,165 +35,47 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div>
-                                    <div class="form-group" style="margin-bottom: 8px;">
-                                        <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">SELECT DATE</label>
-                                        <input class="effect-16" type="date" id="TIMESHEET_DATE" placeholder="" style="clear:both">
+                                   <label for="" class="grey">SELECT DATE</label>
+                                    <label for="datepicker" style="width: 100%;margin-bottom: 30px;">
+                                        <input type="text" class="effect-16" id="datepicker" autocomplete="off"
+                                            style="width: 100%;">
+                                    </label>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="datepicker" style="width: 100%;" class="grey">PICK A START TIME
+                                                <input type="text" class="form-control" id="InitialTime" style="font-size: 20px;
+                                                                    border-bottom: 1px solid #cecece !important;
+                                                                ">
+                                            </label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="datepicker" style="width: 100%;" class="grey">PICK A END TIME
+                                                <input type="text" class="form-control" id="EndTime" style="font-size: 20px;
+                                                                    border-bottom: 1px solid #cecece !important;
+                                                                ">
+                                            </label>
+                                        </div>
                                     </div>
-                                    {{-- <div id="datepicker"> --}}
-                                    {{-- <button id="datepicker-button">Open Datepicker</button> --}}
-                                    {{-- <div id="datepicker-container"> --}}
-                                    {{-- <div class="datepicker-header">
-                                                <button class="datepicker-button-change" id="datepicker-previous-button"><span style="position: absolute;font-size: 40px;    font-weight: bold; top: 0 !important;right: auto !important;color: #aaaaaa;float: right !important;">
-                                                        <</span> </button> <div id="datepicker-indicator">
-                                            </div>
-                                            <button class="datepicker-button-change" id="datepicker-next-button"><span style="position: absolute;font-size: 40px;    font-weight: bold; top: 0 !important;right: auto !important;color: #aaaaaa;float: right !important;">></span></button>
-                                        </div> --}}
-                                    <ul id="datepicker-week-title"></ul>
-                                    <div id="datepicker-body"></div>
-
-                                    <button id="datepicker-clear-button">Clear</button>
-                                    {{-- <div>
-                                          <button id="datepicker-submit-button">Submit</button>
-                                        </div> --}}
-                                    {{-- </div> --}}
-                                    {{-- </div> --}}
                                 </div>
 
                             </div>
-                            <div class="row" style="position: relative;width: -webkit-fill-available;top: 5px;left: 5px;">
-                                {{-- <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="datepicker-footer" style="min-height: 20px;" id='datestart'>
-                                        <span id="datepicker-selected-text" style="font-size: 15px;font-weight: bold;top: 5px;"></span>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-md-6 col-sm-6 col-xs-6">
-                                <div class="datepicker-End-footer" id='dateend'>
-                                    <span id="datepicker-End-text" style="font-size: 15px;font-weight: bold;top: 5px;"></span>
-                                </div>
-                            </div> --}}
-
+                            <div class="row"
+                                style="position: relative;width: -webkit-fill-available;top: 5px;left: 5px;">
                             </div>
                         </div>
 
-                        <div class="row" style="position: relative;width: -webkit-fill-available;top: 5px;left: 5px;">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-group" style="margin-bottom: 8px;">
-                                    <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">START TIME</label>
-                                </div>
-                            </div>
 
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <select class="form-control" id="START_HR" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
-
-                                    <option value="00">00</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <select class="form-control" id="START_MIN" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
-
-                                    <option value="00">00</option>
-                                    <option value="05">05</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                    <option value="55">55</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="row" style="position: relative;width: -webkit-fill-available;top: 5px;left: 5px;">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-group" style="margin-bottom: 8px;">
-                                    <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">STOP TIME</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <select class="form-control" id="STOP_HR" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
-
-                                    <option value="00">00</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 col-sm-6 col-xs-6">
-                                <select class="form-control" id="STOP_MIN" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
-
-                                    <option value="00">00</option>
-                                    <option value="05">05</option>
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                    <option value="30">30</option>
-                                    <option value="35">35</option>
-                                    <option value="40">40</option>
-                                    <option value="45">45</option>
-                                    <option value="50">50</option>
-                                    <option value="55">55</option>
-                                </select>
-                            </div>
-
-                        </div>
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-group" style="margin-bottom: 8px;">
-                                    <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
-                                    <textarea class="form-control" rows="2" id="DESCRIPTION" style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
+                                    <label for="reason" class="grey"
+                                        style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
+                                    <textarea class="form-control" rows="2" id="DESCRIPTION"
+                                        style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
                                 </div>
-                                <button type="submit" class="btnn" id="submit_form" style="float: right;border: none;width: 150px;">Submit</button>
+                                <button type="submit" class="btnn" id="submit_form"
+                                    style="float: right;border: none;width: 150px;">Submit</button>
                             </div>
                         </div>
 
@@ -227,13 +114,15 @@
                     <div class="form-group">
                         <input type="hidden" id="TIMESHEET_ID">
                         <label for="leavetype" class="grey">PROJECT NAME</label>
-                        <select class="form-control" id="UP_PROJECT_ID" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;   padding: 5px !important;">
+                        <select class="form-control" id="UP_PROJECT_ID"
+                            style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;   padding: 5px !important;">
 
                             <option>--SELECT--</option>
                             @foreach ($projectlist as $projectlists)
                             <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}</option>
 
-                            {{-- <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}</option> --}}
+                            {{-- <option value="{{ $projectlists->PROJECT_ID }}">{{ $projectlists->PROJECT_NAME }}
+                            </option> --}}
                             @endforeach
 
                         </select>
@@ -243,8 +132,10 @@
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div>
                             <div class="form-group" style="margin-bottom: 8px;">
-                                <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">SELECT DATE</label>
-                                <input class="effect-16" type="date" id="UP_TIMESHEET_DATE" placeholder="" style="clear:both">
+                                <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">SELECT
+                                    DATE</label>
+                                <input class="effect-16" type="date" id="UP_TIMESHEET_DATE" placeholder=""
+                                    style="clear:both">
                             </div>
 
 
@@ -257,12 +148,14 @@
                 <div class="row" style="position: relative;width: -webkit-fill-available;top: 5px;left: 5px;">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group" style="margin-bottom: 8px;">
-                            <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">START TIME</label>
+                            <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">START
+                                TIME</label>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <select class="form-control" id="UP_START_HR" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
+                        <select class="form-control" id="UP_START_HR"
+                            style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
 
                             <option value="00">00</option>
                             <option value="01">01</option>
@@ -292,7 +185,8 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <select class="form-control" id="UP_START_MIN" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
+                        <select class="form-control" id="UP_START_MIN"
+                            style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
 
                             <option value="00">00</option>
                             <option value="05">05</option>
@@ -313,12 +207,14 @@
                 <div class="row" style="position: relative;width: -webkit-fill-available;top: 5px;left: 5px;">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group" style="margin-bottom: 8px;">
-                            <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">STOP TIME</label>
+                            <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">STOP
+                                TIME</label>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <select class="form-control" id="UP_STOP_HR" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
+                        <select class="form-control" id="UP_STOP_HR"
+                            style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
 
                             <option value="00">00</option>
                             <option value="01">01</option>
@@ -348,7 +244,8 @@
                         </select>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6">
-                        <select class="form-control" id="UP_STOP_MIN" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
+                        <select class="form-control" id="UP_STOP_MIN"
+                            style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
 
                             <option value="00">00</option>
                             <option value="05">05</option>
@@ -369,24 +266,26 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group" style="margin-bottom: 8px;">
-                            <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
-                            <textarea class="form-control" rows="2" id="UP_DESCRIPTION" style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
+                            <label for="reason" class="grey"
+                                style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
+                            <textarea class="form-control" rows="2" id="UP_DESCRIPTION"
+                                style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
                         </div>
-                        <button type="submit" class="btnn" id="submit_update" style="float: right;border: none;width: 150px;">Submit</button>
+                        <button type="submit" class="btnn" id="submit_update"
+                            style="float: right;border: none;width: 150px;">Submit</button>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 {{-- //////////////////////////         Calender datepicker  Script      ////////////////////////////// --}}
 <script src="/asset/js/jquery.min.js"></script>
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script> --}}
-{{-- <script src="/asset/js/calender.js"></script> --}}
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>
+<script src="/asset/js/Jquery_ui_1_12_1.min.js"></script>
+<script src="/asset/js/Timedropper.js"></script>
 {{-- <script>
     $('#example').DataTable({
         language: {
@@ -399,6 +298,58 @@
         }
     });
 </script> --}}
+
+<script type="text/javascript">
+    // INCLUDE JQUERY & JQUERY UI 1.12.1
+    $("#datepicker").datepicker({
+        dateFormat: 'dd-mm-yy'
+    }).datepicker("setDate", new Date());
+    $(function() {
+        $("#datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            duration: "fast"
+        });
+    });
+
+    $("#InitialTime").timeDropper({
+        format: 'H:mm A',
+        meridians: false,
+        setCurrentTime: false,
+    });
+
+    $("#EndTime").timeDropper({
+        format: 'H:mm A',
+        meridians: false,
+        setCurrentTime: false,
+    });
+
+    $(document).ready(function() {
+        $("#datepicker-submit-button").click(function() {
+            var GetDate = $('#datepicker').val();
+            console.log("Selected Date:", GetDate);
+
+            var GetInitialTime = $('#InitialTime').val();
+            console.log("Initial Time:", GetInitialTime);
+
+            var GetEndTime = $('#EndTime').val();
+            console.log("End Time:", GetEndTime);
+
+            var starttime = GetInitialTime.split(' ')[0];
+            var Stime = starttime + ':00';
+            var endtime = GetEndTime.split(' ')[0];
+            var Etime = endtime + ':00';
+            console.log("Stime:", Stime);
+            console.log("Etime:", Etime);
+
+            if (Stime > Etime)
+                alert("Time 1 is later than time 2");
+            else
+                alert("Time 2 is later than time 1");
+
+        });
+    });
+</script>
+
 <script>
     //////////////////////////////        Edit Popup          //////////////////////////////////
 var edit_popup = document.getElementById('edit_popup-wrapper');
@@ -537,10 +488,10 @@ function editapplyleavetype(id) {
  });
  });
 
- </script>
+</script>
 
 <script>
-     $(document).ready(function() {
+    $(document).ready(function() {
         $("#submit_update").click(function(e) {
             e.preventDefault();
 
@@ -592,4 +543,3 @@ function editapplyleavetype(id) {
 </script>
 
 @endsection
-

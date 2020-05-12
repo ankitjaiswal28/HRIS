@@ -21,6 +21,12 @@ class UserController extends Controller
         return view('Admin.ShowallUser');
     }
 
+    public function User_Creation()
+    {
+        return view('Admin.User_Creation');
+    }
+
+
     /**
      * It will Be Return The Data Table  Of Records
      *

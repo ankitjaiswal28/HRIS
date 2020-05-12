@@ -131,15 +131,12 @@ Route::group(['middleware' => ['athuthenticate']],function () {
 
 
 
-<<<<<<< HEAD
         /////////////////////////     USer Creation     //////////////////////////////////
         Route::get('/User_Creation','Admin\UserController@User_Creation')->name('/User_Creation');
-=======
 // For Geting Rolmangers Name
 Route:: post('/getUsers', 'DefaultController@getUserName');
 // For Geting Rolmangers Name
 Route:: post('/getDepartments', 'DefaultController@getDepartments');
->>>>>>> 29975942b5fa7cd3868337fbe4a9a24c77a21bb5
 
 
     });

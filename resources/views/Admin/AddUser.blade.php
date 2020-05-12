@@ -47,7 +47,7 @@
 
                                     </div>
                                     <div class="">
-                                    <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger">
+                                    <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger" required ="">
                                     <?php
                                      $length = count($users);
                                     for($j = 0 ; $j < $length; $j++) {
@@ -60,6 +60,43 @@
                                     </select>
                                         <span class="focus-border"></span>
                                     </div>
+                                    <div class="colll-3 input-effect">
+                                    <div class="form-group">
+                                <select class="form-control" id="primaryreportingmangers"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
+                                    <option value="">Select Primary Manger</option>
+
+                                </select>
+                            </div>
+                            </div>
+                            <div class="colll-3 input-effect">
+                            <div class="form-group">
+                                <select class="form-control" id="functions"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
+                                    <option value="">Select Functions</option>
+                                    <?php
+                                     $functionslength = count($functions);
+                                    for($m = 0 ; $m < $functionslength; $m++) {
+                                        ?>
+                                        <option value={{$functions[$m]->FUNCTION_ID}}><?php echo $functions[$m]->FUNCTION_NAME?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                    {{-- <option>Planned Leave</option>
+                                    <option>Unplanned Leave</option>
+                                    <option>Maternity Leave</option> --}}
+                                </select>
+                            </div>
+                                    </div>
+                                    <div class="colll-3 input-effect">
+                                    <div class="form-group">
+                                <select class="form-control" id="departmens"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+                            </div>
                                     <div class="colll-3 input-effect">
                                     <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
                                         <label>User Email</label>
@@ -126,13 +163,79 @@
      $('.js-example-basic-multiple').select2();
      $("#roles").select2({
     placeholder: "Roles",
-    allowClear: true
+    allowClear: true,
+    width:"100%"
 });
 $("#reportingmanger").select2({
     placeholder: "Reporting Mangers",
-    allowClear: true
+    allowClear: true,
+    width:"100%"
 })
 
+$('#functions').on('change', function (e) {
+    var Val = $(this).val();
+    if(Val != null || Val == '') {
+     // console.log(Val);
+
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+     $.ajax({
+         url: '/getDepartments',
+                type: 'POST',
+                data: {
+                    functions: $(this).val()
+                    },
+                    success: function(data) {
+                        console.log('Data', data);
+                       // return;
+                        console.log('Length', data.length);
+                        var lengths = data.length
+                        $('#departmens').empty();
+                        $('#departmens').append(`<option value="">Select Department</option>`);
+                        for(let j = 0; j < lengths ; j++){
+
+                            $('#departmens').append(`<option value="`+ data[j].DEPARTMENT_ID + `">`+ data[j].DEPARTMENT_NAME + ` </option>`);
+                        }
+                    }
+            })
+    }
+
+});
+
+$('#reportingmanger').on('change', function (e) {
+    var Val = $(this).val();
+    if(Val != null || Val == '') {
+     // console.log(Val);
+
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+     $.ajax({
+         url: '/getUsers',
+                type: 'POST',
+                data: {
+                    roles: $(this).val()
+                    },
+                    success: function(data) {
+                        console.log('Data', data);
+                        console.log('Length', data.length);
+                        var lengths = data.length
+                        $('#primaryreportingmangers').empty();
+                        $('#primaryreportingmangers').append(`<option value="">Select Primary Manger</option>`);
+                        for(let j = 0; j < lengths ; j++){
+                            console.log(data[j].username);
+                            $('#primaryreportingmangers').append(`<option value="`+ data[j].userId + `">`+ data[j].username + ` </option>`);
+                        }
+                    }
+            })
+    }
+
+});
      $('#loading-image').bind('ajaxStart', function() {
          $(this).show();
 	}).bind('ajaxStop', function() {
@@ -143,7 +246,7 @@ $("#reportingmanger").select2({
         event.preventDefault();
         // Validate all input fields.
         var isValid = true;
-        $('input').each( function() {
+        $('#client_form').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
         // console.log('Welcome' + isValid);
@@ -164,12 +267,15 @@ $("#reportingmanger").select2({
                     roles: $("#roles").val(),
                     username: $('#username').val(),
                     reportingmanger: $('#reportingmanger').val(),
+                    primarymanger: $('#primaryreportingmangers').val(),
                     email: $('#email').val(),
                     pwd: $('#pwd').val(),
+                    departmens: $('#departmens').val(),
+                    functions: $('#functions').val(),
                     },
                     success: function(data) {
                         console.log('Data', data);
-                         // return;
+                        // return;
                          var response = data.trim();
                          if(response == 'Erorr'){
                              alert('Something Went Wrong')

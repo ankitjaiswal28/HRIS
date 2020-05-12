@@ -9,6 +9,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
+
 class UserController extends Controller
 {
     /**
@@ -55,14 +56,15 @@ class UserController extends Controller
         })
         ->addColumn('PRIMARY_MANGER', function ($query) {
             if ($query->PRIMARY_MANGER != null) {
-                return $query->PRIMARY_MANGER ;
+                $assinedusers = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $query->PRIMARY_MANGER])->get()->first();
+                return $assinedusers->username ;
             } else {
                 return 'Not Assinded';
             }
         })
-        ->addColumn('assgin', function ($query) {
-            return '<a href="'.action('Admin\RoleController@showAllClientModule', Crypt::encrypt($query->userId)).'" id="userform'.$query->userId.'">Assgin</a>';
-        })
+        // ->addColumn('assgin', function ($query) {
+        //     return '<a href="'.action('Admin\RoleController@showAllClientModule', Crypt::encrypt($query->userId)).'" id="userform'.$query->userId.'">Assgin</a>';
+        // })
         ->addColumn('action', function ($query) {
             $id = Crypt::encrypt($query->userId);
             return '<a href="'.action('Admin\UserController@editUser', Crypt::encrypt($query->userId)).'" id="userform'.$query->userId.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
@@ -70,7 +72,7 @@ class UserController extends Controller
                 style="width: 15px;    filter: invert(0.5);" alt=""></a>
                 ';
         })
-        ->rawColumns(['action', 'assgin', 'PRIMARY_MANGER' ,'master_roleId','REPORTING_MANGERS'])
+        ->rawColumns(['action', 'PRIMARY_MANGER' ,'master_roleId','REPORTING_MANGERS'])
        ->make(true);
 
     }
@@ -86,8 +88,9 @@ class UserController extends Controller
         //print_r('dfdfdfdf');
         $roles = $model->showAllData('mst_tbl_master_role');
         $users = $model->showAllData('mst_user_tbl');
+        $functions = $model->showAllData('mst_tbl_functions');
         // print_r($roles);
-         return view('Admin.AddUser', compact('roles', 'users'));
+         return view('Admin.AddUser', compact('roles', 'users', 'functions'));
     }
 
     /**
@@ -98,6 +101,7 @@ class UserController extends Controller
      */
     public function createUser(Request $request)
     {
+
         $model = new mainModel();
         $orignalDb =$request->session()->get('orignaldb');
         $dynamicdatabase =$request->session()->get('databasename');
@@ -110,8 +114,12 @@ class UserController extends Controller
         $reportingmanger = $request->reportingmanger;
         $email = $request->email;
         $pwd = $request->pwd;
+        $primarymanger = $request->primarymanger;
         $MASTER_ROLE_ID = implode(",",$Roles);
         $REPORTING_MANAGER = implode(",",$reportingmanger);
+        $departmens = $request->departmens;
+        $functions = $request->functions;
+
         $encryptPassword = Crypt::encrypt($pwd);
         $data['orignalDb'] = $orignalDb;
         $data['ROLEID'] = $ROLEID;
@@ -123,6 +131,10 @@ class UserController extends Controller
         $data['REPORTING_MANAGER'] = $REPORTING_MANAGER;
         $data['dynamicdatabase'] = $dynamicdatabase;
         $data['CLIENT_ID'] = $CLIENT_ID;
+        $data['PRIMARY_MANGER'] = $primarymanger;
+        $data['FUNCTION_NAME_ID'] = $functions;
+        $data['DEPARTMENTS_ID'] = $departmens;
+
         $response = $model->UserCraetion($data);
         return $response;
         // print_r($orignalDb);

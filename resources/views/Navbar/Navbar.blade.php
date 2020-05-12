@@ -74,6 +74,12 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/Admin/User">User</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/Departments">Department</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/Functions">Function</a>
+            </li>
         @endif
         @if (session('roleId') == '3')
              <li class="nav-item active">

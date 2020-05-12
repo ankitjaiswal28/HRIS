@@ -4,12 +4,12 @@
     <div class="row" style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
         <div style="padding:8px 35px;">
             <div>
-                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | User's</h3>
+                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Admin/admindahboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | Department's</h3>
             </div>
         </div>
-        <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
+        <div class="absolute_add_btn" style=""><a href="{{ url('/Admin/admindahboard') }}"><i
                     class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
-                href="{{ url('/Admin/Add_User') }}"><i class="fa fa-plus fafa_add_circle_right"
+                href="{{ url('/Admin/Add_Departments') }}"><i class="fa fa-plus fafa_add_circle_right"
                     aria-hidden="true"></i></a></div>
     </div>
 </div>
@@ -20,27 +20,10 @@
         <thead>
             <tr>
                 <th>Sr</th>
-                <th>User Name</th>
-                <th>EmailId</th>
-                <th>Roles</th>
-                <th>Reporting Managers</th>
-                <th>Primary  Reporting Manager</th>
-                {{-- <th>Set Primary Manager</th> --}}
+                <th>Department Name</th>
                 <th>Action</th>
             </tr>
         </thead>
-        {{-- <tbody>
-            <tr>
-                <td>1</td>
-                <td>Hr</td>
-                <td class="grey_font"><a href="{{ url('/Superadmin/Edit_Module') }}">Assign</a></td>
-                <td class="grey_font"><a href="{{ url('/Superadmin/Add_Role') }}"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"
-                            style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
-                    <a href=""><img src="/asset/css/zondicons/zondicons/close.svg"
-                            style="width: 15px;    filter: invert(0.5);" alt=""></a>
-                </td>
-            </tr>
-        </tbody> --}}
     </table>
 </div>
 <script src="/asset/js/jquery.js"></script>
@@ -61,35 +44,19 @@ $('#example').DataTable({
     serverSide: true,
     searchable: true,
     ajax : {
-    url : path + '/show_alluser_datatbl',
+    url : path + '/show_alldepartment_datatbl',
     type : 'post',
     data : {_token: CSRF_TOKEN},
     },
     columns: [
         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-        { data: 'username', name: 'username' },
-        { data: 'emailId', name: 'emailId' },
-        { data: 'master_roleId', name: 'master_roleId' },
-        { data: 'REPORTING_MANGERS', name: 'REPORTING_MANGERS' },
-        { data: 'PRIMARY_MANGER', name: 'PRIMARY_MANGER' },
-        // { data: 'moduleLink', name: 'moduleLink' },
-      //  {{-- { data: 'assgin', name: 'assgin' }, --}}
+        { data: 'DEPARTMENT_NAME', name: 'DEPARTMENT_NAME' },
         { data: 'action', name: 'action' }
 
 
     ]
 });
-   /* $('#example').DataTable({
-        language: {
-        searchPlaceholder: "Search records",
-        search: "<i class='fa fa-search' aria-hidden='true'></i>",
-        paginate: {
-      next: '<span class="typcn typcn-arrow-right-outline"></span>', // or '→'
-      previous: '<span class="typcn typcn-arrow-left-outline"></span>' // or '←'
-    }
-      }
-   });*/
-   function deleteUser(id,event) {
+   function deleteDepartments(id,event) {
     event.preventDefault(); // prevent form submit
 
     $('#loading-image').show();
@@ -100,14 +67,14 @@ $('#example').DataTable({
                 }
             });
             $.ajax({
-                url: '/deletethisUser/' + id ,
+                url: '/deletethisDepartment/' + id ,
                 type: 'get',
                 success: function(data) {
                         console.log('Data', data);
                         //return;
                          var response = data.trim();
                          if(response == 'Done'){
-                            alert('User Deleted Sucessfuly');
+                            alert('Department Deleted Sucessfuly');
                          } else {
                              alert('Something Went Wrong');
                          }

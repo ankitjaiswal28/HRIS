@@ -21,9 +21,11 @@ Route::post('/checklogin', 'Authtentication\LoginController@CheckLogin');
 // Authentication of User
 Route::get('/logout', 'Authtentication\LoginController@Logout');
 
+
+
 /** This Applying Midle Ware On The ROutes */
 Route::group(['middleware' => ['athuthenticate']],function () {
-    
+
     Route::group(['middleware' => ['superadmin']],function (){
         Route::get('SuperAdmin/superadmindahboard' , 'SuperAdmin\DashboardController@index')->name('SuperAdmin/superadmindahboard');
         Route::get('Superadmin/client' , 'SuperAdmin\NavbarController@index')->name('Superadmin/client');
@@ -52,9 +54,9 @@ Route::group(['middleware' => ['athuthenticate']],function () {
     Route::group(['middleware' => ['admin']],function (){
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
          ///////////project master///////////////////////////////////
-        Route:: get('/applyleave', 'Admin\ApplyleaveController@applyleave')->name('/applyleave');
-        Route::post('/insert_applyleave', 'Admin\ApplyleaveController@insert_applyleave')->name('/insert_applyleave');
-        Route:: get('/Show_timesheet', 'Admin\TimesheetController@Show_timesheet')->name('/Show_timesheet');
+
+
+        // Route:: get('/Show_timesheet', 'Admin\TimesheetController@Show_timesheet')->name('/Show_timesheet');
         Route:: get('/leave_details', 'Admin\ApplyleaveController@leave_details')->name('/leave_details');
         Route:: get('/Leave_manage', 'Admin\ApplyleaveController@Leave_manage')->name('/Leave_manage');
         Route::post('/show_pending_leave_request' , 'Admin\ApplyleaveController@show_pending_leave_request')->name('/show_pending_leave_request');
@@ -85,15 +87,10 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('project/editproject/{projectid}','Admin\ProjectMasterController@edit_project')->name('project/editproject');
         Route::post('/update_all_data','Admin\ProjectMasterController@update_project')->name('update_all_data');
         //////////////////PROJECT MASTER END////////////////////////
-        /////////////////////time sheet//////////////////////////////
-        Route::get('timesheet/showdata','Admin\TimeSheetController@index')->name('timesheet/showdata');
-        Route::post('timesheet/createdata','Admin\TimeSheetController@add_timesheet')->name('timesheet/createdata');
-        Route::post('/show_all_timesheet','Admin\TimeSheetController@show_all_timesheet')->name('/show_all_timesheet');
-        Route::post('/timesheet_get_data','Admin\TimeSheetController@timesheet_get_data')->name('/timesheet_get_data');
-        Route::post('/update_timesheet','Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
+
 
         //////////////////////////////////////////////////////////////
-        
+
 
         Route::get('Admin/role' , 'Admin\RoleController@ShowRoles')->name('Admin/role');
         Route::get('Admin/Add_roles' , 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
@@ -116,7 +113,28 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('deletethisUser/{id}','Admin\UserController@destroy')->name('deletethisUser');
         Route::get('/editUser/{id}','Admin\UserController@editUser')->name('/editUser');
         Route::post('/updateUser', 'Admin\UserController@updateUser')->name('/updateUser');
+        Route::get('Admin/Departments','Admin\DepartmentController@listofDepartments')->name('Admin/Departments');
+        Route::post('/show_alldepartment_datatbl' , 'Admin\DepartmentController@show_alldepartment_datatbl')->name('/show_alldepartment_datatbl');
+        Route::get('Admin/Add_Departments' , 'Admin\DepartmentController@AddDepartmentPage')->name('Admin/Add_Departments');
+        Route::post('/craeteDepartmemnt' , 'Admin\DepartmentController@addDepartments')->name('/craeteDepartmemnt');
+        Route::get('/editDepartments/{id}','Admin\DepartmentController@editDepartments')->name('/editDepartments');
+        Route::post('/updateDepartments', 'Admin\DepartmentController@updateDepartment')->name('/updateDepartments');
+        Route::get('deletethisDepartment/{id}','Admin\DepartmentController@destroy')->name('deletethisDepartment');
 
+        Route::get('Admin/Functions','Admin\FunctionController@listofFunctions')->name('Admin/Functions');
+        Route::post('/show_allfunctions_datatbl' , 'Admin\FunctionController@show_allfunctions_datatbl')->name('/show_allfunctions_datatbl');
+        Route::get('Admin/Add_Functions' , 'Admin\FunctionController@AddCreateFunctionPage')->name('Admin/Add_Functions');
+        Route::post('/craeteFunctions' , 'Admin\FunctionController@addFunctions')->name('/craeteFunctions');
+        Route::get('/editFunctions/{id}','Admin\FunctionController@editFunctions')->name('/editFunctions');
+        Route::post('/updateFunctions', 'Admin\FunctionController@updateFunctions')->name('/updateFunctions');
+        Route::get('deletethisFunction/{id}','Admin\FunctionController@destroy')->name('deletethisFunction');
+
+
+
+// For Geting Rolmangers Name
+Route:: post('/getUsers', 'DefaultController@getUserName');
+// For Geting Rolmangers Name
+Route:: post('/getDepartments', 'DefaultController@getDepartments');
 
 
     });
@@ -126,6 +144,14 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
     Route:: post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
     Route:: post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
+     /////////////////////time sheet//////////////////////////////
+    Route::get('timesheet/showdata','Admin\TimeSheetController@index')->name('timesheet/showdata');
+ Route::post('timesheet/createdata','Admin\TimeSheetController@add_timesheet')->name('timesheet/createdata');
+ Route::post('/show_all_timesheet','Admin\TimeSheetController@show_all_timesheet')->name('/show_all_timesheet');
+ Route::post('/timesheet_get_data','Admin\TimeSheetController@timesheet_get_data')->name('/timesheet_get_data');
+ Route::post('/update_timesheet','Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
+    Route:: get('/applyleave', 'Admin\ApplyleaveController@applyleave')->name('/applyleave');
+    Route::post('/insert_applyleave', 'Admin\ApplyleaveController@insert_applyleave')->name('/insert_applyleave');
     });
 
 

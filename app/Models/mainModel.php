@@ -685,10 +685,10 @@ class mainModel extends Model
         $databasename = $userClient->CLIENT_PREFIX. '_management';
         // return $databasename;
         // exit();
-        $Delete_query = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update([$updated]);
+        $Delete_query = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($updated);
         $message = '';
         if ($Delete_query  != '') {
-            $query = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update([$updated]);
+            $query = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($updated);
             if ($query != '') {
                 Config::set('database.connections.dynamicsql.database', $databasename);
                 Config::set('database.default', 'dynamicsql');
@@ -849,6 +849,9 @@ class mainModel extends Model
         // $userid = $data['userid'];
         // $username = $data['username'];
         // $timaestamp = date("Y-m-d H:i:s");
+        // $Stutus = $this->SendMails('4', 'Ankit Jaiswal');
+        // print($Stutus);
+        // exit;
         $orignalDb = $data['orignalDb'];
         $CLIENT_ID = $data['CLIENT_ID'];
         $ROLEID = $data['ROLEID'];
@@ -862,6 +865,13 @@ class mainModel extends Model
         $PRIMARY_MANGER = $data['PRIMARY_MANGER'];
         $FUNCTION_NAME_ID = $data['FUNCTION_NAME_ID'];
         $DEPARTMENTS_ID = $data['DEPARTMENTS_ID'];
+        $DOJ = $data['DOJ'];
+        $EMPLOYE_TYPE = $data['EMPLOYE_TYPE'];
+        $DESIGNATION_ID = $data['DESIGNATION_ID'];
+        $ADMINCLIENT_ID = $data['ADMINCLIENT_ID'];
+        $GRADEORLEVEL_ID =$data['GRADEORLEVEL_ID'];
+
+
         $timaestamp = date("Y-m-d H:i:s");
         Config::set('database.connections.mysql.database', $orignalDb);
         Config::set('database.default', 'mysql');
@@ -884,6 +894,12 @@ class mainModel extends Model
                 $userdata['PRIMARY_MANGER'] = $PRIMARY_MANGER;
                 $userdata['FUNCTION_NAME_ID'] = $FUNCTION_NAME_ID;
                 $userdata['DEPARTMENTS_ID'] = $DEPARTMENTS_ID;
+                $userdata['DOJ'] = $DOJ;
+                $userdata['EMPLOYE_TYPE'] = $EMPLOYE_TYPE;
+                $userdata['DESIGNATION_ID'] = $DESIGNATION_ID;
+                $userdata['ADMINCLIENT_ID'] = $ADMINCLIENT_ID;
+                $userdata['GRADEORLEVEL_ID'] = $GRADEORLEVEL_ID;
+
                 $cilentuserId = $this->insertRecords($userdata, 'mst_user_tbl');
                 if ($cilentuserId != '') {
                     Config::set('database.connections.mysql.database', $orignalDb);
@@ -912,7 +928,7 @@ class mainModel extends Model
                         Wlecome To Our Orginaztion We are gald To Inform You That Have been Selected In Our Orginazation.
                         please Fill Your Form <a href='".$ServeAddres."'>UserCreation</a>";
                         $saveMialReports['SUBJECT'] = $Subject;
-                        $saveMialReports['FROM_MAILID'] = 'anki28.1996@gmail.com';
+                        $saveMialReports['FROM_MAILID'] = 'myanki28@gmail.com';
                         $saveMialReports['TO_MAILID'] = $To;
                         $saveMialReports['MAIL_BODY'] = $body;
                         $saveMialReports['CC_MAILID'] = $cc;
@@ -1079,6 +1095,7 @@ class mainModel extends Model
      */
     function SendMails($MailId,$UserName) {
         $mailReports = DB::table('mst_tbl_mail_reports')->where(['Flag' => 'Show', 'MAIL_ID' => $MailId])->get()->first();
+        // print_r($mailReports);exit;
         $data['body'] = $mailReports->MAIL_BODY;
         $to = $mailReports->TO_MAILID;
         $fromId = $mailReports->FROM_MAILID;
@@ -1249,5 +1266,105 @@ class mainModel extends Model
         }
         return $message;
     }
+
+    /**
+     * This Function will Check Designation Name  Exit Or Not If Not Then It will Create The Designation
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Designation To Create
+     * @return \Illuminate\Http\Response Return The Messge That Designation Craeted Or Already Exits
+     */
+    public function addDesignations($data)
+    {
+        $DESGINATION_NAME = $data['DESGINATION_NAME'];
+        $departmentDetails = DB::table('mst_tbl_designations')->where(['Flag' => 'Show', 'DESGINATION_NAME' => $DESGINATION_NAME])->get()->count();
+        $message = '';
+        if ($departmentDetails == 0) {
+            $insertDepartment = $this->insertRecords($data, 'mst_tbl_designations');
+            if ($insertDepartment != '') {
+               $message = 'Done';
+            } else {
+               $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Check Designation Name  Exit Or Not If Not Then Update  The Designation Name
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Designation Name To Update
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Designation Name To Update
+     * @return \Illuminate\Http\Response Return The Messge That Designation Name Updeted Or Already Exits
+     */
+    public function updateDesignations($data, $id)
+    {
+        $DESGINATION_NAME = $data['DESGINATION_NAME'];
+        $DesignationDetails = DB::table('mst_tbl_designations')->where(['Flag' => 'Show', 'DESGINATION_NAME' => $DESGINATION_NAME])->where('DESIGNATION_ID', '!=', $id)->get()->count();
+        $message = '';
+        if ($DesignationDetails == 0) {
+            $updateDesignation= DB::table('mst_tbl_designations')->where(['Flag'=>'Show','DESIGNATION_ID'=>$id])->update($data);
+            // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
+            if ($updateDesignation != '') {
+               $message = 'Done';
+            } else {
+               $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Delete Designation
+     * @param $tablename \Illuminate\Http\Request  $id Will Have Funbction  To be Deleted  Id
+     * @return \Illuminate\Http\Response Return the Response that Desgination Is  Deleted
+     */
+    public function deleteDesignations($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_designations')->where(['Flag'=>'Show','DESIGNATION_ID'=>$id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Add The Policyes to the Client
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Polycies To be Added To Client
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Client
+     * @param  $orignaldatabase WIll Have Database name
+     * @return \Illuminate\Http\Response Return The Messge That Polices is Added
+     */
+    public function AddPolicyes($data, $id, $orignaldatabase)
+    {
+        $deaatils = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->get()->first();
+        $GRADEORLEVEL = $data['GRADEORLEVEL'];
+        $updatePolicyies = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($data);
+      //  print_r($updatePolicyies);exit;
+        $message = '';
+        if ($updatePolicyies != '' ) {
+            $dynamicDB = $deaatils->CLIENT_PREFIX . '_management';
+            Config::set('database.connections.dynamicsql.database', $dynamicDB);
+            Config::set('database.default', 'dynamicsql');
+            if($GRADEORLEVEL == 'Grade') {
+                DB::statement("DROP table mst_tbl_levels");
+                // DB::table('mst_tbl_levels')->delete();
+                $message ='LevelDeleted';
+            } else {
+                DB::statement("DROP table mst_tbl_grade");
+                // DB::table('mst_tbl_grade')->delete();
+                $message ='GradeDeleted';
+            }
+
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+
+    }
+
 
 }

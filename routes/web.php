@@ -49,6 +49,10 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('user/edit/{id}','SuperAdmin\TableController@edit')->name('user/edit');
         /** Add Module */
         Route::post('/addmodule', 'SuperAdmin\NavbarController@AddModule')->name('/addmodule');
+        Route::get('/showAllPoliyces/{id}','SuperAdmin\TableController@showAllPoliycyes')->name('/showAllPoliyces');
+        // Route::get('SuperAdmin/Poliyces' , 'SuperAdmin\PolicyesController@index')->name('SuperAdmin/Poliyces');
+        Route::post('/updatepoliyices', 'SuperAdmin\PolicyesController@updatepoliyices')->name('/updatepoliyices');
+
         ///////////////////////////////////////////////////////////////////////////////////
     });
     Route::group(['middleware' => ['admin']],function (){
@@ -129,7 +133,15 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::post('/updateFunctions', 'Admin\FunctionController@updateFunctions')->name('/updateFunctions');
         Route::get('deletethisFunction/{id}','Admin\FunctionController@destroy')->name('deletethisFunction');
 
+        Route::get('Admin/Designation','Admin\DesignationController@listofDesignations')->name('Admin/Designation');
+        Route::post('/show_alldesignation_datatbl' ,'Admin\DesignationController@show_alldesignation_datatbl')->name('/show_alldesignation_datatbl');
+        Route::get('Admin/Add_Designations' , 'Admin\DesignationController@AddDesignation')->name('Admin/Add_Designations');
+        Route::post('/craeteDesignation' , 'Admin\DesignationController@addDesignations')->name('/craeteDesignation');
+        Route::get('/editDesignations/{id}','Admin\DesignationController@editDesignations')->name('/editFunctions');
+        Route::post('/updateDesignation', 'Admin\DesignationController@updateDesignation')->name('/updateDesignation');
+        Route::get('deletethisDesignation/{id}','Admin\DesignationController@destroy')->name('deletethisDesignation');
 
+        Route::get('Admin/LevelsorGrade','Admin\LevelOrGradeControlller@listofSystems')->name('Admin/LevelsorGrade');
 
         /////////////////////////     USer Creation     //////////////////////////////////
         Route::get('/User_Creation','Admin\UserController@User_Creation')->name('/User_Creation');

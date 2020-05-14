@@ -2437,3 +2437,10 @@ button:focus {
     width: 100%;
     background: #f8f9fd;
 }
+
+.select_2 {
+    height: calc(2.5rem + 2px);
+    border-bottom: 1px solid #cecece !important;
+    padding: 5px !important;
+}
+

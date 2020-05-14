@@ -38,9 +38,9 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/SuperAdmin/Show_Module">Module</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="">User</a>
-            </li>
+            {{-- <li class="nav-item">
+                <a class="nav-link"  href="/SuperAdmin/Poliyces">Policyes</a>
+            </li> --}}
         @endif
         @if (session('roleId') == '2')
              <li class="nav-item active">
@@ -80,6 +80,13 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/Admin/Functions">Function</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/Designation">Designations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/Admin/LevelsorGrade">Levels/Grade</a>
+            </li>
+            {{-- ShowallLevelsOrGrade.blade --}}
         @endif
         @if (session('roleId') == '3')
              <li class="nav-item active">

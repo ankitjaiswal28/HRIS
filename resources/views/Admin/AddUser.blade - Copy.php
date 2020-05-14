@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="row">
                         <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add User <?php //print_r($finaldata);?></h1>
+                            <h1 class="left_border font_grey" style="float: left;">Add User</h1>
                         </div>
                         <div class="col-md-2">
                             <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
@@ -30,64 +30,6 @@
                                     <label for="datepicker" style="width: 100%;margin-bottom: 30px;">
                                         <input type="text" class="effect-16" id="datepicker" autocomplete="off" required ="" data-parsley-trigger="blur">
                                     </label>
-                                    <div class="colll-3 input-effect">
-                            <div class="form-group">
-                                <select class="form-control select_2" id="functions"
-                                     required ="">
-                                    <option value="">Select Functions</option>
-                                    <?php
-                                     $functionslength = count($functions);
-                                    for($m = 0 ; $m < $functionslength; $m++) {
-                                        ?>
-                                        <option value={{$functions[$m]->FUNCTION_ID}}><?php echo $functions[$m]->FUNCTION_NAME?></option>
-
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <div class="form-group select_2">
-                                <select class="form-control" id="departmens"
-                                     required ="">
-                                    <option value="">Select Department</option>
-                                </select>
-                            </div>
-                            </div>
-                            <div class="colll-3 input-effect">
-                            <div class="form-group">
-                                <select class="form-control select_2" id="gradeorlevel"
-                                     required ="">
-                                    <option value="">Select {{$types}}</option>
-                                    <?php
-                                     $desigantionslength = count($finaldata);
-                                    for($v = 0 ; $v < $desigantionslength; $v++) {
-                                        ?>
-                                        <option value ="<?php echo $types;?>_<?php echo $finaldata[$v]['Id'];?>">{{$finaldata[$v]['Name']}}</option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                                    </div>
-                                        <div class="colll-3 input-effect">
-                            <div class="form-group">
-                                <select class="form-control select_2" id="designation"
-                                     required ="">
-                                    <option value="">Select Desginations</option>
-                                    <?php
-                                     $desigantionslength = count($desigantions);
-                                    for($l = 0 ; $l < $desigantionslength; $l++) {
-                                        ?>
-                                        <option value={{$desigantions[$l]->DESIGNATION_ID}}><?php echo $desigantions[$l]->DESGINATION_NAME?></option>
-
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                                    </div>
                                     <div class="">
                                     <select class="js-example-basic-multiple" name="roles[]" multiple="multiple" id="roles" data-parsley-trigger="change" required="required">
                                     <?php
@@ -103,44 +45,10 @@
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <div class="form-group">
-                                <select class="form-control select_2" id="employetype"
-                                     required ="">
-                                    <option value="">Select Employee Type</option>
-                                    <option value="Permanent">Permanent</option>
-                                    <option value="Contractual">Contractual</option>
-                                    <option value="Freelancer">Freelancer</option>
-                                    <option value="Intern">Intern</option>
-                                </select>
-                            </div>
-                            </div>
-                                    <div class="colll-3 input-effect">
                                         <input class="effect-16" type="text" placeholder="" style="clear:both" id="username" name="username" data-parsley-trigger="blur" required="">
                                         <label>User Name</label>
                                         <span class="focus-border" ></span>
 
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
-                                        <label>User Email</label>
-                                        <span class="focus-border"></span>
-                                    </div>
-                                     <div class="colll-3 input-effect">
-                            <div class="form-group">
-                                <select class="form-control select_2" id="companyassined"
-                                     required ="">
-                                    <option value="">Select Company</option>
-                                    <?php
-                                     $clientslength = count($clients);
-                                    for($z = 0 ; $z < $clientslength; $z++) {
-                                        ?>
-                                        <option value={{$clients[$z]->ADMIN_CLIENT_ID}}><?php echo $clients[$z]->CLIENT_PREFIX?></option>
-
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
                                     </div>
                                     <div class="">
                                     <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger" required ="">
@@ -158,17 +66,58 @@
                                     </div>
                                     <div class="colll-3 input-effect">
                                     <div class="form-group">
-                                <select class="form-control select_2" id="primaryreportingmangers"
-                                     required ="">
+                                <select class="form-control" id="primaryreportingmangers"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
                                     <option value="">Select Primary Manger</option>
 
                                 </select>
                             </div>
                             </div>
+                            <div class="colll-3 input-effect">
+                            <div class="form-group">
+                                <select class="form-control" id="functions"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
+                                    <option value="">Select Functions</option>
+                                    <?php
+                                     $functionslength = count($functions);
+                                    for($m = 0 ; $m < $functionslength; $m++) {
+                                        ?>
+                                        <option value={{$functions[$m]->FUNCTION_ID}}><?php echo $functions[$m]->FUNCTION_NAME?></option>
 
-
-
-
+                                        <?php
+                                    }
+                                    ?>
+                                    {{-- <option>Planned Leave</option>
+                                    <option>Unplanned Leave</option>
+                                    <option>Maternity Leave</option> --}}
+                                </select>
+                            </div>
+                                    </div>
+                                    <div class="colll-3 input-effect">
+                                    <div class="form-group">
+                                <select class="form-control" id="departmens"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+                            </div>
+                            <div class="colll-3 input-effect">
+                                    <div class="form-group">
+                                <select class="form-control" id="employetype"
+                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
+                                    <option value="">Select Employee Type</option>
+                                    <option value="Permanent">Permanent</option>
+                                    <option value="Contractual">Contractual</option>
+                                    <option value="Freelancer">Freelancer</option>
+                                    <option value="Intern">Intern</option>
+                                </select>
+                            </div>
+                            </div>
+                                    <div class="colll-3 input-effect">
+                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
+                                        <label>User Email</label>
+                                        <span class="focus-border"></span>
+                                    </div>
                                     <div class="colll-3 input-effect">
                                     <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="">
                                         {{-- <input class="effect-16" type="password" placeholder="" style="clear:both" name="pwn"  autocomplete="new-password"> --}}
@@ -358,13 +307,10 @@ $('#reportingmanger').on('change', function (e) {
                     functions: $('#functions').val(),
                     doj: doj,
                     employetype: $('#employetype').val(),
-                    designation:  $('#designation').val(),
-                    companyassined: $('#companyassined').val(),
-                    gradeorlevel : $('#gradeorlevel').val(),
                     },
                     success: function(data) {
                         console.log('Data', data);
-                         // return;
+                         return;
                          var response = data.trim();
                          if(response == 'Erorr'){
                              alert('Something Went Wrong')

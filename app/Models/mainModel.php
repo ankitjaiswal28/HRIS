@@ -1365,6 +1365,31 @@ class mainModel extends Model
         return $message;
 
     }
+    function getUserDetails($data) {
+        $USER_ID = $data['USER_ID'];
+        // DB::enableQuerylog();
+        // $insert =  DB::table($tablename)->insertGetId($data);
+         // $aa= DB::getQuerylog();
+         // print_r($aa);exit;
+        $getallDetails = DB::table('mst_tbl_personal_details')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->first();
+        $deatils = [];
+        if(count($getallDetails) > 0) {
+            // echo "Hiii";
+            $deatils[] = $getallDetails;
+        }
+        // $aa= DB::getQuerylog();
+        // print_r($aa);exit;
+        $getallacdmic = DB::table('mst_tbl_academic_experience_details')
+            ->select('*')
+            ->leftjoin('mst_tbl_document_info', 'mst_tbl_document_info.USER_ID', '=', 'mst_tbl_academic_experience_details.USER_ID')
+            ->where(['mst_tbl_academic_experience_details.FLAG' => 'Show', 'mst_tbl_academic_experience_details.USER_ID' => $USER_ID])
+            ->get()->first();
+            if (count($getallacdmic)) {
+                $deatils[] = $getallacdmic;
+            }
+         return $deatils;
+        ;
+    }
 
 
 }

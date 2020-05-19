@@ -13,7 +13,7 @@
 use Illuminate\Support\Facades\Route;
 
 // Default Browser
-Route::get('/' , 'Authtentication\LoginController@index');
+Route::get('/' , 'Authtentication\LoginController@index')->name('/login');;
 
 // Authentication of User
 Route::post('/checklogin', 'Authtentication\LoginController@CheckLogin');
@@ -21,7 +21,9 @@ Route::post('/checklogin', 'Authtentication\LoginController@CheckLogin');
 // Authentication of User
 Route::get('/logout', 'Authtentication\LoginController@Logout');
 
+Route::get('changePassword/{id}','DefaultController@ShowChangePassword')->name('/changePassword');
 
+Route::post('updatePassword/{id}','DefaultController@updatePassword')->name('/updatePassword');
 
 /** This Applying Midle Ware On The ROutes */
 Route::group(['middleware' => ['athuthenticate']],function () {
@@ -143,8 +145,7 @@ Route::group(['middleware' => ['athuthenticate']],function () {
 
         Route::get('Admin/LevelsorGrade','Admin\LevelOrGradeControlller@listofSystems')->name('Admin/LevelsorGrade');
 
-        /////////////////////////     USer Creation     //////////////////////////////////
-        Route::get('/User_Creation','Admin\UserController@User_Creation')->name('/User_Creation');
+
 // For Geting Rolmangers Name
 Route:: post('/getUsers', 'DefaultController@getUserName');
 // For Geting Rolmangers Name
@@ -153,6 +154,10 @@ Route:: post('/getDepartments', 'DefaultController@getDepartments');
 
     });
     Route::group(['middleware' => ['user']],function (){
+
+        /////////////////////////     USer Creation     //////////////////////////////////
+        Route::get('/User_Creation','Admin\UserController@User_Creation')->name('/User_Creation');
+
         Route::get('User/dashboard' , 'User\DashboardController@index')->name('User/dashboard');
 
         Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');

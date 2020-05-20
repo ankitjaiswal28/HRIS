@@ -22,12 +22,12 @@
             <span id="checkin"><a class="btnn checkin_btn" style="cursor: pointer;color: white;">Check In <span
                         class="clock_stop"></span></a></span>
         </div>
-        {{-- <div style="float:right;">
+        <div style="float:right;">
             <a href="/applyleave" class="btnn"><img src="/asset/css/zondicons/zondicons/date-add.svg" class="edit_icon"
-                    style="-webkit-filter: invert(1);">Apply Leave</a> <a href="/timesheet/showdata" class="btnn a_btn" id="popup-btn"><img
+                    style="-webkit-filter: invert(1);">Apply Leave</a> <a href="/timesheet/showdata" class="btnn a_btn" ><img
                     src="/asset/css/zondicons/zondicons/time.svg" class="edit_icon"
                     style="-webkit-filter: invert(1);">Timesheet</a>
-        </div> --}}
+        </div>
     </div>
 </div>
 {{-- <div class="main_card">

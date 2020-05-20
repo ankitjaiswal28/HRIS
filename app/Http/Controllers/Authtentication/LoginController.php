@@ -17,7 +17,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        echo $getroleId = session()->get('roleId');
+        $getroleId = session()->get('roleId');
         return view('index');
     }
     /**
@@ -46,7 +46,7 @@ class LoginController extends Controller
             $getpassword = $details['passwords'];
             $user_id = $details['userId'];
             $decryptPassword = Crypt::decrypt($getpassword);
-            // print_r($decryptPassword);
+           // print_r($decryptPassword);exit;
             /** This is Called Ternary operation */
             $retVal = ($decryptPassword === $passwords) ? $message = 'Done' : $message = 'PassNotFound';
 
@@ -62,34 +62,63 @@ class LoginController extends Controller
                     $request->session()->put('databasename', 'hris_management');
                     $retVal = $role_Id .'_,';
                 } elseif ($role_Id == 2) {
+                   // print_r($details);exit;
                     $user_name = $details['username'];
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
                     $CLIENT_ID = $details['CLIENT_ID'];
-
-                    // $client_id = $details['CLIENT_ID'];
                     $setDatabasename = strtolower($database).'_management';
-                    // strtolower($str)
-                    $request->session()->put('emailId', $username);
-                    $request->session()->put('username', $user_name);
-                    $request->session()->put('roleId', $role_Id);
-                    $request->session()->put('userid', $user_id);
                     $request->session()->put('CLIENT_ID', $CLIENT_ID);
                     $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
-                    $retVal = $role_Id .'_,' . $userImage;
+                    $checklogin = $login->checkFirtstLogin($setDatabasename, $user_id);
+                  ///  print_r($details['roleId']);exit;
+
+                    if ($checklogin == 'First') {
+                        $encryptUserId = Crypt::encrypt($user_id);
+                        $message = 'First';
+                    } else {
+                        $encryptUserId = '';
+                        $request->session()->put('emailId', $username);
+                        $request->session()->put('username', $user_name);
+                        $request->session()->put('roleId', $role_Id);
+                        $request->session()->put('userid', $user_id);
+                        $data['UserId'] = $user_id;
+                        $data['orignamlDB'] = 'hris_management';
+                        $data['dynamicDb'] = $setDatabasename;
+                        $datasubmited = $login->LoginInsert($data);
+                        // LoginInsert
+
+                        $message = 'Get';
+                    }
+                    $retVal = $role_Id .'_,' . $userImage.'_,' . $message . '_,' . $encryptUserId;
                 } else {
                     $user_name = $details['username'];
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
+                    $CLIENT_ID = $details['CLIENT_ID'];
                     $setDatabasename = strtolower($database).'_management';
-                    $request->session()->put('emailId', $username);
-                    $request->session()->put('username', $user_name);
-                    $request->session()->put('roleId', $role_Id);
-                    $request->session()->put('userid', $user_id);
+                    $request->session()->put('CLIENT_ID', $CLIENT_ID);
                     $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
-                    $retVal = $role_Id .'_,' . $userImage;
+                    $checklogin = $login->checkFirtstLogin($setDatabasename, $user_id);
+                    // print_r($checklogin);exit;
+                    if ($checklogin == 'First') {
+                        $encryptUserId = Crypt::encrypt($user_id);
+                        $message = 'First';
+                    } else {
+                        $encryptUserId = '';
+                        $request->session()->put('emailId', $username);
+                        $request->session()->put('username', $user_name);
+                        $request->session()->put('roleId', $role_Id);
+                        $request->session()->put('userid', $user_id);
+                        $data['UserId'] = $user_id;
+                        $data['orignamlDB'] = 'hris_management';
+                        $data['dynamicDb'] = $setDatabasename;
+                        $datasubmited = $login->LoginInsert($data);
+                        $message = 'Get';
+                    }
+                    $retVal = $role_Id .'_,' . $userImage.'_,' . $message . '_,' . $encryptUserId;
                 }
                 return $retVal;
             } else {

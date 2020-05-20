@@ -14,7 +14,7 @@
                 <div class="">
                     <div class="row">
                         <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add User</h1>
+                            <h1 class="left_border font_grey" style="float: left;">Add User <?php //print_r($finaldata);?></h1>
                         </div>
                         <div class="col-md-2">
                             <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
@@ -26,6 +26,68 @@
                         <form action="#" name="client_form" id="client_form" class="form_class" data-parsley-validate autocomplete="off">
                             <div class="row">
                                 <div class=" col-sm-12 col-xs-12 col-md-12">
+                                <label for="" class="grey">SELECT DATE</label>
+                                    <label for="datepicker" style="width: 100%;margin-bottom: 30px;">
+                                        <input type="text" class="effect-16" id="datepicker" autocomplete="off" required ="" data-parsley-trigger="blur">
+                                    </label>
+                                    <div class="colll-3 input-effect">
+                            <div class="form-group">
+                                <select class="form-control select_2" id="functions"
+                                     required ="">
+                                    <option value="">Select Functions</option>
+                                    <?php
+                                     $functionslength = count($functions);
+                                    for($m = 0 ; $m < $functionslength; $m++) {
+                                        ?>
+                                        <option value={{$functions[$m]->FUNCTION_ID}}><?php echo $functions[$m]->FUNCTION_NAME?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                                    </div>
+                                    <div class="colll-3 input-effect">
+                                    <div class="form-group select_2">
+                                <select class="form-control" id="departmens"
+                                     required ="">
+                                    <option value="">Select Department</option>
+                                </select>
+                            </div>
+                            </div>
+                            <div class="colll-3 input-effect">
+                            <div class="form-group">
+                                <select class="form-control select_2" id="gradeorlevel"
+                                     required ="">
+                                    <option value="">Select {{$types}}</option>
+                                    <?php
+                                     $desigantionslength = count($finaldata);
+                                    for($v = 0 ; $v < $desigantionslength; $v++) {
+                                        ?>
+                                        <option value ="<?php echo $types;?>_<?php echo $finaldata[$v]['Id'];?>">{{$finaldata[$v]['Name']}}</option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                                    </div>
+                                        <div class="colll-3 input-effect">
+                            <div class="form-group">
+                                <select class="form-control select_2" id="designation"
+                                     required ="">
+                                    <option value="">Select Desginations</option>
+                                    <?php
+                                     $desigantionslength = count($desigantions);
+                                    for($l = 0 ; $l < $desigantionslength; $l++) {
+                                        ?>
+                                        <option value={{$desigantions[$l]->DESIGNATION_ID}}><?php echo $desigantions[$l]->DESGINATION_NAME?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                                    </div>
                                     <div class="">
                                     <select class="js-example-basic-multiple" name="roles[]" multiple="multiple" id="roles" data-parsley-trigger="change" required="required">
                                     <?php
@@ -41,13 +103,47 @@
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
+                                    <div class="form-group">
+                                <select class="form-control select_2" id="employetype"
+                                     required ="">
+                                    <option value="">Select Employee Type</option>
+                                    <option value="Permanent">Permanent</option>
+                                    <option value="Contractual">Contractual</option>
+                                    <option value="Freelancer">Freelancer</option>
+                                    <option value="Intern">Intern</option>
+                                </select>
+                            </div>
+                            </div>
+                                    <div class="colll-3 input-effect">
                                         <input class="effect-16" type="text" placeholder="" style="clear:both" id="username" name="username" data-parsley-trigger="blur" required="">
                                         <label>User Name</label>
                                         <span class="focus-border" ></span>
 
                                     </div>
+                                    <div class="colll-3 input-effect">
+                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
+                                        <label>User Email</label>
+                                        <span class="focus-border"></span>
+                                    </div>
+                                     <div class="colll-3 input-effect">
+                            <div class="form-group">
+                                <select class="form-control select_2" id="companyassined"
+                                     required ="">
+                                    <option value="">Select Company</option>
+                                    <?php
+                                     $clientslength = count($clients);
+                                    for($z = 0 ; $z < $clientslength; $z++) {
+                                        ?>
+                                        <option value={{$clients[$z]->ADMIN_CLIENT_ID}}><?php echo $clients[$z]->CLIENT_PREFIX?></option>
+
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                                    </div>
                                     <div class="">
-                                    <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger">
+                                    <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger" required ="">
                                     <?php
                                      $length = count($users);
                                     for($j = 0 ; $j < $length; $j++) {
@@ -61,10 +157,18 @@
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
-                                        <label>User Email</label>
-                                        <span class="focus-border"></span>
-                                    </div>
+                                    <div class="form-group">
+                                <select class="form-control select_2" id="primaryreportingmangers"
+                                     required ="">
+                                    <option value="">Select Primary Manger</option>
+
+                                </select>
+                            </div>
+                            </div>
+
+
+
+
                                     <div class="colll-3 input-effect">
                                     <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="">
                                         {{-- <input class="effect-16" type="password" placeholder="" style="clear:both" name="pwn"  autocomplete="new-password"> --}}
@@ -121,18 +225,96 @@
 </div>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
+<script src="/asset/js/Jquery_ui_1_12_1.min.js"></script>
 <script>
+/*$("#datepicker").datepicker({
+        dateFormat: 'dd-mm-yy'
+    }).datepicker("setDate", new Date());*/
+    $(function() {
+        $("#datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            duration: "fast"
+        });
+    });
  $(document).ready(function() {
+     // INCLUDE JQUERY & JQUERY UI 1.12.1
+
      $('.js-example-basic-multiple').select2();
      $("#roles").select2({
     placeholder: "Roles",
-    allowClear: true
+    allowClear: true,
+    width:"100%"
 });
 $("#reportingmanger").select2({
     placeholder: "Reporting Mangers",
-    allowClear: true
+    allowClear: true,
+    width:"100%"
 })
 
+$('#functions').on('change', function (e) {
+    var Val = $(this).val();
+    if(Val != null || Val == '') {
+     // console.log(Val);
+
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+     $.ajax({
+         url: '/getDepartments',
+                type: 'POST',
+                data: {
+                    functions: $(this).val()
+                    },
+                    success: function(data) {
+                        console.log('Data', data);
+                       // return;
+                        console.log('Length', data.length);
+                        var lengths = data.length
+                        $('#departmens').empty();
+                        $('#departmens').append(`<option value="">Select Department</option>`);
+                        for(let j = 0; j < lengths ; j++){
+
+                            $('#departmens').append(`<option value="`+ data[j].DEPARTMENT_ID + `">`+ data[j].DEPARTMENT_NAME + ` </option>`);
+                        }
+                    }
+            })
+    }
+
+});
+
+$('#reportingmanger').on('change', function (e) {
+    var Val = $(this).val();
+    if(Val != null || Val == '') {
+     // console.log(Val);
+
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+     $.ajax({
+         url: '/getUsers',
+                type: 'POST',
+                data: {
+                    roles: $(this).val()
+                    },
+                    success: function(data) {
+                        console.log('Data', data);
+                        console.log('Length', data.length);
+                        var lengths = data.length
+                        $('#primaryreportingmangers').empty();
+                        $('#primaryreportingmangers').append(`<option value="">Select Primary Manger</option>`);
+                        for(let j = 0; j < lengths ; j++){
+                            console.log(data[j].username);
+                            $('#primaryreportingmangers').append(`<option value="`+ data[j].userId + `">`+ data[j].username + ` </option>`);
+                        }
+                    }
+            })
+    }
+
+});
      $('#loading-image').bind('ajaxStart', function() {
          $(this).show();
 	}).bind('ajaxStop', function() {
@@ -143,15 +325,20 @@ $("#reportingmanger").select2({
         event.preventDefault();
         // Validate all input fields.
         var isValid = true;
-        $('input').each( function() {
+        $('#client_form').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
         // console.log('Welcome' + isValid);
        //  $("#roles").val();
-       // console.log('roles' + $("#roles").val());
+        // console.log('roles' + $("#datepicker").val());
         // return
         if (isValid) {
             $('#loading-image').show();
+            var data = $("#datepicker").val();
+            var arr = data.split('-');
+            var doj = arr[2] + '-' + arr[1] + '-' + arr[0]
+            //console.log(doj);
+            // return
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -164,8 +351,16 @@ $("#reportingmanger").select2({
                     roles: $("#roles").val(),
                     username: $('#username').val(),
                     reportingmanger: $('#reportingmanger').val(),
+                    primarymanger: $('#primaryreportingmangers').val(),
                     email: $('#email').val(),
                     pwd: $('#pwd').val(),
+                    departmens: $('#departmens').val(),
+                    functions: $('#functions').val(),
+                    doj: doj,
+                    employetype: $('#employetype').val(),
+                    designation:  $('#designation').val(),
+                    companyassined: $('#companyassined').val(),
+                    gradeorlevel : $('#gradeorlevel').val(),
                     },
                     success: function(data) {
                         console.log('Data', data);

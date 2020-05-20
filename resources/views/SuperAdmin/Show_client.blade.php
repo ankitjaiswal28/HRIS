@@ -25,6 +25,7 @@
                 <th> Admin Name</th>
                 <th>Email</th>
                 <th>Assgin Module</th>
+                <th>Assgin Poliycyes</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -60,6 +61,7 @@
         { data: 'ADMIN_NAME', name: 'ADMIN_NAME' },
         { data: 'ADMIN_EMAILID', name: 'ADMIN_EMAILID' },
          { data: 'assgin', name: 'assgin' },
+          { data: 'assginpolycies', name: 'assginpolycies' },
 
         { data: 'action', name: 'action' }
 
@@ -83,6 +85,7 @@ function deleteClient(id,event) {
                 type: 'get',
                 success: function(data) {
                         console.log('Data', data);
+                        //return
                          var response = data.trim();
                          if(response == 'Done'){
                             alert('User Deleted Sucessfuly');

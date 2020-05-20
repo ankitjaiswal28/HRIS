@@ -2245,13 +2245,13 @@ button:focus {
 [data-tooltip]:before,
 [data-tooltip]:after {
     visibility: hidden;
-    -ms-filter: ;
-    "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: ;
-    progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    /* -ms-filter: ; */
+    /* "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; */
+    /* filter: ; */
+    /* progid: DXImageTransform.Microsoft.Alpha(Opacity=0); */
     opacity: 0;
     pointer-events: none;
-    -webkit-filter: ;
+    /* -webkit-filter: ; */
 }
 
 
@@ -2301,12 +2301,12 @@ button:focus {
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after {
     visibility: visible;
-    -ms-filter: ;
-    "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: ;
-    progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    /* -ms-filter: ; */
+    /* "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; */
+    /* filter: ; */
+    /* progid: DXImageTransform.Microsoft.Alpha(Opacity=100); */
     opacity: 1;
-    -webkit-filter: ;
+    /* -webkit-filter: ; */
 }
 
 

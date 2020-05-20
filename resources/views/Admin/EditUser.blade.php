@@ -33,7 +33,7 @@
                                      $length = count($roles);
                                      $assinroles = explode(",", $details['master_roleId']);
                                      // array($details['master_roleId']);
-                                     print_r($assinroles);
+                                     // print_r($assinroles);
                                     for($i = 0 ; $i < $length; $i ++) {
                                         ?>
                                         <option value={{$roles[$i]->MASTER_ROLE_ID}} <?php if (in_array($roles[$i]->MASTER_ROLE_ID, $assinroles))

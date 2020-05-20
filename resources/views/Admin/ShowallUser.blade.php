@@ -25,7 +25,7 @@
                 <th>Roles</th>
                 <th>Reporting Managers</th>
                 <th>Primary  Reporting Manager</th>
-                <th>Set Primary Manager</th>
+                {{-- <th>Set Primary Manager</th> --}}
                 <th>Action</th>
             </tr>
         </thead>
@@ -73,7 +73,7 @@ $('#example').DataTable({
         { data: 'REPORTING_MANGERS', name: 'REPORTING_MANGERS' },
         { data: 'PRIMARY_MANGER', name: 'PRIMARY_MANGER' },
         // { data: 'moduleLink', name: 'moduleLink' },
-        { data: 'assgin', name: 'assgin' },
+      //  {{-- { data: 'assgin', name: 'assgin' }, --}}
         { data: 'action', name: 'action' }
 
 

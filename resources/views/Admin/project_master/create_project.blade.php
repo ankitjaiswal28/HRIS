@@ -17,11 +17,11 @@
     }
 </style>
 <div class="main_card">
-    <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('project/showdata') }}">
+    {{-- <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('project/showdata') }}">
             <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i>
             <span class="bold_text" style="font-size: 18px;">ADD PROJECT</span></a>
         <i class="fa fa-close" aria-hidden="true" style="position: relative;float:right;top: 2px;font-size:20px"></i>
-    </div>
+    </div> --}}
 </div>
 <div class="flip-card-3D-wrapper" style="width: 100% !important;">
     <div class="columns">
@@ -29,7 +29,17 @@
 
             <div class="flip-card-front" style="padding-top: 10px;margin-bottom: 15px;">
                 <div class="">
+                    <div class="row">
+                        <div class="col-md-10">
 
+                        </div>
+                        <div class="col-md-2">
+
+                            <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
+                                    src="/asset/css/zondicons/zondicons/inbox-download.svg" alt="Import"
+                                    style="width: 20px;margin-right: 0px;"></button>
+                        </div>
+                    </div>
                     <div class="padding_20" style="padding: 0px 35px;">
 
                         <div class="row">
@@ -182,19 +192,19 @@
     });
 </script>
 <script>
-    // document.addEventListener('DOMContentLoaded', function(event) {
+    document.addEventListener('DOMContentLoaded', function(event) {
 
-    //     document.getElementById('flip-card-btn-turn-to-back').style.visibility = 'visible';
-    //     document.getElementById('flip-card-btn-turn-to-front').style.visibility = 'visible';
+        document.getElementById('flip-card-btn-turn-to-back').style.visibility = 'visible';
+        document.getElementById('flip-card-btn-turn-to-front').style.visibility = 'visible';
 
-    //     document.getElementById('flip-card-btn-turn-to-back').onclick = function() {
-    //         document.getElementById('flip-card').classList.toggle('do-flip');
-    //     };
+        document.getElementById('flip-card-btn-turn-to-back').onclick = function() {
+            document.getElementById('flip-card').classList.toggle('do-flip');
+        };
 
-    //     document.getElementById('flip-card-btn-turn-to-front').onclick = function() {
-    //         document.getElementById('flip-card').classList.toggle('do-flip');
-    //     };
+        document.getElementById('flip-card-btn-turn-to-front').onclick = function() {
+            document.getElementById('flip-card').classList.toggle('do-flip');
+        };
 
-    // });
+    });
 </script>
 @endsection

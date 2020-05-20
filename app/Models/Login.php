@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
-
+use Illuminate\Support\Facades\Crypt;
+use App\Models\mainModel;
 class Login extends Model
 {
      /**
@@ -71,5 +72,130 @@ class Login extends Model
         $message = 'Done';
         return $message;
 
+    }
+
+    /**
+     * This Function Will Change Database Name
+     */
+    public function checkFirtstLogin($dtabasename, $user_id)
+    {
+        Config::set('database.connections.dynamicsql.database', $dtabasename);
+        Config::set('database.default', 'dynamicsql');
+       // echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
+        //DB::enableQuerylog();
+         $getclientDetails = DB::table('mst_login_aduit_reports')->where(['FLAG'=>'Show','USER_ID'=>$user_id])->get()->count();
+         // echo $getclientDetails;
+         $retVal = ($getclientDetails == 0) ? 'First' : 'Already' ;
+        // // $aa= DB::getQuerylog();
+        // // print_r($aa);exit;
+          return $retVal;
+
+    }
+
+    /**
+     * This Function is to Update Password of User
+     * and Send the Response message To  User
+     * @param  \Illuminate\Http\Request  $data In $data Old Password And New Password Both Will Be Their
+     * @return \Illuminate\Http\Response Return The Message
+     */
+    public function UpdatePassWord($data)
+    {
+        $Model = new mainModel();
+        //print_r($data);
+        $UserId = $data['UserId'];
+        $oldPassWord = Crypt::decrypt($data['oldPassWord']);
+        $newPassword = $data['newPassword'];
+        $orignamlDB = $data['orignamlDB'];
+        $dynamicDb = $data['dynamicDb'];
+        $date = date('Y-m-d');
+        $time = date(' H:i:s');
+        $timaestamp = date("Y-m-d H:i:s");
+        Config::set('database.connections.dynamicsql.database', $dynamicDb);
+        Config::set('database.default', 'dynamicsql');
+        $getclientDetails = DB::table('mst_user_tbl')->where(['FLAG'=>'Show','userId'=>$UserId])->get()->first();
+        $passWord =Crypt::decrypt($getclientDetails->passwords);
+        $emailId = $getclientDetails->emailId;
+        $roleId = $getclientDetails->roleId;
+        $message = '';
+        if($oldPassWord == $passWord) {
+            $updatePassword['passwords'] = $newPassword;
+            $updatePassword['updated_at'] = $timaestamp;
+            $updatePassword['UPDATED_BY'] = $UserId;
+            $updatePassworddetails = DB::table('mst_user_tbl')->where(['Flag'=>'Show','userId'=>$UserId])->update($updatePassword);
+            if ($updatePassworddetails != '') {
+                $updateData['USER_ID'] = $UserId;
+                $updateData['LOGIN_DATE'] = $date;
+                $updateData['CREATED_AT'] = $timaestamp;
+                $updateData['LOGIN_TIME'] = $time;
+                $updateData['STATUS'] = 'Password Updated';
+                $updateData['FLAG'] = 'Show';
+                $passwordInsert = $Model->insertRecords($updateData, 'mst_login_aduit_reports');
+                if($passwordInsert != '') {
+                    Config::set('database.connections.mysql.database', $orignamlDB);
+                    Config::set('database.default', 'mysql');
+                    $sup_tbl_all_client_user['passwords'] = $newPassword;
+                    $sup_tbl_all_client_user['updated_at'] = $timaestamp;
+                    $updatePasswordsup_tbl_all_client_userdetails = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','emailId'=>$emailId])->update($sup_tbl_all_client_user);
+                    if ($updatePasswordsup_tbl_all_client_userdetails != '') {
+                        if($roleId == 2) {
+                            $sup_tbl_client['PASSWORDS'] = $newPassword;
+                            $sup_tbl_client['updated_at'] = $timaestamp;
+                            $updatePasswordsup_tbl_clientdetails = DB::table('sup_tbl_client')->where(['Flag'=>'Show','ADMIN_EMAILID'=>$emailId])->update($sup_tbl_client);
+                            if ($updatePasswordsup_tbl_clientdetails != '') {
+                                 $message = 'Done';
+                            } else {
+                                $message = 'Error1';
+                            }
+                        } else {
+                            $message = 'Done';
+                        }
+                        /**/
+                    } else {
+                        $message = 'Error2';
+                    }
+                } else {
+                    $message = 'Error3';
+
+                }
+            } else {
+                $message = 'Error4';
+            }
+
+            /**/
+
+            // $passwordInsert = $Model->insertRecords($updateData, 'mst_login_aduit_reports');
+            // if(passwordInsert)
+
+            // $message = 'Match';
+        } else {
+            $message = 'Not Match';
+
+        }
+        // $get = Crypt::decrypt($getclientDetails->passwords);
+        return $message;
+
+    }
+    public function LoginInsert($data)
+    {
+        $Model = new mainModel();
+        //print_r($data);
+        $UserId = $data['UserId'];
+        $orignamlDB = $data['orignamlDB'];
+        $dynamicDb = $data['dynamicDb'];
+        $date = date('Y-m-d');
+        $time = date(' H:i:s');
+        $timaestamp = date("Y-m-d H:i:s");
+        Config::set('database.connections.dynamicsql.database', $dynamicDb);
+        Config::set('database.default', 'dynamicsql');
+        $updateData['USER_ID'] = $UserId;
+        $updateData['LOGIN_DATE'] = $date;
+        $updateData['CREATED_AT'] = $timaestamp;
+        $updateData['LOGIN_TIME'] = $time;
+        $updateData['STATUS'] = 'Login Sucessfuly';
+        $updateData['FLAG'] = 'Show';
+        $dataInsetrd = $Model->insertRecords($updateData, 'mst_login_aduit_reports');
+        Config::set('database.connections.mysql.database', $orignamlDB);
+        Config::set('database.default', 'mysql');
+        return $dataInsetrd;
     }
 }

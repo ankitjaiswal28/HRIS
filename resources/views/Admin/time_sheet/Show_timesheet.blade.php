@@ -14,7 +14,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0;">
                             <div class="form-group">
                                 <label for="leavetype" class="grey">PROJECT NAME</label>
-                                <select class="form-control" id="PROJECT_ID" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
+                                <select class="form-control" id="PROJECT_ID"
+                                    style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;padding: 5px !important;">
 
                                     <option>--SELECT--</option>
                                     @foreach ($projectlist as $projectlists)
@@ -73,10 +74,13 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="form-group" style="margin-bottom: 8px;">
-                                    <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
-                                    <textarea class="form-control" rows="2" id="DESCRIPTION" style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
+                                    <label for="reason" class="grey"
+                                        style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
+                                    <textarea class="form-control" rows="2" id="DESCRIPTION"
+                                        style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
                                 </div>
-                                <button type="submit" class="btnn" id="submit_form" style="float: right;border: none;width: 150px;">Submit</button>
+                                <button type="submit" class="btnn" id="submit_form"
+                                    style="float: right;border: none;width: 150px;">Submit</button>
                             </div>
                         </div>
 
@@ -115,7 +119,8 @@
                     <div class="form-group">
                         <input type="hidden" id="TIMESHEET_ID">
                         <label for="leavetype" class="grey">PROJECT NAME</label>
-                        <select class="form-control" id="UP_PROJECT_ID" style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;   padding: 5px !important;">
+                        <select class="form-control" id="UP_PROJECT_ID"
+                            style="height: calc(2.25rem + 2px);border: 1px solid #cecece !important;   padding: 5px !important;">
 
                             <option>--SELECT--</option>
                             @foreach ($projectlist as $projectlists)
@@ -169,14 +174,16 @@
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group" style="margin-bottom: 8px;">
-                            <label for="reason" class="grey" style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
-                            <textarea class="form-control" rows="2" id="UP_DESCRIPTION" style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
+                            <label for="reason" class="grey"
+                                style="margin-top: 5px;margin-bottom: 5px;">DESCRIPTION</label>
+                            <textarea class="form-control" rows="2" id="UP_DESCRIPTION"
+                                style="border-radius: 5px;border: 1px solid #cecece !important;"></textarea>
                         </div>
-                        <button type="submit" class="btnn" id="submit_update" style="float: right;border: none;width: 150px;">Submit</button>
+                        <button type="submit" class="btnn" id="submit_update"
+                            style="float: right;border: none;width: 150px;">Submit</button>
                     </div>
                 </div>
             </div>

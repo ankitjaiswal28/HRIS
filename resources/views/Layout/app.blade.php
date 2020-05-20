@@ -37,6 +37,7 @@
     @include('Navbar.Navbar')
     @yield('content')
 @endif
+@yield('changepassword')
 
 </body>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -50,6 +51,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script> --}}
 {{-- <script src="../../public/js/jquery-3.2.1.slim.min.js"></script> --}}
+
 <script src="/asset/js/jquery_341.min.js"></script>
 <script src="/asset/js/bootsrap4.min.js"></script>
 {{-- <script src="../../public/js/jquery-3.2.1.slim.min.js"></script> --}}

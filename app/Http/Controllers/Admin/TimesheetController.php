@@ -16,50 +16,46 @@ class TimeSheetController extends Controller
         $getdata = DB::table('mst_tbl_project_master')->where(['FLAG' => 'Show'])->get();
         $projectlist = (object) $getdata;
 
-        return view('Admin.time_sheet.show_timesheet', compact('projectlist'));
+        $getactivity = DB::table('mst_tbl_activity_master')->where(['FLAG' => 'Show'])->get();
+        $activitytype = (object) $getactivity;
+
+
+        return view('Admin.time_sheet.show_timesheet', compact('projectlist', 'activitytype'));
     }
 
     public function add_timesheet(Request $request)
     {
         $addmodel = new mainModel();
         date_default_timezone_set('Asia/Kolkata');
-        // $time = date("h:i:sa");
         $timaestamp = date("Y-m-d H:i:s");
         $user_id = session('userid');
 
-        $START_HR = $request->START_HR;
-        $START_MIN = $request->START_MIN;
-        $STOP_HR = $request->STOP_HR;
-        $STOP_MIN = $request->STOP_MIN;
+        $START_TIME = $request->InitialTime;
+        $STOP_TIME = $request->EndTime;
+        $s1 = explode(' ', $START_TIME);
+        $s2 = explode(' ', $STOP_TIME);
 
-        $starttime = $START_HR . ':' . $START_MIN;
-        $stoptime = $STOP_HR . ':' . $STOP_MIN;
-        $diff = (strtotime($stoptime) - strtotime($starttime));
+        $diff = (strtotime($s2[0]) - strtotime($s1[0]));
         $total = $diff / 60;
         $total_time = sprintf("%02d:%02d", floor($total / 60), $total % 60);
         $newtime = explode(":", $total_time);
-        //   print_r($newtime);echo "<br>";
 
         $TOTAL_HR = $newtime[0];
         $TOTAL_MIN = $newtime[1];
-
+        $date = strtotime($request->datepicker);
+        $startdate = date('Y-m-d', $date);
         $data['USER_ID'] = $user_id;
         $data['PROJECT_ID'] = $request->PROJECT_ID;
-        $data['TIMESHEET_DATE'] = $request->TIMESHEET_DATE;
+        $data['ACTIVITY_TYPE'] = $request->ACTIVITY_TYPE;
+        $data['TIMESHEET_DATE'] = $startdate;
         $data['DESCRIPTION'] = $request->DESCRIPTION;
-        $data['START_HR'] = $START_HR;
-        $data['START_MIN'] = $START_MIN;
-        $data['STOP_HR'] = $STOP_HR;
-        $data['STOP_MIN'] = $STOP_MIN;
-        $data['START_TIME'] = $starttime;
-        $data['STOP_TIME'] = $stoptime;
+        $data['START_TIME'] = $START_TIME;
+        $data['STOP_TIME'] = $STOP_TIME;
         $data['TOTAL_HR'] = $TOTAL_HR;
         $data['TOTAL_MIN'] = $TOTAL_MIN;
         $data['CREATED_BY'] = $user_id;
         $data['CREATED_AT'] = $timaestamp;
         $data['FLAG'] = 'Show';
-
-        // print_r($data);
 
         $response = $addmodel->addtimesheet($data, 'mst_tbl_timesheet');
         $message = '';

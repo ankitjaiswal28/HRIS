@@ -685,10 +685,10 @@ class mainModel extends Model
         $databasename = $userClient->CLIENT_PREFIX. '_management';
         // return $databasename;
         // exit();
-        $Delete_query = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update([$updated]);
+        $Delete_query = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($updated);
         $message = '';
         if ($Delete_query  != '') {
-            $query = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update([$updated]);
+            $query = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($updated);
             if ($query != '') {
                 Config::set('database.connections.dynamicsql.database', $databasename);
                 Config::set('database.default', 'dynamicsql');
@@ -849,6 +849,9 @@ class mainModel extends Model
         // $userid = $data['userid'];
         // $username = $data['username'];
         // $timaestamp = date("Y-m-d H:i:s");
+        $Stutus = $this->SendMails('1','Ankit Jaiswal');
+        print_r($Stutus);
+        exit;
         $orignalDb = $data['orignalDb'];
         $CLIENT_ID = $data['CLIENT_ID'];
         $ROLEID = $data['ROLEID'];
@@ -910,9 +913,9 @@ class mainModel extends Model
                         $To = $email;
                         $body = "<h2>Hello ".$UserName." ,</h5>
                         Wlecome To Our Orginaztion We are gald To Inform You That Have been Selected In Our Orginazation.
-                        please Fill Your Form <a href='".$ServeAddres."'>UserCreation</a>";
+                        please Fill Your Form <a href='javascript:;'>UserCreation</a>";
                         $saveMialReports['SUBJECT'] = $Subject;
-                        $saveMialReports['FROM_MAILID'] = 'anki28.1996@gmail.com';
+                        $saveMialReports['FROM_MAILID'] = 'myanki28@gmail.com';
                         $saveMialReports['TO_MAILID'] = $To;
                         $saveMialReports['MAIL_BODY'] = $body;
                         $saveMialReports['CC_MAILID'] = $cc;
@@ -1085,7 +1088,7 @@ class mainModel extends Model
         $cc = $mailReports->CC_MAILID;
         $finalAaary = explode(",", $cc);
         $subject = $mailReports->SUBJECT;
-        Mail::send(['text'=>'Admin.TestMail'], ['data' => $data], function($message) use($to, $subject, $finalAaary, $fromId,$UserName) {
+        Mail::send(['html' => 'Admin.TestMail'], ['data' => $data], function($message) use($to, $subject, $finalAaary, $fromId,$UserName) {
            // $message->to($to, 'Test Mail')->subject
            $message->to($to, $UserName)->subject
                ($subject);

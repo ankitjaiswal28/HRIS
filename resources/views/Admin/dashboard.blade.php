@@ -1,6 +1,10 @@
 @extends('Layout.app')
 @section('content')
 <link rel="stylesheet" href="/asset/css/Calender.css">
+
+<div class="new-wrapper">
+
+    <div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="height: 55px;padding: 15px 10px;position: relative;">
         <div style="float:left;">
@@ -31,26 +35,6 @@
         </div>
     </div>
 </div>
-{{-- <div class="main_card">
-    <div class="row" style="padding: 15px 10px;">
-        <div class="col-md-6">
-            <div>
-                <span id="checkout"> <a class="checkout_btn" style="cursor: pointer;color: white;">Check Out <span
-                            class="clock"></span></a><span style="padding: 10px;">00:00 Hr</span></span>
-                <span id="checkin"><a class="btnn checkin_btn" style="cursor: pointer;color: white;">Check In <span
-                            class="clock_stop"></span></a></span>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div style="float:right">
-                <a href="" class="btnn"><img src="/asset/css/zondicons/zondicons/date-add.svg" class="edit_icon"
-                        style="-webkit-filter: invert(1);">Apply Leave</a> <a class="btnn a_btn" id="popup-btn"><img
-                        src="/asset/css/zondicons/zondicons/time.svg" class="edit_icon"
-                        style="-webkit-filter: invert(1);">Timesheet</a>
-            </div>
-        </div>
-    </div>
-</div> --}}
 <div class="container-fluid">
     <div class="row no_left_margin">
         <div class="col-md-3 nopadding no_padding_left">
@@ -104,7 +88,7 @@
                         {{-- <div class="wrapper"> --}}
                             <div class="row">
                                 <div class="col-md-10 offset-md-2" style="margin-top: 30px;">
-                                    <div class="counter" data-cp-percentage="34" data-cp-color="#00bfeb">
+                                    <div class="counter" data-cp-percentage="34" data-cp-color="#ff565d">
                                     </div>
                                 </div>
                             </div>
@@ -260,7 +244,7 @@
             </div>
         </div>
     </div>
-</div>
+</div></div></div>
 {{-- //////////////////////////////////             MODEL              /////////////////////////// --}}
 {{-- <div id="popup-wrapper" class="popup-container">
     <div class="popup-content" style="width: 30%;">

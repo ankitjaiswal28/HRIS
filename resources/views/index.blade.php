@@ -248,7 +248,7 @@
                         success: function(data) {
                             var response = data.trim();
                             console.log(data);
-                            // return;
+                           // return;
                             if(response === 'NotFound') {
                                 alert('Email Id Not Found')
                             } else if(response === 'PassNotFound') {

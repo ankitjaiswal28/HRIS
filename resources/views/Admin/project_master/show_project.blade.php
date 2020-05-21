@@ -1,20 +1,21 @@
 @extends('layout.app')
 @section('content')
-<div>
-    <div class="row" style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
-        <div style="padding:8px 35px;">
-            <div>
-                <h3 style="margin-bottom: 0px;color:white"><i class="typcn typcn-home-outline" aria-hidden="true"></i> |
-                    Project</h3>
+<div class="new-wrapper">
+    <div id="main">
+        <div class="main_card">
+            <div class="neuphormic_shadow fst_card">
+                <div class="fst_card_cntnt">
+                    <h3 class="h3_header_prt" style=""><a class="white_anchor"
+                            href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">Project's</label>
+                    </h3>
+                </div>
+                <div style="float:right;">
+                    <a href="{{ url('project/create') }}" class="btnn"><i class="fa fa-plus"
+                            style="padding-right: 10px;" aria-hidden="true"></i>ADD PROJECT</a>
+                </div>
             </div>
         </div>
-        <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
-                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a href="{{ url('project/create') }}"><i class="fa fa-plus fafa_add_circle_right"
-                    aria-hidden="true"></i></a>
-        </div>
-    </div>
-</div>
-<br>
+
 <div class="margin_left_right">
     <table id="client-table" class="table table-hover" style="width:100%">
         <thead>
@@ -29,7 +30,7 @@
         </thead>
 
     </table>
-</div>
+</div></div></div>
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>
 <script>

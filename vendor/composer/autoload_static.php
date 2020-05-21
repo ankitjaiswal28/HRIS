@@ -86,6 +86,7 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
             'Prophecy\\' => 9,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
+            'Pelago\\' => 7,
         ),
         'O' => 
         array (
@@ -296,6 +297,10 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
+        'Pelago\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pelago/emogrifier/src',
+        ),
         'Opis\\Closure\\' => 
         array (
             0 => __DIR__ . '/..' . '/opis/closure/src',
@@ -379,6 +384,13 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
     );
 
     public static $prefixesPsr0 = array (
+        'S' => 
+        array (
+            'Snowfire\\Beautymail\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/snowfire/beautymail/src',
+            ),
+        ),
         'P' => 
         array (
             'Parsedown' => 
@@ -400,11 +412,13 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\ApplyleaveController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ApplyleaveController.php',
         'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
+        'App\\Http\\Controllers\\Admin\\DepartmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DepartmentController.php',
+        'App\\Http\\Controllers\\Admin\\FunctionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/FunctionController.php',
         'App\\Http\\Controllers\\Admin\\ModuleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ModuleController.php',
         'App\\Http\\Controllers\\Admin\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PageController.php',
         'App\\Http\\Controllers\\Admin\\ProjectMasterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ProjectMasterController.php',
         'App\\Http\\Controllers\\Admin\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RoleController.php',
-        'App\\Http\\Controllers\\Admin\\TimeSheetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TimeSheetController.php',
+        'App\\Http\\Controllers\\Admin\\TimeSheetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TimesheetController.php',
         'App\\Http\\Controllers\\Admin\\TimesheetController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/xyz.php',
         'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -414,6 +428,7 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Authtentication\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Authtentication/LoginController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DefaultController' => __DIR__ . '/../..' . '/app/Http/Controllers/DefaultController.php',
         'App\\Http\\Controllers\\SuperAdmin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/DashboardController.php',
         'App\\Http\\Controllers\\SuperAdmin\\NavbarController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/NavbarController.php',
         'App\\Http\\Controllers\\Superadmin\\TableController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuperAdmin/TableController.php',
@@ -2609,6 +2624,14 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
+        'Pelago\\Emogrifier' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier.php',
+        'Pelago\\Emogrifier\\CssInliner' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/CssInliner.php',
+        'Pelago\\Emogrifier\\HtmlProcessor\\AbstractHtmlProcessor' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/AbstractHtmlProcessor.php',
+        'Pelago\\Emogrifier\\HtmlProcessor\\CssToAttributeConverter' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/CssToAttributeConverter.php',
+        'Pelago\\Emogrifier\\HtmlProcessor\\HtmlNormalizer' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/HtmlNormalizer.php',
+        'Pelago\\Emogrifier\\HtmlProcessor\\HtmlPruner' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/HtmlProcessor/HtmlPruner.php',
+        'Pelago\\Emogrifier\\Utilities\\ArrayIntersector' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/Utilities/ArrayIntersector.php',
+        'Pelago\\Emogrifier\\Utilities\\CssConcatenator' => __DIR__ . '/..' . '/pelago/emogrifier/src/Emogrifier/Utilities/CssConcatenator.php',
         'PharIo\\Manifest\\Application' => __DIR__ . '/..' . '/phar-io/manifest/src/values/Application.php',
         'PharIo\\Manifest\\ApplicationName' => __DIR__ . '/..' . '/phar-io/manifest/src/values/ApplicationName.php',
         'PharIo\\Manifest\\Author' => __DIR__ . '/..' . '/phar-io/manifest/src/values/Author.php',
@@ -3291,6 +3314,10 @@ class ComposerStaticIniteafbd1aec858cef70aa9a8cb6dde719e
         'SebastianBergmann\\Timer\\RuntimeException' => __DIR__ . '/..' . '/phpunit/php-timer/src/RuntimeException.php',
         'SebastianBergmann\\Timer\\Timer' => __DIR__ . '/..' . '/phpunit/php-timer/src/Timer.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Snowfire\\Beautymail\\Beautymail' => __DIR__ . '/..' . '/snowfire/beautymail/src/Snowfire/Beautymail/Beautymail.php',
+        'Snowfire\\Beautymail\\BeautymailFacade' => __DIR__ . '/..' . '/snowfire/beautymail/src/Snowfire/Beautymail/BeautymailFacade.php',
+        'Snowfire\\Beautymail\\BeautymailServiceProvider' => __DIR__ . '/..' . '/snowfire/beautymail/src/Snowfire/Beautymail/BeautymailServiceProvider.php',
+        'Snowfire\\Beautymail\\CssInlinerPlugin' => __DIR__ . '/..' . '/snowfire/beautymail/src/Snowfire/Beautymail/CssInlinerPlugin.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface' => __DIR__ . '/..' . '/symfony/console/CommandLoader/CommandLoaderInterface.php',
         'Symfony\\Component\\Console\\CommandLoader\\ContainerCommandLoader' => __DIR__ . '/..' . '/symfony/console/CommandLoader/ContainerCommandLoader.php',

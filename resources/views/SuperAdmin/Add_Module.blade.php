@@ -1,6 +1,7 @@
 @extends('Layout.app')
 @section('content')
-
+<div class="new-wrapper">
+    <div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor"
             href="{{ url('/Superadmin/module') }}"><i class="fa fa-chevron-left" aria-hidden="true"
@@ -84,7 +85,7 @@
             </div>
         </div>
     </div>
-</div>
+</div></div></div>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
 <script>

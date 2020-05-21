@@ -16,69 +16,76 @@
         padding: 8px !important;
     }
 </style>
-<div class="main_card">
-    <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('project/showdata') }}">
-            <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i>
-            <span class="bold_text" style="font-size: 18px;">ADD PROJECT</span></a>
-        <i class="fa fa-close" aria-hidden="true" style="position: relative;float:right;top: 2px;font-size:20px"></i>
-    </div>
-</div>
-<div class="flip-card-3D-wrapper" style="width: 100% !important;">
-    <div class="columns">
-        <div class="inner-column" id="flip-card">
-
-            <div class="flip-card-front" style="padding-top: 10px;margin-bottom: 15px;">
-                <div class="">
-
-                    <div class="padding_20" style="padding: 0px 35px;">
-
-                        <div class="row">
-
-                            <div class="col-sm-6 col-xs-12 col-md-8">
+<div class="new-wrapper">
+    <div id="main">
+        <div class="main_card">
+            <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor"
+                    href="{{ url('project/showdata') }}">
+                    <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i>
+                    <span class="bold_text" style="font-size: 18px;">ADD PROJECT</span></a>
+                <i class="fa fa-close" aria-hidden="true"
+                    style="position: relative;float:right;top: 2px;font-size:20px"></i>
+            </div>
+        </div>
+        <div class="flip-card-3D-wrapper" style="width: 100% !important;">
+            <div class="columns">
+                <div class="inner-column" id="flip-card">
+                    <div class="flip-card-front" style="padding-top: 10px;margin-bottom: 15px;">
+                        <div class="">
+                            <div class="padding_20" style="padding: 0px 35px;">
                                 <div class="row">
-                                    <div class="col-sm-12 col-xs-12 col-md-6">
-                                        <div class="colll-3 input-effect">
-                                            <input class="effect-16" type="text" id="PROJECT_NAME" placeholder="" style="clear:both">
-                                            <label>Project Name</label>
-                                            <span class="focus-border"></span>
+                                    <div class="col-sm-6 col-xs-12 col-md-8">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                                <div class="colll-3 input-effect">
+                                                    <input class="effect-16" type="text" id="PROJECT_NAME"
+                                                        placeholder="" style="clear:both">
+                                                    <label>Project Name</label>
+                                                    <span class="focus-border"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                                <div class="colll-3 input-effect">
+                                                    <input class="effect-16" type="text" id="PROJECT_DESCRIPTION"
+                                                        placeholder="" style="clear:both">
+                                                    <label>Project Description</label>
+                                                    <span class="focus-border"></span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12 col-xs-12 col-md-6">
-                                        <div class="colll-3 input-effect">
-                                            <input class="effect-16" type="text" id="PROJECT_DESCRIPTION" placeholder="" style="clear:both">
-                                            <label>Project Description</label>
-                                            <span class="focus-border"></span>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                                <div class="colll-3 input-effect">
+                                                    <input class="effect-16" type="text" id="PROJECT_TARGET_HR"
+                                                        placeholder="" style="clear:both">
+                                                    <label>Project Target Hours</label>
+                                                    <span class="focus-border"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                                <div class="colll-3 input-effect">
+                                                    <input class="effect-16" type="text" id="PROJECT_COST"
+                                                        placeholder="" style="clear:both">
+                                                    <label>Project Cost</label>
+                                                    <span class="focus-border"></span>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
+                                <div style="margin: 15px 0px;">
+                                    <button type="submit" class="btnn" id="submit_form"
+                                        style="border: none;">Submit</button>
 
-                                <div class="row">
-                                    <div class="col-sm-12 col-xs-12 col-md-6">
-                                        <div class="colll-3 input-effect">
-                                            <input class="effect-16" type="text" id="PROJECT_TARGET_HR" placeholder="" style="clear:both">
-                                            <label>Project Target Hours</label>
-                                            <span class="focus-border"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-xs-12 col-md-6">
-                                        <div class="colll-3 input-effect">
-                                            <input class="effect-16" type="text" id="PROJECT_COST" placeholder="" style="clear:both">
-                                            <label>Project Cost</label>
-                                            <span class="focus-border"></span>
-                                        </div>
-                                    </div>
                                 </div>
-
                             </div>
                         </div>
-                        <div style="margin: 15px 0px;">
-                            <button type="submit" class="btnn" id="submit_form" style="border: none;">Submit</button>
-
-                        </div>
                     </div>
+
                 </div>
             </div>
-
         </div>
     </div>
 </div>

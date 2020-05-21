@@ -23,96 +23,100 @@
                         </div>
                     </div>
                     <div class="padding_20" style="padding: 0px 35px;">
-                        <form action="#" name="client_form" id="client_form" class="form_class" data-parsley-validate autocomplete="off">
+                        <form action="#" name="client_form" id="client_form" class="form_class" data-parsley-validate
+                            autocomplete="off">
                             <div class="row">
                                 <div class=" col-sm-12 col-xs-12 col-md-12">
                                     <div class="">
-                                    <select class="js-example-basic-multiple" name="roles[]" multiple="multiple" id="roles" data-parsley-trigger="change" required="required">
-                                    <?php
+                                        <select class="js-example-basic-multiple" name="roles[]" multiple="multiple"
+                                            id="roles" data-parsley-trigger="change" required="required">
+                                            <?php
                                      $length = count($roles);
                                     for($i = 0 ; $i < $length; $i ++) {
                                         ?>
-                                        <option value={{$roles[$i]->MASTER_ROLE_ID}}><?php echo $roles[$i]->MASTER_ROLE_NAME?></option>
+                                            <option value={{$roles[$i]->MASTER_ROLE_ID}}>
+                                                <?php echo $roles[$i]->MASTER_ROLE_NAME?></option>
 
-                                        <?php
+                                            <?php
                                     }
                                     ?>
-                                    </select>
+                                        </select>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="username" name="username" data-parsley-trigger="blur" required="">
+                                        <input class="effect-16" type="text" placeholder="" style="clear:both"
+                                            id="username" name="username" data-parsley-trigger="blur" required="">
                                         <label>User Name</label>
-                                        <span class="focus-border" ></span>
+                                        <span class="focus-border"></span>
 
                                     </div>
+
+                                    <div class="colll-3 input-effect">
                                     <div class="">
-                                    <select class="js-example-basic-multiple" name="reportingmanger[]" multiple="multiple" id="reportingmanger" required ="">
-                                    <?php
+                                        <select class="js-example-basic-multiple" name="reportingmanger[]"
+                                            multiple="multiple" id="reportingmanger" required="">
+                                            <?php
                                      $length = count($users);
                                     for($j = 0 ; $j < $length; $j++) {
                                         ?>
-                                        <option value={{$users[$j]->userId}}><?php echo $users[$j]->username?></option>
+                                            <option value={{$users[$j]->userId}}><?php echo $users[$j]->username?>
+                                            </option>
 
-                                        <?php
+                                            <?php
                                     }
                                     ?>
-                                    </select>
+                                        </select>
                                         <span class="focus-border"></span>
                                     </div>
-                                    <div class="colll-3 input-effect">
-                                    <div class="form-group">
-                                <select class="form-control" id="primaryreportingmangers"
-                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
-                                    <option value="">Select Primary Manger</option>
+                                    </div>
+                                        <div class="form-group">
+                                            <select class="form-control select_2" id="primaryreportingmangers"
+                                                required="">
+                                                <option value="">Select Primary Manger</option>
 
-                                </select>
-                            </div>
-                            </div>
-                            <div class="colll-3 input-effect">
-                            <div class="form-group">
-                                <select class="form-control" id="functions"
-                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
-                                    <option value="">Select Functions</option>
-                                    <?php
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control select_2" id="functions" required="">
+                                                <option value="">Select Functions</option>
+                                                <?php
                                      $functionslength = count($functions);
                                     for($m = 0 ; $m < $functionslength; $m++) {
                                         ?>
-                                        <option value={{$functions[$m]->FUNCTION_ID}}><?php echo $functions[$m]->FUNCTION_NAME?></option>
+                                                <option value={{$functions[$m]->FUNCTION_ID}}>
+                                                    <?php echo $functions[$m]->FUNCTION_NAME?></option>
 
-                                        <?php
+                                                <?php
                                     }
                                     ?>
-                                    {{-- <option>Planned Leave</option>
-                                    <option>Unplanned Leave</option>
-                                    <option>Maternity Leave</option> --}}
-                                </select>
-                            </div>
-                                    </div>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control select_2" id="departmens" required="">
+                                                <option value="">Select Department</option>
+                                            </select>
+                                        </div>
                                     <div class="colll-3 input-effect">
-                                    <div class="form-group">
-                                <select class="form-control" id="departmens"
-                                    style="height: calc(3.25rem + 2px);border: 1px solid #cecece !important;padding: 15px !important;" required ="">
-                                    <option value="">Select Department</option>
-                                </select>
-                            </div>
-                            </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
+                                        <input type="email" class="effect-16" id="email" placeholder=""
+                                            style="clear:both" name="email" autocomplete="off" data-parsley-type="email"
+                                            data-parsley-trigger="blur" required="">
                                         <label>User Email</label>
                                         <span class="focus-border"></span>
                                     </div>
                                     <div class="colll-3 input-effect">
-                                    <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="password" placeholder="" style="clear:both" name="pwn"  autocomplete="new-password"> --}}
+                                        <input type="password" class="effect-16" id="pwd" placeholder=""
+                                            style="clear:both" name="pwd" autocomplete="new-password"
+                                            data-parsley-trigger="blur" required="">
                                         <label>Password</label>
                                         <span class="focus-border"></span>
                                     </div>
                                 </div>
                             </div>
                             <div style="margin: 15px 0px;">
-                            <button type="button" name="submit_id" id="btn_id"  class="btnn" style="border: none;">Submit</button>
-                            <img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
+                                <button type="button" name="submit_id" id="btn_id" class="btnn"
+                                    style="border: none;">Submit</button>
+                                <img src="../asset/images/pageloader.gif" id="loading-image"
+                                    style="display:none; width: 40px;">
                                 {{-- <button type="submit" class="btnn" style="border: none;">Submit</button> --}}
                                 {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
                             </div>
@@ -159,7 +163,7 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
 <script>
- $(document).ready(function() {
+    $(document).ready(function() {
      $('.js-example-basic-multiple').select2();
      $("#roles").select2({
     placeholder: "Roles",
@@ -275,7 +279,7 @@ $('#reportingmanger').on('change', function (e) {
                     },
                     success: function(data) {
                         console.log('Data', data);
-                        // return;
+                         return;
                          var response = data.trim();
                          if(response == 'Erorr'){
                              alert('Something Went Wrong')

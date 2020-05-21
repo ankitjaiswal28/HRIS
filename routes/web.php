@@ -55,7 +55,7 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('Admin/admindahboard' , 'Admin\DashboardController@index')->name('Admin/admindahboard');
          ///////////project master///////////////////////////////////
 
-
+        //////////////////         APPLY LEAVE          /////////////////////////////
         // Route:: get('/Show_timesheet', 'Admin\TimesheetController@Show_timesheet')->name('/Show_timesheet');
         Route:: get('/leave_details', 'Admin\ApplyleaveController@leave_details')->name('/leave_details');
         Route:: get('/Leave_manage', 'Admin\ApplyleaveController@Leave_manage')->name('/Leave_manage');
@@ -68,6 +68,7 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route:: post('/update_leave_manage_code', 'Admin\ApplyleaveController@update_leave_manage_code')->name('/update_leave_manage_code');
         Route:: post('/approve_leave_manage_data', 'Admin\ApplyleaveController@approve_leave_manage_data')->name('/approve_leave_manage_data');
         Route:: post('/approve_leave_with_user_id', 'Admin\ApplyleaveController@approve_leave_with_user_id')->name('/approve_leave_with_user_id');
+        // Route:: post('/darkmode', 'Admin\ApplyleaveController@darkmode')->name('/darkmode');
 
 
 
@@ -76,7 +77,9 @@ Route::group(['middleware' => ['athuthenticate']],function () {
         Route::get('edit_leavetype/{id}','Admin\ApplyleaveController@edit_leavetype')->name('edit_leavetype');
         Route::get('delete_leavetype/{id}','Admin\ApplyleaveController@delete_leavetype')->name('delete_leavetype/delete');
 
-
+        Route::get('/change_password', function () {
+            return view('Admin.change_password');
+        });
 
 
                ///////////project master///////////////////////////////////

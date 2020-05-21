@@ -17,12 +17,13 @@
     <link rel="stylesheet" href="/asset/css/calender_ui.css">
     <link href="/asset/css/Timedropper.css" rel="stylesheet">
     <link rel="stylesheet" href="/asset/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/asset/css/select2.min.css">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" /> --}}
 
     {{-- <link rel="stylesheet" href="/asset/css/dataTables.bootstrap4.min.css"> --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> --}}
 </head>
-<body style="background:#f9f9f9">
+<body>
 
 {{-- {{ session('roleId') }} --}}
 @if (session('roleId') == '3')
@@ -57,6 +58,13 @@
 <script src="/asset/js/datatables.min.js"></script>
 <script src="/asset/js/parsley.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+<script>
+    $(".theme-switch").on("click", () => {
+  $("body").toggleClass("dark-theme");
+});
+</script>
+
 @yield('scriptcontent')
 {{-- <script src="/asset/js/bootstrap.min.js"></script> --}}
 {{-- <script src="/js/datatable-basic.js"></script> --}}

@@ -35,7 +35,7 @@ class LoginController extends Controller
         $data['username'] = $username;
         $data['passwords'] = $passwords;
         $details = $login->Authentication($data);
-        // print_r($details);exit;
+        //print_r($details);exit;
         $count = count($details);
         $message = '';
         if ($count === 0) {

@@ -1,10 +1,10 @@
 @extends('Layout.app')
 @section('content')
 <div>
-    <div class="row" style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
+    <div class="row botom_nav" >
         <div style="padding:8px 35px;">
             <div>
-                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | User's</h3>
+                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">User's</label></h3>
             </div>
         </div>
         <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i

@@ -1,5 +1,8 @@
 @extends('Layout.app')
 @section('content')
+<div class="new-wrapper">
+
+    <div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="height: 55px;padding: 15px 10px;position: relative;">
         <div style="float:left;">
@@ -309,7 +312,7 @@
                 src="/asset/css/zondicons/zondicons/time.svg" class="edit_icon"
                 style="-webkit-filter: invert(1);">Leave</a>
     </div>
-</div>
+</div></div></div>
 {{-- ////////////////////////////////////////////////////////////////////////////////////////////////// --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}

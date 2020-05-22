@@ -24,13 +24,16 @@ class TableController extends Controller
         ->addColumn('assgin', function ($query) {
             return '<a href="'.action('SuperAdmin\TableController@showAllModule', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'">Assgin</a>';
         })
+        ->addColumn('assginpolycies', function ($query) {
+            return '<a href="'.action('SuperAdmin\TableController@showAllPoliycyes', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'">Assgin</a>';
+        })
         ->addColumn('action', function ($query) {
             $id = Crypt::encrypt($query->CLIENT_ID);
             return '<a href="'.action('SuperAdmin\TableController@edit', Crypt::encrypt($query->CLIENT_ID)).'" id="userform'.$query->CLIENT_ID.'"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
             <a href="javascript:void(0)" onclick="deleteClient('."'$id'".',event)"><img src="/asset/css/zondicons/zondicons/close.svg"
             style="width: 15px;    filter: invert(0.5);" alt=""></a>';
         })
-        ->rawColumns(['action', 'assgin'])
+        ->rawColumns(['action', 'assgin', 'assginpolycies'])
        ->make(true);
     }
 
@@ -151,6 +154,23 @@ class TableController extends Controller
         $response = $model->deleteClient($id, $data);
         return $response;
 
+    }
+    /**
+     * Show the All Ploycies
+     *
+     * @return \Illuminate\Http\Response Return The Data Table Of All Records Of Data Table
+     */
+    public function showAllPoliycyes($id)
+    {
+        $id = Crypt::decrypt($id);
+        $getDetails = DB::table('sup_tbl_module')->where(['Flag'=>'Show'])->get();
+        $getAssinedUser = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->get()->first();
+        $AssinedUser = $getAssinedUser->AssginModuleId;
+        $clinetDetais['COMPANY_NAME'] = $getAssinedUser->COMPANY_NAME;
+        $clinetDetais['id'] = $id;
+        $clinetDetais['GRADEORLEVEL'] = $getAssinedUser->GRADEORLEVEL;
+        // print_r($getDetails[0]->moduleName);
+        return view('SuperAdmin/AddPolicyes',compact('getDetails', 'AssinedUser', 'clinetDetais'));
     }
 
 }

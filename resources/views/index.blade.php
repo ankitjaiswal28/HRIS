@@ -254,7 +254,8 @@
                             } else if(response === 'PassNotFound') {
                                alert('PassWord Does Not Match')
                             } else{
-                                console.log(data);
+                                 // console.log(data);
+                                 // return;
                                 var response = data.trim();
                                 var getAaary = response.split('_,');
                                 if (getAaary[0] === '1') {
@@ -262,13 +263,32 @@
                                     window.location.href = 'SuperAdmin/superadmindahboard';
 
                                 } else if(getAaary[0] === '2') {
-                                    console.log('Admin');
-                                    window.location.href = 'Admin/admindahboard';
+                                    // console.log('Admin' , getAaary[2]);
+                                    if(getAaary[2] == 'First') {
+                                        window.location.href = 'changePassword/' + getAaary[3];
+                                        console.log('Url' + getAaary[3])
+                                    } else if(getAaary[2] == 'Get') {
+                                        window.location.href = 'Admin/admindahboard';
+                                    } else {
+                                        alert('Something Went Wrong');
+                                    }
+
+                                    // window.location.href = 'Admin/admindahboard';
+                                } else if (getAaary[0] === '3') {
+                                    if(getAaary[2] == 'First') {
+                                        window.location.href = 'changePassword/' + getAaary[3];
+                                        console.log('Url' + getAaary[3])
+                                    } else if(getAaary[2] == 'Get') {
+                                        window.location.href = 'User/dashboard';
+                                    } else {
+                                        alert('Something Went Wrong');
+                                    }
                                 } else {
-                                    window.location.href = 'User/dashboard';
+                                     alert('Something Went Wrong');
+                                   // window.location.href = 'User/dashboard';
                                     // console.log('User');
                                 }
-                                console.log(getAaary);
+                              //   console.log(getAaary);
                                //  alert('Succesfuly Login') console.log(data);
                            //   return;
                                  //  window.location.href = 'admindashboard';

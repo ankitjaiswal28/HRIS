@@ -801,7 +801,8 @@ input#menu[type="checkbox"] {
 .overflow-container {
     background: #f8f9fd;
     position: relative;
-    height: calc(100vh - 0px) !important;
+    /* height: calc(100vh - 0px) !important; */
+    height: auto;
     overflow-y: auto;
     border-top: 15px solid #f8f9fd;
     z-index: -1;
@@ -2772,13 +2773,13 @@ button:focus {
 [data-tooltip]:before,
 [data-tooltip]:after {
     visibility: hidden;
-    -ms-filter: ;
+    /* -ms-filter: ;
     "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: ;
-    progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    progid: DXImageTransform.Microsoft.Alpha(Opacity=0); */
     opacity: 0;
     pointer-events: none;
-    -webkit-filter: ;
+    /* -webkit-filter: ; */
 }
 
 
@@ -2828,12 +2829,12 @@ button:focus {
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after {
     visibility: visible;
-    -ms-filter: ;
+    /* -ms-filter: ;
     "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: ;
-    progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    progid: DXImageTransform.Microsoft.Alpha(Opacity=100); */
     opacity: 1;
-    -webkit-filter: ;
+    /* -webkit-filter: ; */
 }
 
 

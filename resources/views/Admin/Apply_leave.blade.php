@@ -1,6 +1,8 @@
 @extends('Layout.app')
 @section('content')
 <link rel="stylesheet" href="/asset/css/Calender.css">
+<div class="new-wrapper">
+<div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/') }}"><i
                 class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i><span
@@ -207,6 +209,7 @@
         </div>
     </div>
 </div>
+</div></div>
 </div>
 {{-- //////////////////////////         Calender datepicker  Script      ////////////////////////////// --}}
 <script src="/asset/js/jquery.min.js"></script>

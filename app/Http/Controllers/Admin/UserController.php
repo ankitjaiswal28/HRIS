@@ -89,8 +89,38 @@ class UserController extends Controller
         $roles = $model->showAllData('mst_tbl_master_role');
         $users = $model->showAllData('mst_user_tbl');
         $functions = $model->showAllData('mst_tbl_functions');
+        $desigantions = $model->showAllData('mst_tbl_designations');
+        $clients = $model->showAllData('mst_tbl_admin_clients');
+        $types = '';
+        $finaldata = [];
+        if (DB::getSchemaBuilder()->hasTable('mst_tbl_grade'))
+        {
+            $types ='Grade';
+            $content = $model->showAllData('mst_tbl_grade');
+            $length = count($content);
+            $aaary1 = [];
+            for ($i=0; $i < $length ; $i++) {
+                $aaary1 = [];
+                $aaary1['Id'] = $content[$i]->GRADE_ID;
+                $aaary1['Name'] = $content[$i]->GRADE_NAME;
+                $finaldata[] =  $aaary1;
+            }
+        } else {
+            $types ='Levels';
+            $content = $model->showAllData('mst_tbl_levels');
+            $length = count($content);
+            $aaary1 = [];
+            for ($i=0; $i < $length ; $i++) {
+                $aaary1 = [];
+                $aaary1['Id'] = $content[$i]->LEVEL_ID;
+                $aaary1['Name'] = $content[$i]->LEVEL_NAME;
+                $finaldata[] =  $aaary1;
+            }
+            // $finaldata['Id'] = $content[0]->LEVEL_ID;
+            // $finaldata['Name'] = $content[0]->LEVEL_NAME;
+        }
         // print_r($roles);
-         return view('Admin.AddUser', compact('roles', 'users', 'functions'));
+         return view('Admin.AddUser', compact('roles', 'users', 'functions', 'desigantions', 'clients', 'types', 'finaldata'));
     }
 
     /**
@@ -119,7 +149,15 @@ class UserController extends Controller
         $REPORTING_MANAGER = implode(",",$reportingmanger);
         $departmens = $request->departmens;
         $functions = $request->functions;
-
+        $employetype = $request->employetype;
+        $designation = $request->designation;
+        $companyassined = $request->companyassined;
+        $gradeorlevel = $request->gradeorlevel;
+        $input = $request->doj;
+        $date = strtotime($input);
+        $doj = date('Y-m-d', $date);
+       //  exit;
+        // $doj = $request->doj;
         $encryptPassword = Crypt::encrypt($pwd);
         $data['orignalDb'] = $orignalDb;
         $data['ROLEID'] = $ROLEID;
@@ -134,6 +172,13 @@ class UserController extends Controller
         $data['PRIMARY_MANGER'] = $primarymanger;
         $data['FUNCTION_NAME_ID'] = $functions;
         $data['DEPARTMENTS_ID'] = $departmens;
+        $data['DOJ'] = $doj;
+        $data['EMPLOYE_TYPE'] = $employetype;
+        $data['DESIGNATION_ID'] = $designation;
+        $data['ADMINCLIENT_ID'] = $companyassined;
+        $data['GRADEORLEVEL_ID'] = $gradeorlevel;
+
+
 
         $response = $model->UserCraetion($data);
         return $response;

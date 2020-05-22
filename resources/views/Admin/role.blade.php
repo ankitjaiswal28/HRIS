@@ -1,19 +1,20 @@
 @extends('Layout.app')
 @section('content')
-<div>
-    <div class="row botom_nav" style="">
-        <div style="padding:8px 35px;">
-            <div>
-                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">Role's</label></h3>
+<div class="new-wrapper">
+    <div id="main">
+        <div class="main_card">
+            <div class="neuphormic_shadow fst_card">
+                <div class="fst_card_cntnt">
+                    <h3 class="h3_header_prt" style=""><a class="white_anchor"
+                            href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">Role's</label>
+                    </h3>
+                </div>
+                <div style="float:right;">
+                    <a href="{{ url('/Admin/Add_roles') }}" class="btnn"><i class="fa fa-plus"
+                            style="padding-right: 10px;" aria-hidden="true"></i>ADD Role</a>
+                </div>
             </div>
         </div>
-        <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
-                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
-                href="{{ url('/Admin/Add_roles') }}"><i class="fa fa-plus fafa_add_circle_right"
-                    aria-hidden="true"></i></a></div>
-    </div>
-</div>
-<br>
 <img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
 <div class="margin_left_right">
     <table id="example" class="table table-hover" style="width:100%">
@@ -38,6 +39,8 @@
             </tr>
         </tbody> --}}
     </table>
+</div>
+</div>
 </div>
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>

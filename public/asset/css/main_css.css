@@ -2772,13 +2772,13 @@ button:focus {
 [data-tooltip]:before,
 [data-tooltip]:after {
     visibility: hidden;
-    -ms-filter: ;
+    /* -ms-filter: ;
     "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: ;
-    progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    progid: DXImageTransform.Microsoft.Alpha(Opacity=0); */
     opacity: 0;
     pointer-events: none;
-    -webkit-filter: ;
+    /* -webkit-filter: ; */
 }
 
 
@@ -2828,12 +2828,12 @@ button:focus {
 [data-tooltip]:hover:before,
 [data-tooltip]:hover:after {
     visibility: visible;
-    -ms-filter: ;
+    /* -ms-filter: ;
     "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: ;
-    progid: DXImageTransform.Microsoft.Alpha(Opacity=100);
+    progid: DXImageTransform.Microsoft.Alpha(Opacity=100); */
     opacity: 1;
-    -webkit-filter: ;
+    /* -webkit-filter: ; */
 }
 
 

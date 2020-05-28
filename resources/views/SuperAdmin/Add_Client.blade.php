@@ -1,120 +1,134 @@
 @extends('Layout.app')
 @section('content')
-
-<div class="main_card">
-    <div class="neuphormic_shadow" style="padding:10px"><i class="fa fa-chevron-left" aria-hidden="true"
-            style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
+<div class="new-wrapper">
+    <div id="main">
+        <div class="main_card">
+            <div class="neuphormic_shadow" style="padding:10px"><i class="fa fa-chevron-left" aria-hidden="true"
+                    style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
         font-size: 18px;">All Employee</span><i class="fa fa-close" aria-hidden="true"
-            style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
-</div>
-<div class="flip-card-3D-wrapper" style="width: 35% !important;">
-    <div class="columns">
-        <div class="inner-column" id="flip-card">
-            <div class="flip-card-front" style="padding-top: 10px;">
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add Client</h1>
-                        </div>
-                        <div class="col-md-2">
-                            <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
-                                    src="/asset/css/zondicons/zondicons/inbox-download.svg" alt="Import"
-                                    style="width: 20px;margin-right: 0px;"></button>
-                        </div>
-                    </div>
-                    <div class="padding_20" style="padding: 0px 35px;">
-                        <form action="#" name="client_form" id="client_form" class="form_class" data-parsley-validate autocomplete="off">
+                    style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
+        </div>
+        <div class="flip-card-3D-wrapper" style="width: 35% !important;">
+            <div class="columns">
+                <div class="inner-column" id="flip-card">
+                    <div class="flip-card-front" style="padding-top: 10px;">
+                        <div class="">
                             <div class="row">
-                                <div class=" col-sm-12 col-xs-12 col-md-12">
-                                    <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="companyname" name="companyname"  autocomplete="off"  placeholder="" style="clear:both" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
-                                        <label>Company Name</label>
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    {{-- <input type="text" class="effect-16" id="adminname" name="adminname"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required=""> --}}
-                                        <input class="effect-16" type="text" placeholder="" style="clear:both" id="adminname" name="adminname" data-parsley-trigger="blur" required="">
-                                        <label>Admin Name</label>
-                                        <span class="focus-border" ></span>
-
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="mobileno" name="mobileno"  autocomplete="off" placeholder="" style="clear:both" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
-                                        <label>Admin Contact No</label>
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="email" class="effect-16"  id="email" placeholder="" style="clear:both" name="email"  autocomplete="off"  data-parsley-type="email"  data-parsley-trigger="blur" required="" >
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both"> --}}
-                                        <label>Admin Email</label>
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="text" class="effect-16" id="prefix" placeholder="" style="clear:both" name="prefix"  autocomplete="off"  data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="text" placeholder="" style="clear:both" name= "fff"  autocomplete="off" > --}}
-                                        <label>Client Prefix</label>
-                                        <span class="focus-border"></span>
-                                    </div>
-                                    <div class="colll-3 input-effect">
-                                    <input type="password" class="effect-16" id="pwd"placeholder="" style="clear:both" name="pwd" autocomplete="new-password" data-parsley-trigger="blur" required="">
-                                        {{-- <input class="effect-16" type="password" placeholder="" style="clear:both" name="pwn"  autocomplete="new-password"> --}}
-                                        <label>Password</label>
-                                        <span class="focus-border"></span>
-                                    </div>
+                                <div class="col-md-10">
+                                    <h1 class="left_border font_grey" style="float: left;">Add Client</h1>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="flip-card-btn-turn-to-back" data-tooltip="Import"
+                                        class="box circle"><img src="/asset/css/zondicons/zondicons/inbox-download.svg"
+                                            alt="Import" style="width: 20px;margin-right: 0px;"></button>
                                 </div>
                             </div>
-                            <div style="margin: 15px 0px;">
-                            <button type="button" name="submit_id" id="btn_id"  class="btnn" style="border: none;">Submit</button>
-                            <img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
-                                {{-- <button type="submit" class="btnn" style="border: none;">Submit</button> --}}
-                                {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="flip-card-back">
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Import Client</h1>
-                        </div>
-                        <div class="col-md-2">
-                            <button id="flip-card-btn-turn-to-front" data-tooltip="Entry Form" class="box circle"><img
-                                    src="/asset/css/zondicons/zondicons/edit-pencil.svg" alt="Import"
-                                    style="width: 20px;margin-right: 0px;"></button>
-                        </div>
-                    </div>
-                    <br>
-                    <div style="text-align: -webkit-center;">
-                        <form action="#">
-                            <h4>Choose Csv file</h4>
-                            <div class="input-file-container">
-                                <input class="input-file" id="my-file" type="file">
-                                <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
-                            </div>
-                            <p class="file-return"></p>
-                            <br>
-                            <div style="margin: 15px 0px;">
-                                <button type="submit" class="btnn" style="border: none;">Submit</button>
-                                {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            {{-- <div >
+                            <div class="padding_20" style="padding: 0px 35px;">
+                                <form action="#" name="client_form" id="client_form" class="form_class"
+                                    data-parsley-validate autocomplete="off">
+                                    <div class="row">
+                                        <div class=" col-sm-12 col-xs-12 col-md-12">
+                                            <div class="colll-3 input-effect">
+                                                <input type="text" class="effect-16" id="companyname" name="companyname"
+                                                    autocomplete="off" placeholder="" style="clear:both"
+                                                    data-parsley-trigger="blur" required="" data-parsley-errors-container=".erroscompanyname">
+                                                <label>Company Name</label>
+                                                <span class="erroscompanyname"></span>
+                                            </div>
+                                            <div class="colll-3 input-effect">
+                                                <input class="effect-16" type="text" placeholder="" style="clear:both"
+                                                    id="adminname" name="adminname" data-parsley-trigger="blur"
+                                                    required="" data-parsley-errors-container=".errorsadminname">
+                                                <label>Admin Name</label>
+                                                <span class="errorsadminname"></span>
 
-            </div> --}}
+                                            </div>
+                                            <div class="colll-3 input-effect">
+                                                <input type="text" class="effect-16" id="mobileno" name="mobileno"
+                                                    autocomplete="off" placeholder="" style="clear:both"
+                                                    data-parsley-trigger="blur" required="" data-parsley-errors-container=".errorsmobileno">
+                                                <label>Admin Contact No</label>
+                                                <span class="errorsmobileno"></span>
+                                            </div>
+                                            <div class="colll-3 input-effect">
+                                                <input type="email" class="effect-16" id="email" placeholder=""
+                                                    style="clear:both" name="email" autocomplete="off"
+                                                    data-parsley-type="email" data-parsley-trigger="blur" required="" data-parsley-errors-container=".errorsemail">
+                                                <label>Admin Email</label>
+                                                <span class="errorsemail"></span>
+                                            </div>
+                                            <div class="colll-3 input-effect">
+                                                <input type="text" class="effect-16" id="prefix" placeholder=""
+                                                    style="clear:both" name="prefix" autocomplete="off"
+                                                    data-parsley-trigger="blur" required="" data-parsley-errors-container=".errorsprefix">
+                                                <label>Client Prefix</label>
+                                                <span class="errorsprefix"></span>
+                                            </div>
+                                            <div class="colll-3 input-effect">
+                                                <input type="password" class="effect-16" id="pwd" placeholder=""
+                                                    style="clear:both" name="pwd" autocomplete="new-password"
+                                                    data-parsley-trigger="blur" required="" data-parsley-errors-container=".errorspassword">
+                                                <label>Password</label>
+                                                <span class="errorspassword"></span>
+                                            </div>
+                                            <div class="colll-3 input-effect">
+                                                <input type="text" class="effect-16" id="empcode" placeholder=""
+                                                    style="clear:both" name="empcode"
+                                                    data-parsley-trigger="blur" required=""data-parsley-errors-container=".errorscode">
+                                                <label>Employe Code Format</label>
+                                                <span class="errorscode"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin: 15px 0px;">
+                                        <button type="button" name="submit_id" id="btn_id" class="btnn"
+                                            style="border: none;">Submit</button>
+                                        <img src="../asset/images/pageloader.gif" id="loading-image"
+                                            style="display:none; width: 40px;">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h1 class="left_border font_grey" style="float: left;">Import Client</h1>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="flip-card-btn-turn-to-front" data-tooltip="Entry Form"
+                                        class="box circle"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"
+                                            alt="Import" style="width: 20px;margin-right: 0px;"></button>
+                                </div>
+                            </div>
+                            <br>
+                            <div style="text-align: -webkit-center;">
+                                <form action="#">
+                                    <h4>Choose Csv file</h4>
+                                    <div class="input-file-container">
+                                        <input class="input-file" id="my-file" type="file">
+                                        <label tabindex="0" for="my-file" class="input-file-trigger">Select a
+                                            file...</label>
+                                    </div>
+                                    <p class="file-return"></p>
+                                    <br>
+                                    <div style="margin: 15px 0px;">
+                                        <button type="submit" class="btnn" style="border: none;">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
 <script>
- $(document).ready(function() {
+    $(document).ready(function() {
      $('#loading-image').bind('ajaxStart', function() {
          $(this).show();
 	}).bind('ajaxStop', function() {
@@ -145,6 +159,7 @@
                     email: $('#email').val(),
                     prefix: $('#prefix').val(),
                     pwd: $('#pwd').val(),
+                    empcode: $('#empcode').val(),
                     },
                     success: function(data) {
                         console.log('Data', data);

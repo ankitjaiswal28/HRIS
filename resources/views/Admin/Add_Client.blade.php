@@ -7,7 +7,7 @@
         font-size: 18px;">All Employee</span><i class="fa fa-close" aria-hidden="true"
             style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
-<div class="flip-card-3D-wrapper" style="width: 35% !important;">
+<div class="flip-card-3D-wrapper" style="width: 45% !important;">
     <div class="columns">
         <div class="inner-column" id="flip-card">
             <div class="flip-card-front" style="padding-top: 10px;">
@@ -102,6 +102,7 @@
         </div>
     </div>
 </div>
+
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
 <script>

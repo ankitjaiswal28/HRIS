@@ -7,12 +7,12 @@
                 <div class="fst_card_cntnt">
                     <h3 class="h3_header_prt" style=""><a class="white_anchor" href="{{ url('/Admin/dashboard') }}"><i
                                 class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label
-                            class="ralway_font">Designation's</label>
+                            class="ralway_font">Shifts's</label>
                     </h3>
                 </div>
                 <div style="float:right;">
-                    <a href="{{ url('/Admin/Add_Designations') }}" class="btnn"><i class="fa fa-plus"
-                            style="padding-right: 10px;" aria-hidden="true"></i>ADD DESGINATION</a>
+                    <a href="{{ url('/Admin/addShifts') }}" class="btnn"><i class="fa fa-plus"
+                            style="padding-right: 10px;" aria-hidden="true"></i>ADD SHIFTS</a>
                 </div>
             </div>
         </div>
@@ -22,8 +22,9 @@
                 <thead>
                     <tr>
                         <th>Sr</th>
-                        <th>Designation Name</th>
-                        <th>Designation Details</th>
+                        <th>Shift Name</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -49,38 +50,39 @@ $('#example').DataTable({
     serverSide: true,
     searchable: true,
     ajax : {
-    url : path + '/show_alldesignation_datatbl',
+    url : path + '/show_shifts_datatbl',
     type : 'post',
     data : {_token: CSRF_TOKEN},
     },
     columns: [
         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-        { data: 'DESGINATION_NAME', name: 'DESGINATION_NAME' },
-        { data: 'DESGINATION_DESCRIPTION', name: 'DESGINATION_DESCRIPTION' },
+        { data: 'SHIFT_NAME', name: 'SHIFT_NAME' },
+        { data: 'START_TIME', name: 'START_TIME' },
+        { data: 'END_TIME', name: 'END_TIME' },
         { data: 'action', name: 'action' }
 
 
     ]
 });
-   function deleteDesignation(id,event) {
+   function deleteShifts(id,event) {
     event.preventDefault(); // prevent form submit
 
     $('#loading-image').show();
-        if (confirm("Are You Sure You Want to Delete Client!")) {
+        if (confirm("Are You Sure You Want to Delete Shifts!")) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
-                url: '/deletethisDesignation/' + id ,
+                url: '/deletethisShifts/' + id ,
                 type: 'get',
                 success: function(data) {
                         console.log('Data', data);
                         //return;
                          var response = data.trim();
                          if(response == 'Done'){
-                            alert('Designation Deleted Sucessfuly');
+                            alert('Shift Deleted Sucessfuly');
                          } else {
                              alert('Something Went Wrong');
                          }

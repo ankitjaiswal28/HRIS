@@ -33,8 +33,13 @@ class DashboardController extends Controller
         // print_r($_SERVER);
         // exit();
         $details = new mainModel();
-        $UserShift = '1 Shift';
+        //$UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');
+        $shiftsdetails = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $UserId])->get()->first();
+        $UserShift = $shiftsdetails->SHIFT_ID;
+        $ADMINCLIENT_ID = $shiftsdetails->ADMINCLIENT_ID;
+
+        // print_r();exit;
         // $timaestamp = date("Y-m-d H:i:s");
         $date = date('Y-m-d');
         $time = date(' H:i:s');
@@ -43,6 +48,7 @@ class DashboardController extends Controller
         $data['in_Date'] = $date;
         $data['in_time'] = $time;
         $data['Stutus'] = 'IN';
+        $data['assgin_user_toclient'] = $ADMINCLIENT_ID;
         $id = $details->insertRecords($data,'mst_tbl_add_attdencence');
         $message = '';
         $retVal = ($id != '') ? $message = 'Done' : $message = 'Error';
@@ -59,6 +65,7 @@ class DashboardController extends Controller
         $details = new mainModel();
         $UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');
+
         // $timaestamp = date("Y-m-d H:i:s");
         $date = date('Y-m-d');
         $time = date(' H:i:s');

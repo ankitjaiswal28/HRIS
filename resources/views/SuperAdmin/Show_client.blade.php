@@ -1,37 +1,57 @@
 @extends('Layout.app')
 @section('content')
-<div>
-    <div class="row" style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
-        <div style="padding:8px 35px;">
-            <div>
-                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> |
-                    Client's</h3>
+<div class="new-wrapper">
+    <div id="main">
+        <div id="main">
+            <div class="main_card">
+                <div class="neuphormic_shadow fst_card">
+                    <div class="fst_card_cntnt">
+                        <h3 class="h3_header_prt" style=""><a class="white_anchor"
+                                href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">Client's</label>
+                        </h3>
+                    </div>
+                    <div style="float:right;">
+                        <a href="{{ url('/Superadmin/client') }}" class="btnn"><i class="fa fa-plus"
+                                style="padding-right: 10px;" aria-hidden="true"></i>ADD CLIENT</a>
+                    </div>
+                </div>
             </div>
+        <div>
+            {{-- <div class="row"
+                style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
+                <div style="padding:8px 35px;">
+                    <div>
+                        <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor"
+                                href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline"
+                                    aria-hidden="true"></i></a> |
+                            Client's</h3>
+                    </div>
+                </div>
+                <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
+                            class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
+                        href="{{ url('/Superadmin/client') }}"><i class="fa fa-plus fafa_add_circle_right"
+                            aria-hidden="true"></i></a></div>
+            </div> --}}
         </div>
-        <div class="absolute_add_btn" style=""><a href="{{ url('/Superadmin/dashboard') }}"><i
-                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
-                href="{{ url('/Superadmin/client') }}"><i class="fa fa-plus fafa_add_circle_right"
-                    aria-hidden="true"></i></a></div>
+        <br>
+        <img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
+        <div class="margin_left_right">
+            <table id="client-table" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Company Name</th>
+                        <th> Admin Name</th>
+                        <th>Email</th>
+                        <th>Assgin Module</th>
+                        <th>Assgin Poliycyes</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
-<br>
-<img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
-<div class="margin_left_right">
-    <table id="client-table" class="table table-hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Company Name</th>
-                <th> Admin Name</th>
-                <th>Email</th>
-                <th>Assgin Module</th>
-                <th>Assgin Poliycyes</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-    </table>
-</div>
-
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>
 <script>
@@ -71,7 +91,7 @@
 });
 </script>
 <script>
-function deleteClient(id,event) {
+    function deleteClient(id,event) {
     event.preventDefault(); // prevent form submit
     $('#loading-image').show();
         if (confirm("Are You Sure You Want to Delete Client!")) {

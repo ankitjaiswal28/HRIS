@@ -183,7 +183,7 @@
         $("#datepicker").datepicker({
             dateFormat: "dd-mm-yy",
             duration: "fast"
-        });
+        }).datepicker("setDate", new Date());
     });
  $(document).ready(function() {
      // INCLUDE JQUERY & JQUERY UI 1.12.1

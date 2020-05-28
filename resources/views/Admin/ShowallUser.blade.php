@@ -26,7 +26,9 @@
                 <th>Roles</th>
                 <th>Reporting Managers</th>
                 <th>Primary  Reporting Manager</th>
-                {{-- <th>Set Primary Manager</th> --}}
+                <th>Employee Id</th>
+                <th>Employee Type</th>
+                <th>Employee Shift</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -73,6 +75,9 @@ $('#example').DataTable({
         { data: 'master_roleId', name: 'master_roleId' },
         { data: 'REPORTING_MANGERS', name: 'REPORTING_MANGERS' },
         { data: 'PRIMARY_MANGER', name: 'PRIMARY_MANGER' },
+        { data: 'EMPLOYEE_ID', name: 'EMPLOYEE_ID' },
+        { data: 'EMPLOYE_TYPE', name: 'EMPLOYE_TYPE' },
+        { data: 'SHIFT_ID', name: 'SHIFT_ID' },
         // { data: 'moduleLink', name: 'moduleLink' },
       //  {{-- { data: 'assgin', name: 'assgin' }, --}}
         { data: 'action', name: 'action' }

@@ -42,7 +42,7 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::get('user/showAllModule/{id}', 'SuperAdmin\TableController@showAllModule')->name('user/showAllModule');
         Route::post('/updateModules', 'SuperAdmin\TableController@AssinedMOdule')->name('updateModules');
 
-        /////////////////////           Client Operation     ////////////////////////////////
+        /////////////////////           Client Operation     ///////////////////////////////////////////////////////////////////////////////
         Route::get('SuperAdmin/Show_client', 'SuperAdmin\TableController@Show_client')->name('SuperAdmin/Show_client');
         Route::get('Superadmin/show_Edit_client', 'SuperAdmin\TableController@show_Edit_client')->name('SuperAdmin/show_Edit_client');
         Route::post('/show_client_datatbl', 'SuperAdmin\TableController@show_client_datatbl')->name('show_client_datatbl');
@@ -60,10 +60,8 @@ Route::group(['middleware' => ['athuthenticate']], function () {
     });
     Route::group(['middleware' => ['admin']], function () {
         Route::get('Admin/admindahboard', 'Admin\DashboardController@index')->name('Admin/admindahboard');
-        ///////////project master///////////////////////////////////
 
-
-        // Route:: get('/Show_timesheet', 'Admin\TimesheetController@Show_timesheet')->name('/Show_timesheet');
+        //////////////////////////////////// APPLY LEAVE ///////////////////////////////////////////////////////////////////////////////////////
         Route::get('/leave_details', 'Admin\ApplyleaveController@leave_details')->name('/leave_details');
         Route::get('/Leave_manage', 'Admin\ApplyleaveController@Leave_manage')->name('/Leave_manage');
         Route::post('/show_pending_leave_request', 'Admin\ApplyleaveController@show_pending_leave_request')->name('/show_pending_leave_request');
@@ -75,30 +73,19 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::post('/update_leave_manage_code', 'Admin\ApplyleaveController@update_leave_manage_code')->name('/update_leave_manage_code');
         Route::post('/approve_leave_manage_data', 'Admin\ApplyleaveController@approve_leave_manage_data')->name('/approve_leave_manage_data');
         Route::post('/approve_leave_with_user_id', 'Admin\ApplyleaveController@approve_leave_with_user_id')->name('/approve_leave_with_user_id');
-
-
-
-
-
         Route::get('edit_leavetype/{id}', 'Admin\ApplyleaveController@edit_leavetype')->name('edit_leavetype');
         Route::get('delete_leavetype/{id}', 'Admin\ApplyleaveController@delete_leavetype')->name('delete_leavetype/delete');
 
-
-
-
-        ///////////project master///////////////////////////////////
+        //////////////////////// PROJECT MASTER ///////////////////////////////////////////////////////////////////////////////////////////////
         Route::get('project/showdata', 'Admin\ProjectMasterController@index')->name('project/showdata');
         Route::get('project/create', 'Admin\ProjectMasterController@create')->name('project/create');
         Route::post('project/addproject', 'Admin\ProjectMasterController@addproject')->name('project/addproject');
         Route::post('/show_all_data', 'Admin\ProjectMasterController@show_all_project')->name('show_all_data');
         Route::get('project/editproject/{projectid}', 'Admin\ProjectMasterController@edit_project')->name('project/editproject');
         Route::post('/update_all_data', 'Admin\ProjectMasterController@update_project')->name('update_all_data');
-        //////////////////PROJECT MASTER END////////////////////////
+        Route::get('deleted_project/{id}', 'Admin\ProjectMasterController@deleted_project')->name('deleted_project');
 
-
-        //////////////////////////////////////////////////////////////
-
-
+        //////////////////////// ADMIN ROLE ///////////////////////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/role', 'Admin\RoleController@ShowRoles')->name('Admin/role');
         Route::get('Admin/Add_roles', 'Admin\RoleController@ShowAddRoles')->name('Admin/Add_roles');
         Route::post('/craeteRoles', 'Admin\RoleController@addRoles')->name('/craeteRoles');
@@ -106,13 +93,17 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::get('user/showAllClientModule/{id}', 'Admin\RoleController@showAllClientModule')->name('user/showAllClientModule');
         Route::get('/editRoleName/{id}', 'Admin\RoleController@editRoleName')->name('/editRoleName');
         Route::post('/updateRoleName', 'Admin\RoleController@updateRoles')->name('/updateRoleName');
+        Route::get('deleteAdminRole/{id}', 'Admin\RoleController@destroy')->name('deleteAdminRole');
+        Route::post('/updateAdminModules', 'Admin\RoleController@AssinedMOdule')->name('updateAdminModules');
+
+        ///////////////////////////////// ADMIN MODULE //////////////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/Module', 'Admin\ModuleController@showModule')->name('Admin/Module');
         Route::post('/show_admin_module_datatbl', 'Admin\ModuleController@show_module_datatbl')->name('show_admin_module_datatbl');
         Route::get('deleteAdminModule/{id}', 'Admin\ModuleController@destroy')->name('deleteAdminModule');
         Route::get('ShowAdminEditModule/{id}', 'Admin\ModuleController@ShowEditModule')->name('ShowAdminEditModule');
         Route::post('/updateAdminmodule', 'Admin\ModuleController@updateModule')->name('/updateAdminmodule');
-        Route::get('deleteAdminRole/{id}', 'Admin\RoleController@destroy')->name('deleteAdminRole');
-        Route::post('/updateAdminModules', 'Admin\RoleController@AssinedMOdule')->name('updateAdminModules');
+
+        /////////////////////////////////// ADMIN USER ////////////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/User', 'Admin\UserController@listofUser')->name('Admin/User');
         Route::post('/show_alluser_datatbl', 'Admin\UserController@show_alluser_datatbl')->name('/show_alluser_datatbl');
         Route::get('Admin/Add_User', 'Admin\UserController@AddUser')->name('Admin/Add_User');
@@ -120,7 +111,8 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::get('deletethisUser/{id}', 'Admin\UserController@destroy')->name('deletethisUser');
         Route::get('/editUser/{id}', 'Admin\UserController@editUser')->name('/editUser');
         Route::post('/updateUser', 'Admin\UserController@updateUser')->name('/updateUser');
-        /////////////////////////////////////////////////////////////////////////////
+
+        ////////////////////////////////// ADMIN DEPARTMENT ///////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/Departments', 'Admin\DepartmentController@listofDepartments')->name('Admin/Departments');
         Route::post('/show_alldepartment_datatbl', 'Admin\DepartmentController@show_alldepartment_datatbl')->name('/show_alldepartment_datatbl');
         Route::get('Admin/Add_Departments', 'Admin\DepartmentController@AddDepartmentPage')->name('Admin/Add_Departments');
@@ -129,6 +121,7 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::post('/updateDepartments', 'Admin\DepartmentController@updateDepartment')->name('/updateDepartments');
         Route::get('deletethisDepartment/{id}', 'Admin\DepartmentController@destroy')->name('deletethisDepartment');
 
+        //////////////////////////////// ADMIN FUNCTION  //////////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/Functions', 'Admin\FunctionController@listofFunctions')->name('Admin/Functions');
         Route::post('/show_allfunctions_datatbl', 'Admin\FunctionController@show_allfunctions_datatbl')->name('/show_allfunctions_datatbl');
         Route::get('Admin/Add_Functions', 'Admin\FunctionController@AddCreateFunctionPage')->name('Admin/Add_Functions');
@@ -137,6 +130,7 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::post('/updateFunctions', 'Admin\FunctionController@updateFunctions')->name('/updateFunctions');
         Route::get('deletethisFunction/{id}', 'Admin\FunctionController@destroy')->name('deletethisFunction');
 
+        ////////////////////////////// ADMIN DESIGNATION ///////////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/Designation', 'Admin\DesignationController@listofDesignations')->name('Admin/Designation');
         Route::post('/show_alldesignation_datatbl', 'Admin\DesignationController@show_alldesignation_datatbl')->name('/show_alldesignation_datatbl');
         Route::get('Admin/Add_Designations', 'Admin\DesignationController@AddDesignation')->name('Admin/Add_Designations');
@@ -145,13 +139,27 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::post('/updateDesignation', 'Admin\DesignationController@updateDesignation')->name('/updateDesignation');
         Route::get('deletethisDesignation/{id}', 'Admin\DesignationController@destroy')->name('deletethisDesignation');
 
+        ///////////////////////////////// ADMIN LEVEL-GRADE ///////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/LevelsorGrade', 'Admin\LevelOrGradeControlller@listofSystems')->name('Admin/LevelsorGrade');
 
-
-        // For Geting Rolmangers Name
+        // For Geting Rolmangers Name //////////////////////////////////////////////////////////////////////////////////////////////////////////
         Route::post('/getUsers', 'DefaultController@getUserName');
         // For Geting Rolmangers Name
         Route::post('/getDepartments', 'DefaultController@getDepartments');
+
+        ///////////////////////// TIME SHEET REPORT ///////////////////////////////////////////////////////////////////////////////////////////
+        Route::get('timesheet/showreport', 'Admin\TimesheetReportController@index')->name('timesheet/showreport');
+        Route::post('timesheet/getcsvdata', 'Admin\TimesheetReportController@getcsvdata')->name('timesheet/getcsvdata');
+
+        //////////////////////////////////// ADMIN CLIENT /////////////////////////////////////////////////////////////////////////////////////
+        Route::get('/showclient', 'Admin\AdminClientController@index')->name('/showclient');
+        Route::get('/show_add_client', 'Admin\AdminClientController@showadddata')->name('/show_add_client');
+        Route::post('/add_client_data', 'Admin\AdminClientController@add_client_data')->name('/add_client_data');
+        Route::post('/show_all_client', 'Admin\AdminClientController@show_all_client')->name('/show_all_client');
+        Route::get('/edit_all_client/{ADMINCLIENTID}', 'Admin\AdminClientController@edit_all_client')->name('/edit_all_client');
+        Route::post('/update_client', 'Admin\AdminClientController@update_client')->name('/update_client');
+        Route::get('deleted_client/{id}', 'Admin\AdminClientController@deleted_client')->name('/deleted_client');
+        //////////////////////////////////////////////////////////////////////////
     });
 
     /* Route::group(['middleware' => ['user']], function () {
@@ -172,23 +180,23 @@ Route::group(['middleware' => ['athuthenticate']], function () {
     });*/
     Route::group(['middleware' => ['user']], function () {
 
-        /////////////////////////     USer Creation     //////////////////////////////////
+        /////////////////////////     USer Creation     ////////////////////////////////////////////////////////////////////////////////////////
         Route::get('/User_Creation', 'Admin\UserController@User_Creation')->name('/User_Creation');
 
+        //////////////////////////// USER DASHBOARD ////////////////////////////////////////////////////////////////////////////////////////////
         Route::get('User/dashboard', 'User\DashboardController@index')->name('User/dashboard');
-
         Route::post('/addatendence', 'Admin\DashboardController@SaveAtdendence')->name('/addatendence');
         Route::post('/getatendence', 'Admin\DashboardController@getAttendence')->name('/getatendence');
         Route::post('/leaveatendence', 'Admin\DashboardController@leaveAttendence')->name('/leaveatendence');
-        /////////////////////time sheet//////////////////////////////
-       /////////////////////time sheet//////////////////////////////
-       Route::get('timesheet/showdata', 'Admin\TimeSheetController@index')->name('timesheet/showdata');
-       Route::post('timesheet/createdata', 'Admin\TimeSheetController@add_timesheet')->name('timesheet/createdata');
-       Route::post('/show_all_timesheet', 'Admin\TimeSheetController@show_all_timesheet')->name('/show_all_timesheet');
-       Route::post('/timesheet_get_data', 'Admin\TimeSheetController@timesheet_get_data')->name('/timesheet_get_data');
-       Route::post('/update_timesheet', 'Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
-       Route::get('timesheet/showreport', 'Admin\TimesheetReportController@index')->name('timesheet/showreport');
-       Route::post('timesheet/getcsvdata', 'Admin\TimesheetReportController@getcsvdata')->name('timesheet/getcsvdata');
+
+        ///////////////////// USER TIME SHEET //////////////////////////////////////////////////////////////////////////////////////////////////
+        Route::get('timesheet/showdata', 'Admin\TimeSheetController@index')->name('timesheet/showdata');
+        Route::post('timesheet/createdata', 'Admin\TimeSheetController@add_timesheet')->name('timesheet/createdata');
+        Route::post('/show_all_timesheet', 'Admin\TimeSheetController@show_all_timesheet')->name('/show_all_timesheet');
+        Route::post('/timesheet_get_data', 'Admin\TimeSheetController@timesheet_get_data')->name('/timesheet_get_data');
+        Route::post('/update_timesheet', 'Admin\TimeSheetController@update_timesheet')->name('/update_timesheet');
+
+        ////////////////////////////// USER APPLY LEAVE ////////////////////////////////////////////////////////////////////////////////////////
         Route::get('/applyleave', 'Admin\ApplyleaveController@applyleave')->name('/applyleave');
         Route::post('/insert_applyleave', 'Admin\ApplyleaveController@insert_applyleave')->name('/insert_applyleave');
     });

@@ -366,6 +366,7 @@
                         <li><a  href="/Admin/User">User</a></li>
                         <li><a  href="/Admin/Departments">Department</a></li>
                         <li><a  href="/Admin/Functions">Function</a></li>
+                        <li><a  href="/showclient">Admin-Client</a></li>
                     </ul>
                 </li>
 

@@ -558,13 +558,21 @@ class mainModel extends Model
         $pro_details['UPDATE_BY'] = $data['UPDATE_BY'];
         $pro_details['UPDATE_AT'] = $data['UPDATE_AT'];
 
-        // print_r($pro_details);
-        // exit;
-        // DB::enableQuerylog();
-
         $updatedata = DB::table('mst_tbl_project_master')->where(['PROJECT_ID' => $PROJECT_ID])->update($pro_details);
         $retVal = ($updatedata != '') ? $message = 'Done' : $message = 'Error';
 
+        return $message;
+    }
+
+    public function deletedproject($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_project_master')->where(['Flag' => 'Show', 'PROJECT_ID' => $id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
         return $message;
     }
 
@@ -685,10 +693,10 @@ class mainModel extends Model
         $databasename = $userClient->CLIENT_PREFIX . '_management';
         // return $databasename;
         // exit();
-        $Delete_query = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($updated);
+        $Delete_query = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $id])->update($updated);
         $message = '';
         if ($Delete_query  != '') {
-            $query = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($updated);
+            $query = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'CLIENT_ID' => $id])->update($updated);
             if ($query != '') {
                 Config::set('database.connections.dynamicsql.database', $databasename);
                 Config::set('database.default', 'dynamicsql');
@@ -869,7 +877,7 @@ class mainModel extends Model
         $EMPLOYE_TYPE = $data['EMPLOYE_TYPE'];
         $DESIGNATION_ID = $data['DESIGNATION_ID'];
         $ADMINCLIENT_ID = $data['ADMINCLIENT_ID'];
-        $GRADEORLEVEL_ID =$data['GRADEORLEVEL_ID'];
+        $GRADEORLEVEL_ID = $data['GRADEORLEVEL_ID'];
 
 
         $timaestamp = date("Y-m-d H:i:s");
@@ -924,7 +932,7 @@ class mainModel extends Model
                         $info = DB::select(DB::raw($sql));
                         $cc = $info[0]->EmailId;
                         $To = $email;
-                        $body = "<h2>Hello ".$UserName." ,</h5>
+                        $body = "<h2>Hello " . $UserName . " ,</h5>
                         Wlecome To Our Orginaztion We are gald To Inform You That Have been Selected In Our Orginazation.
                         please Fill Your Form <a href='javascript:;'>UserCreation</a>";
                         $saveMialReports['SUBJECT'] = $Subject;
@@ -940,11 +948,11 @@ class mainModel extends Model
                         $MailReports = $this->insertRecords($saveMialReports, 'mst_tbl_mail_reports');
                         if ($MailReports != '') {
                             //print_r($MailReports);
-                            $Stutus = $this->SendMails($MailReports,$UserName);
+                            $Stutus = $this->SendMails($MailReports, $UserName);
                             if ($Stutus == 'Done') {
-                                $rportinmangersids = explode("," , $REPORTING_MANAGER);
+                                $rportinmangersids = explode(",", $REPORTING_MANAGER);
                                 $notification = 0;
-                                for ($i=0; $i <  count($rportinmangersids) ;$i++) {
+                                for ($i = 0; $i <  count($rportinmangersids); $i++) {
                                     $saveNotiFication = '';
                                     $notifcationReports['Status'] = 'UserCreation';
                                     $notifcationReports['sent_to'] = $rportinmangersids[$i];
@@ -952,20 +960,20 @@ class mainModel extends Model
                                     $notifcationReports['Flag'] = 'Show';
                                     $notifcationReports['created_by'] = $userid;
                                     $saveNotiFication = $this->insertRecords($notifcationReports, 'mst_tbl_notification');
-                                    if($saveNotiFication != '') {
-                                        $notification = $notification +1;
+                                    if ($saveNotiFication != '') {
+                                        $notification = $notification + 1;
                                     }
                                 }
-                                if($notification == count($rportinmangersids)) {
+                                if ($notification == count($rportinmangersids)) {
                                     $message = 'Done';
                                 } else {
                                     $message = 'Erorr';
                                 }
-                             } else {
+                            } else {
                                 $message = 'Erorr';
                             }
                         } else {
-                             $message = 'Erorr';
+                            $message = 'Erorr';
                         }
                     } else {
                         $message = 'Erorr';
@@ -980,8 +988,6 @@ class mainModel extends Model
             $message = 'Already';
         }
         return $message;
-
-
     }
     /**
      * This Function will Delete User
@@ -1045,52 +1051,50 @@ class mainModel extends Model
             $firstuserId = $dyanimicfetchdeatails->userId;
             $dynamiclientnewUser = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'emailId' => $email])->where('emailId', '!=', $firstEmail)->get()->count();
             if ($dynamiclientnewUser == 0) {
-                    $newdata['emailId'] = $email;
-                    $newdata['passwords'] = $encryptPassword;
-                    $newdata['username'] = $username;
-                    $newdata['updated_at'] = $timaestamp;
-                    $userId = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','userId'=>$firstuserId])->update($newdata);
-                    if ($userId != '') {
-                        Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
-                        Config::set('database.default', 'dynamicsql');
-                        $userdata['username'] = $username;
-                        $userdata['emailId'] = $email;
-                        $userdata['passwords'] = $encryptPassword;
-                        $userdata['updated_at'] = $timaestamp;
-                        $userdata['CREATED_BY'] = $userid;
-                        $userdata['master_roleId'] = $MASTER_ROLE_ID;
-                        $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
-                        if ($clientREPORTING_MANGERS != $REPORTING_MANAGER) {
-                            $userdata['PRIMARY_MANGER'] = null;
-                            $userdata['SECOND_MANGER'] = null;
-                            $userdata['THIRD_MANGER'] = null;
-                        }
-                        $clintsuserId = DB::table('mst_user_tbl')->where(['Flag'=>'Show','userId'=>$clientuserId])->update($userdata);
-                        if ($clintsuserId !='') {
-                            $message = 'Done';
-                        } else {
-                            $message = 'Erorr';
-                        }
+                $newdata['emailId'] = $email;
+                $newdata['passwords'] = $encryptPassword;
+                $newdata['username'] = $username;
+                $newdata['updated_at'] = $timaestamp;
+                $userId = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'userId' => $firstuserId])->update($newdata);
+                if ($userId != '') {
+                    Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
+                    Config::set('database.default', 'dynamicsql');
+                    $userdata['username'] = $username;
+                    $userdata['emailId'] = $email;
+                    $userdata['passwords'] = $encryptPassword;
+                    $userdata['updated_at'] = $timaestamp;
+                    $userdata['CREATED_BY'] = $userid;
+                    $userdata['master_roleId'] = $MASTER_ROLE_ID;
+                    $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
+                    if ($clientREPORTING_MANGERS != $REPORTING_MANAGER) {
+                        $userdata['PRIMARY_MANGER'] = null;
+                        $userdata['SECOND_MANGER'] = null;
+                        $userdata['THIRD_MANGER'] = null;
+                    }
+                    $clintsuserId = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $clientuserId])->update($userdata);
+                    if ($clintsuserId != '') {
+                        $message = 'Done';
                     } else {
                         $message = 'Erorr';
                     }
+                } else {
+                    $message = 'Erorr';
+                }
             } else {
                 $message = 'Already';
             }
-
-
-        }else {
+        } else {
             $message = 'Already';
         }
         return $message;
-
     }
     /**
      * This Function will Send The mail User
      * @param $tablename \Illuminate\Http\Request  $id Will Have User Id
      * @return \Illuminate\Http\Response Return the Response that mail Sent Or Not
      */
-    function SendMails($MailId,$UserName) {
+    function SendMails($MailId, $UserName)
+    {
         $mailReports = DB::table('mst_tbl_mail_reports')->where(['Flag' => 'Show', 'MAIL_ID' => $MailId])->get()->first();
         // print_r($mailReports);exit;
         $data['body'] = $mailReports->MAIL_BODY;
@@ -1099,42 +1103,38 @@ class mainModel extends Model
         $cc = $mailReports->CC_MAILID;
         $finalAaary = explode(",", $cc);
         $subject = $mailReports->SUBJECT;
-        Mail::send(['html' => 'Admin.TestMail'], ['data' => $data], function($message) use($to, $subject, $finalAaary, $fromId,$UserName) {
-           // $message->to($to, 'Test Mail')->subject
-           $message->to($to, $UserName)->subject
-               ($subject);
-            $message->from($fromId,'HSS');
+        Mail::send(['html' => 'Admin.TestMail'], ['data' => $data], function ($message) use ($to, $subject, $finalAaary, $fromId, $UserName) {
+            // $message->to($to, 'Test Mail')->subject
+            $message->to($to, $UserName)->subject($subject);
+            $message->from($fromId, 'HSS');
             $message->cc(($finalAaary));
-           // $message->cc(($finalAaary), 'Test Mail');
-         });
-         $response = '';
-         if (Mail::failures())
-         {
+            // $message->cc(($finalAaary), 'Test Mail');
+        });
+        $response = '';
+        if (Mail::failures()) {
             //  $mail_id = $data['mail_queue_id'];
-              $dataresponse = DB::table('mst_tbl_mail_reports')->where(['Flag'=>'Show','MAIL_ID'=>$MailId])->update(['MAIL_STATUS'=>'Error']);
-              if ($dataresponse != '') {
-                   $response = 'Done';
-              } else {
-                   $response = 'Erorr';
-              }
+            $dataresponse = DB::table('mst_tbl_mail_reports')->where(['Flag' => 'Show', 'MAIL_ID' => $MailId])->update(['MAIL_STATUS' => 'Error']);
+            if ($dataresponse != '') {
+                $response = 'Done';
+            } else {
+                $response = 'Erorr';
+            }
 
             //  echo 'Email was Not sent!!!!!';
 
 
-         }
-         else
-         {
-            $dataresponse1 = DB::table('mst_tbl_mail_reports')->where(['Flag'=>'Show','MAIL_ID'=>$MailId])->update(['MAIL_STATUS'=>'Send']);
+        } else {
+            $dataresponse1 = DB::table('mst_tbl_mail_reports')->where(['Flag' => 'Show', 'MAIL_ID' => $MailId])->update(['MAIL_STATUS' => 'Send']);
             if ($dataresponse1 != '') {
-                 $response = 'Done';
+                $response = 'Done';
             } else {
-                 $response = 'Erorr';
+                $response = 'Erorr';
             }
             // echo 'Email was  sent!!!!!';
             //  $mail_id = $data['mail_queue_id'];
             //  DB::table('tran_mail_queue')->where(['flag'=>'Show','mail_queue_id'=>$mail_id])->update(['Status'=>'Send']);
-         }
-         return $response;
+        }
+        return $response;
     }
     /**
      * This Function will Check Department Exit Or Not If Not Then It will Create The Department
@@ -1149,9 +1149,9 @@ class mainModel extends Model
         if ($departmentDetails == 0) {
             $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
             if ($insertDepartment != '') {
-               $message = 'Done';
+                $message = 'Done';
             } else {
-               $message = 'Error';
+                $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1171,12 +1171,12 @@ class mainModel extends Model
         $departmentDetails = DB::table('mst_tbl_departments')->where(['Flag' => 'Show', 'DEPARTMENT_NAME' => $departmentName])->where('DEPARTMENT_ID', '!=', $id)->get()->count();
         $message = '';
         if ($departmentDetails == 0) {
-            $updateDepatments = DB::table('mst_tbl_departments')->where(['Flag'=>'Show','DEPARTMENT_ID'=>$id])->update($data);
+            $updateDepatments = DB::table('mst_tbl_departments')->where(['Flag' => 'Show', 'DEPARTMENT_ID' => $id])->update($data);
             // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
             if ($updateDepatments != '') {
-               $message = 'Done';
+                $message = 'Done';
             } else {
-               $message = 'Error';
+                $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1191,7 +1191,7 @@ class mainModel extends Model
      */
     public function deleteDepartments($id, $data)
     {
-        $updateDepatments = DB::table('mst_tbl_departments')->where(['Flag'=>'Show','DEPARTMENT_ID'=>$id])->update($data);
+        $updateDepatments = DB::table('mst_tbl_departments')->where(['Flag' => 'Show', 'DEPARTMENT_ID' => $id])->update($data);
         $message = '';
         if ($updateDepatments != '') {
             $message = 'Done';
@@ -1200,7 +1200,7 @@ class mainModel extends Model
         }
         return $message;
     }
-     /**
+    /**
      * This Function will Check Function Exit Or Not If Not Then It will Create The Functions
      * @param $data \Illuminate\Http\Request  $data It will be The Data Of Function To Create
      * @return \Illuminate\Http\Response Return The Messge That Function Craeted Or Already Exits
@@ -1213,9 +1213,9 @@ class mainModel extends Model
         if ($departmentDetails == 0) {
             $insertDepartment = $this->insertRecords($data, 'mst_tbl_functions');
             if ($insertDepartment != '') {
-               $message = 'Done';
+                $message = 'Done';
             } else {
-               $message = 'Error';
+                $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1234,12 +1234,12 @@ class mainModel extends Model
         $FunctionDetails = DB::table('mst_tbl_functions')->where(['Flag' => 'Show', 'FUNCTION_NAME' => $FUNCTION_NAME])->where('FUNCTION_ID', '!=', $id)->get()->count();
         $message = '';
         if ($FunctionDetails == 0) {
-            $updateFunctions = DB::table('mst_tbl_functions')->where(['Flag'=>'Show','FUNCTION_ID'=>$id])->update($data);
+            $updateFunctions = DB::table('mst_tbl_functions')->where(['Flag' => 'Show', 'FUNCTION_ID' => $id])->update($data);
             // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
             if ($updateFunctions != '') {
-               $message = 'Done';
+                $message = 'Done';
             } else {
-               $message = 'Error';
+                $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1254,7 +1254,7 @@ class mainModel extends Model
      */
     public function deleteFunctions($id, $data)
     {
-        $updateDepatments = DB::table('mst_tbl_functions')->where(['Flag'=>'Show','FUNCTION_ID'=>$id])->update($data);
+        $updateDepatments = DB::table('mst_tbl_functions')->where(['Flag' => 'Show', 'FUNCTION_ID' => $id])->update($data);
         $message = '';
         if ($updateDepatments != '') {
             $message = 'Done';
@@ -1277,9 +1277,9 @@ class mainModel extends Model
         if ($departmentDetails == 0) {
             $insertDepartment = $this->insertRecords($data, 'mst_tbl_designations');
             if ($insertDepartment != '') {
-               $message = 'Done';
+                $message = 'Done';
             } else {
-               $message = 'Error';
+                $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1299,12 +1299,12 @@ class mainModel extends Model
         $DesignationDetails = DB::table('mst_tbl_designations')->where(['Flag' => 'Show', 'DESGINATION_NAME' => $DESGINATION_NAME])->where('DESIGNATION_ID', '!=', $id)->get()->count();
         $message = '';
         if ($DesignationDetails == 0) {
-            $updateDesignation= DB::table('mst_tbl_designations')->where(['Flag'=>'Show','DESIGNATION_ID'=>$id])->update($data);
+            $updateDesignation = DB::table('mst_tbl_designations')->where(['Flag' => 'Show', 'DESIGNATION_ID' => $id])->update($data);
             // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
             if ($updateDesignation != '') {
-               $message = 'Done';
+                $message = 'Done';
             } else {
-               $message = 'Error';
+                $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1318,7 +1318,7 @@ class mainModel extends Model
      */
     public function deleteDesignations($id, $data)
     {
-        $updateDepatments = DB::table('mst_tbl_designations')->where(['Flag'=>'Show','DESIGNATION_ID'=>$id])->update($data);
+        $updateDepatments = DB::table('mst_tbl_designations')->where(['Flag' => 'Show', 'DESIGNATION_ID' => $id])->update($data);
         $message = '';
         if ($updateDepatments != '') {
             $message = 'Done';
@@ -1337,73 +1337,131 @@ class mainModel extends Model
      */
     public function AddPolicyes($data, $id, $orignaldatabase)
     {
-        $deaatils = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->get()->first();
+        $deaatils = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $id])->get()->first();
         $GRADEORLEVEL = $data['GRADEORLEVEL'];
-        $updatePolicyies = DB::table('sup_tbl_client')->where(['Flag'=>'Show','CLIENT_ID'=>$id])->update($data);
-      //  print_r($updatePolicyies);exit;
+        $updatePolicyies = DB::table('sup_tbl_client')->where(['Flag' => 'Show', 'CLIENT_ID' => $id])->update($data);
+        //  print_r($updatePolicyies);exit;
         $message = '';
-        if ($updatePolicyies != '' ) {
+        if ($updatePolicyies != '') {
             $dynamicDB = $deaatils->CLIENT_PREFIX . '_management';
             Config::set('database.connections.dynamicsql.database', $dynamicDB);
             Config::set('database.default', 'dynamicsql');
-            if($GRADEORLEVEL == 'Grade') {
+            if ($GRADEORLEVEL == 'Grade') {
                 DB::statement("DROP table mst_tbl_levels");
                 // DB::table('mst_tbl_levels')->delete();
-                $message ='LevelDeleted';
+                $message = 'LevelDeleted';
             } else {
                 DB::statement("DROP table mst_tbl_grade");
                 // DB::table('mst_tbl_grade')->delete();
-                $message ='GradeDeleted';
+                $message = 'GradeDeleted';
             }
-
         } else {
             $message = 'Error';
         }
         return $message;
-
     }
-    function getUserDetails($data) {
+    function getUserDetails($data)
+    {
         $USER_ID = $data['USER_ID'];
-         DB::enableQuerylog();
-         $getallDetails = DB::table('mst_tbl_personal_details')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->count();
-         $deatils = [];
+        DB::enableQuerylog();
+        $getallDetails = DB::table('mst_tbl_personal_details')->where(['Flag' => 'Show', 'USER_ID' => $USER_ID])->get()->count();
+        $deatils = [];
         //  print_r($getallDetails);
-        if($getallDetails > 0) {
-            $getfirstDetails = DB::table('mst_tbl_personal_details')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->first();
+        if ($getallDetails > 0) {
+            $getfirstDetails = DB::table('mst_tbl_personal_details')->where(['Flag' => 'Show', 'USER_ID' => $USER_ID])->get()->first();
             $deatils[] = $getfirstDetails;
         }
-       $getallacdmic = DB::table('mst_tbl_academic_experience_details')
+        $getallacdmic = DB::table('mst_tbl_academic_experience_details')
             ->select('*')
             ->leftjoin('mst_tbl_document_info', 'mst_tbl_document_info.USER_ID', '=', 'mst_tbl_academic_experience_details.USER_ID')
             ->where(['mst_tbl_academic_experience_details.FLAG' => 'Show', 'mst_tbl_academic_experience_details.USER_ID' => $USER_ID])
             ->get()->count();
-            if ($getallacdmic > 0) {
-                $getfirstacadmindeatils = DB::table('mst_tbl_academic_experience_details')
-            ->select('*')
-            ->leftjoin('mst_tbl_document_info', 'mst_tbl_document_info.USER_ID', '=', 'mst_tbl_academic_experience_details.USER_ID')
-            ->where(['mst_tbl_academic_experience_details.FLAG' => 'Show', 'mst_tbl_academic_experience_details.USER_ID' => $USER_ID])
-            ->get()->first();
-                $deatils[] = $getfirstacadmindeatils;
-            }
-            $depandetdetails = [];
-        $getdependentdetails = DB::table('mst_tbl_dependent_details')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->count();
-         if($getdependentdetails > 0) {
-            $getdexpendentDetails = DB::table('mst_tbl_dependent_details')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->first();
-            $chilrendId = explode(',' , $getdexpendentDetails->CHILDREN_ID) ;
+        if ($getallacdmic > 0) {
+            $getfirstacadmindeatils = DB::table('mst_tbl_academic_experience_details')
+                ->select('*')
+                ->leftjoin('mst_tbl_document_info', 'mst_tbl_document_info.USER_ID', '=', 'mst_tbl_academic_experience_details.USER_ID')
+                ->where(['mst_tbl_academic_experience_details.FLAG' => 'Show', 'mst_tbl_academic_experience_details.USER_ID' => $USER_ID])
+                ->get()->first();
+            $deatils[] = $getfirstacadmindeatils;
+        }
+        $depandetdetails = [];
+        $getdependentdetails = DB::table('mst_tbl_dependent_details')->where(['Flag' => 'Show', 'USER_ID' => $USER_ID])->get()->count();
+        if ($getdependentdetails > 0) {
+            $getdexpendentDetails = DB::table('mst_tbl_dependent_details')->where(['Flag' => 'Show', 'USER_ID' => $USER_ID])->get()->first();
+            $chilrendId = explode(',', $getdexpendentDetails->CHILDREN_ID);
             $depandetdetails['dependentDetails'] = $getdexpendentDetails;
             $chliderendeatis = DB::table('mst_tbl_childrens_details')->where(['Flag' => 'Show'])->whereIn('CHILDREN_ID', $chilrendId)->get();
             $depandetdetails['childeren'] = [];
-            if((int)count($chliderendeatis) > 0) {
-                 $depandetdetails['childeren'] = $chliderendeatis;
+            if ((int) count($chliderendeatis) > 0) {
+                $depandetdetails['childeren'] = $chliderendeatis;
             }
             $deatils[] = $depandetdetails;
-         }
-         $getalldocumentDetails = DB::table('mst_tbl_employees_upload_documents')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->count();
-         if ($getalldocumentDetails > 0) {
-            $getdocumentDeatils = DB::table('mst_tbl_employees_upload_documents')->where(['Flag' => 'Show' , 'USER_ID' => $USER_ID])->get()->first();
+        }
+        $getalldocumentDetails = DB::table('mst_tbl_employees_upload_documents')->where(['Flag' => 'Show', 'USER_ID' => $USER_ID])->get()->count();
+        if ($getalldocumentDetails > 0) {
+            $getdocumentDeatils = DB::table('mst_tbl_employees_upload_documents')->where(['Flag' => 'Show', 'USER_ID' => $USER_ID])->get()->first();
             $deatils[] = $getdocumentDeatils;
         }
         //  print_r($getalldocumentDetails);
         return $deatils;
+    }
+
+    /** Admin client module /////////////////////////////////////////////////////////////////////////*/
+    public function addclientdata($data)
+    {
+        $CLIENTNAME = $data['CLIENT_NAME'];
+        $CLIENTPREFIX = $data['CLIENT_PREFIX'];
+        $departmentDetails = DB::table('mst_tbl_admin_clients')->where(['Flag' => 'Show', 'CLIENT_PREFIX' => $CLIENTPREFIX])->get()->count();
+        $message = '';
+        if ($departmentDetails == 0) {
+            $insertDepartment = $this->insertRecords($data, 'mst_tbl_admin_clients');
+            if ($insertDepartment != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    public function showallclient()
+    {
+        $showdata = DB::table('mst_tbl_admin_clients')->where('FLAG', 'Show')->get();
+        return $showdata;
+    }
+
+    public function updateclient($data)
+    {
+        $message = '';
+
+        $ADMIN_CLIENT_ID = $data['ADMIN_CLIENT_ID'];
+        $client_details['CLIENT_NAME'] = $data['CLIENT_NAME'];
+        $client_details['CLIENT_PREFIX'] = $data['CLIENT_PREFIX'];
+        $client_details['UPDATE_BY'] = $data['UPDATE_BY'];
+        $client_details['UPDATE_AT'] = $data['UPDATE_AT'];
+
+        $updatedata = DB::table('mst_tbl_admin_clients')->where(['ADMIN_CLIENT_ID' => $ADMIN_CLIENT_ID])->update($client_details);
+        $message = $updatedata;
+        if ($updatedata != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+
+        return  $message;
+    }
+
+    public function deletedclient($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_admin_clients')->where(['Flag' => 'Show', 'ADMIN_CLIENT_ID' => $id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
     }
 }

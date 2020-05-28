@@ -801,7 +801,8 @@ input#menu[type="checkbox"] {
 .overflow-container {
     background: #f8f9fd;
     position: relative;
-    height: calc(100vh - 0px) !important;
+    /* height: calc(100vh - 0px) !important; */
+    height: auto;
     overflow-y: auto;
     border-top: 15px solid #f8f9fd;
     z-index: -1;

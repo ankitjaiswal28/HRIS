@@ -29,7 +29,14 @@
 
             <div class="flip-card-front" style="padding-top: 10px;margin-bottom: 15px;">
                 <div class="">
-
+                    <div class="row">
+                        <div class="col-md-10">
+                            {{-- <h1 class="left_border font_grey" style="float: left;">Add Client</h1> --}}
+                        </div>
+                        <div class="col-md-2">
+                            <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img src="/asset/css/zondicons/zondicons/inbox-download.svg" alt="Import" style="width: 20px;margin-right: 0px;"></button>
+                        </div>
+                    </div>
                     <div class="padding_20" style="padding: 0px 35px;">
 
                         <div class="row">
@@ -188,5 +195,20 @@
     }
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function(event) {
 
+        document.getElementById('flip-card-btn-turn-to-back').style.visibility = 'visible';
+        document.getElementById('flip-card-btn-turn-to-front').style.visibility = 'visible';
+
+        document.getElementById('flip-card-btn-turn-to-back').onclick = function() {
+            document.getElementById('flip-card').classList.toggle('do-flip');
+        };
+
+        document.getElementById('flip-card-btn-turn-to-front').onclick = function() {
+            document.getElementById('flip-card').classList.toggle('do-flip');
+        };
+
+    });
+</script>
 @endsection

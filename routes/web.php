@@ -9,12 +9,12 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 use Illuminate\Support\Facades\Route;
 
 // Default Browser
-Route::get('/', 'Authtentication\LoginController@index')->name('/login');;
+Route::get('/', 'Authtentication\LoginController@index')->name('/login');
 
 // Authentication of User
 Route::post('/checklogin', 'Authtentication\LoginController@CheckLogin');
@@ -60,6 +60,7 @@ Route::group(['middleware' => ['athuthenticate']], function () {
     });
     Route::group(['middleware' => ['admin']], function () {
         Route::get('Admin/admindahboard', 'Admin\DashboardController@index')->name('Admin/admindahboard');
+        ///////////project master///////////////////////////////////
 
         //////////////////////////////////// APPLY LEAVE ///////////////////////////////////////////////////////////////////////////////////////
         Route::get('/leave_details', 'Admin\ApplyleaveController@leave_details')->name('/leave_details');
@@ -93,8 +94,8 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::get('user/showAllClientModule/{id}', 'Admin\RoleController@showAllClientModule')->name('user/showAllClientModule');
         Route::get('/editRoleName/{id}', 'Admin\RoleController@editRoleName')->name('/editRoleName');
         Route::post('/updateRoleName', 'Admin\RoleController@updateRoles')->name('/updateRoleName');
-        Route::get('deleteAdminRole/{id}', 'Admin\RoleController@destroy')->name('deleteAdminRole');
-        Route::post('/updateAdminModules', 'Admin\RoleController@AssinedMOdule')->name('updateAdminModules');
+        // Route::get('deleteAdminRole/{id}', 'Admin\RoleController@destroy')->name('deleteAdminRole');
+        // Route::post('/updateAdminModules', 'Admin\RoleController@AssinedMOdule')->name('updateAdminModules');
 
         ///////////////////////////////// ADMIN MODULE //////////////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/Module', 'Admin\ModuleController@showModule')->name('Admin/Module');
@@ -102,8 +103,8 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::get('deleteAdminModule/{id}', 'Admin\ModuleController@destroy')->name('deleteAdminModule');
         Route::get('ShowAdminEditModule/{id}', 'Admin\ModuleController@ShowEditModule')->name('ShowAdminEditModule');
         Route::post('/updateAdminmodule', 'Admin\ModuleController@updateModule')->name('/updateAdminmodule');
-
-        /////////////////////////////////// ADMIN USER ////////////////////////////////////////////////////////////////////////////////////////
+        Route::get('deleteAdminRole/{id}', 'Admin\RoleController@destroy')->name('deleteAdminRole');
+        Route::post('/updateAdminModules', 'Admin\RoleController@AssinedMOdule')->name('updateAdminModules');
         Route::get('Admin/User', 'Admin\UserController@listofUser')->name('Admin/User');
         Route::post('/show_alluser_datatbl', 'Admin\UserController@show_alluser_datatbl')->name('/show_alluser_datatbl');
         Route::get('Admin/Add_User', 'Admin\UserController@AddUser')->name('Admin/Add_User');
@@ -142,7 +143,43 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         ///////////////////////////////// ADMIN LEVEL-GRADE ///////////////////////////////////////////////////////////////////////////////////
         Route::get('Admin/LevelsorGrade', 'Admin\LevelOrGradeControlller@listofSystems')->name('Admin/LevelsorGrade');
 
-        // For Geting Rolmangers Name //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Get Datatable of The Level Records
+        Route::post('/show_levels_datatbl', 'Admin\LevelOrGradeControlller@show_levels_datatbl')->name('/show_levels_datatbl');
+
+        // Show the Form For The Add Level
+        Route::get('Admin/Levels', 'Admin\LevelOrGradeControlller@AddLevels')->name('Admin/Levels');
+
+        // Save The Leveles Records In The Data Base
+        Route::post('/craeteLeveles', 'Admin\LevelOrGradeControlller@craeteLeveles')->name('/craeteLeveles');
+
+        // Show The Edit Page Of The Leveles
+        Route::get('/editLeveles/{id}', 'Admin\LevelOrGradeControlller@editLeveles')->name('/editLeveles');
+
+        // Update The Edit Page Of The Leveles
+        Route::post('/updateLeveles/{id}', 'Admin\LevelOrGradeControlller@updateLeveles')->name('/updateLeveles');
+
+        // Delete The leveles
+        Route::get('deletethisLevel/{id}', 'Admin\LevelOrGradeControlller@deleteLevel')->name('deletethisLevel');
+
+        // Get Datatable of The Level Records
+        Route::post('/show_grade_datatbl', 'Admin\LevelOrGradeControlller@show_grade_datatbl')->name('/show_grade_datatbl');
+
+        // Show the Form For The Add Grade
+        Route::get('Admin/Grade', 'Admin\LevelOrGradeControlller@AddGrade')->name('Admin/Grade');
+
+        // Save The Leveles Records In The Data Base
+        Route::post('/craeteGrades', 'Admin\LevelOrGradeControlller@craeteGrades')->name('/craeteGrades');
+
+        // Show The Edit Page Of The Grade
+        Route::get('/editGrades/{id}', 'Admin\LevelOrGradeControlller@editGrades')->name('/editGrades');
+
+        // Update The Edit Page Of The Leveles
+        Route::post('/updateGrades/{id}', 'Admin\LevelOrGradeControlller@updateGrades')->name('/updateGrades');
+
+        // Delete The Grade
+        Route::get('deletethisGrade/{id}', 'Admin\LevelOrGradeControlller@deleteGrade')->name('deletethisGrade');
+
+        // For Geting Rolmangers Name
         Route::post('/getUsers', 'DefaultController@getUserName');
         // For Geting Rolmangers Name
         Route::post('/getDepartments', 'DefaultController@getDepartments');
@@ -160,6 +197,29 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::post('/update_client', 'Admin\AdminClientController@update_client')->name('/update_client');
         Route::get('deleted_client/{id}', 'Admin\AdminClientController@deleted_client')->name('/deleted_client');
         //////////////////////////////////////////////////////////////////////////
+        Route::get('Admin/add_attendance', 'Admin\UserController@add_attendance')->name('Admin/add_attendance');
+
+        // Show All Shifts Craeteed.
+        Route::get('Admin/Shifts', 'Admin\AddShiftsController@listofShits')->name('Admin/Shifts');
+
+        // Get Datatable of The Shifts Records
+        Route::post('/show_shifts_datatbl', 'Admin\AddShiftsController@show_shifts_datatbl')->name('/show_shifts_datatbl');
+
+        // Show the Form For The Add Shifts
+        Route::get('Admin/addShifts', 'Admin\AddShiftsController@AddShifts')->name('Admin/addShifts');
+
+        // Save The Leveles Records In The Data Base
+        Route::post('/craeteShifts', 'Admin\AddShiftsController@craeteShifts')->name('/craeteShifts');
+
+        // Show The Edit Page Of The Grade
+        Route::get('/editShifts/{id}', 'Admin\AddShiftsController@editShifts')->name('/editShifts');
+
+        // Update The Edit Page Of The Leveles
+        Route::post('/updateShifts/{id}', 'Admin\AddShiftsController@updateShifts')->name('/updateShifts');
+
+        // Delete The leveles
+        Route::get('deletethisShifts/{id}', 'Admin\AddShiftsController@deleteShifts')->name('deletethisShifts');
+
     });
 
     /* Route::group(['middleware' => ['user']], function () {
@@ -199,6 +259,10 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         ////////////////////////////// USER APPLY LEAVE ////////////////////////////////////////////////////////////////////////////////////////
         Route::get('/applyleave', 'Admin\ApplyleaveController@applyleave')->name('/applyleave');
         Route::post('/insert_applyleave', 'Admin\ApplyleaveController@insert_applyleave')->name('/insert_applyleave');
+        Route::get('User/show_atendence', 'User\DashboardController@showAttendence')->name('User/show_atendence');
+
+        // Get Datatable of The Shifts Records
+        Route::post('/show_allatendence_datatbl', 'User\DashboardController@show_all_atendence')->name('/show_allatendence_datatbl');
     });
 });
 Route::get('Admin/adduser', function () {

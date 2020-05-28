@@ -1,25 +1,53 @@
 @extends('Layout.app')
 @section('content')
+<div class="new-wrapper">
+    <div id="main">
 <?php
 $getDatais = $message;
 ?>
-<div>
-    <div class="row" style="position: relative;background: #142850 ;width: 100%;margin-right: 0px;margin-left: 0px;">
-        <div style="padding:8px 35px;">
-            <div>
-                <h3 style="margin-bottom: 0px;color:white"><a class="white_anchor" href="{{ url('/Admin/admindahboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a>{{$getDatais}}'s</h3>
+<div id="main">
+    <div class="main_card">
+        <div class="neuphormic_shadow fst_card">
+            <div class="fst_card_cntnt">
+                <h3 class="h3_header_prt" style=""><a class="white_anchor" href="{{ url('/Admin/dashboard') }}"><i
+                            class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label
+                        class="ralway_font">{{$getDatais}}'s</label>
+                </h3>
             </div>
+        <?php
+        if($getDatais == 'Grade') {
+        ?>
+        <div style="float:right;">
+            <a href="{{ url('/Admin/Grade') }}" class="btnn"><i class="fa fa-plus"
+                    style="padding-right: 10px;" aria-hidden="true"></i>ADD Grade</a>
         </div>
-        <div class="absolute_add_btn" style=""><a href="{{ url('/Admin/admindahboard') }}"><i
-                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
-                href="{{ url('/Admin/Add_Departments') }}"><i class="fa fa-plus fafa_add_circle_right"
-                    aria-hidden="true"></i></a></div>
     </div>
 </div>
-<br>
+        {{-- <div class="absolute_add_btn" style=""><a href="{{ url('/Admin/admindahboard') }}"><i
+                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
+                href="{{ url('/Admin/Grade') }}"><i class="fa fa-plus fafa_add_circle_right"
+                    aria-hidden="true"></i></a></div> --}}
+        <?php
+        } else {
+            ?>
+            <div style="float:right;">
+                <a href="{{ url('/Admin/Levels') }}" class="btnn"><i class="fa fa-plus"
+                        style="padding-right: 10px;" aria-hidden="true"></i>ADD LEVEL</a>
+            </div>
+        </div>
+    </div>
+            {{-- <div class="absolute_add_btn" style=""><a href="{{ url('/Admin/admindahboard') }}"><i
+                    class="fa fa-arrow-left fafa_add_circle_left" aria-hidden="true"></i></a><a
+                href="{{ url('/Admin/Levels') }}"><i class="fa fa-plus fafa_add_circle_right"
+                    aria-hidden="true"></i></a></div> --}}
+            <?php
+        }
+        ?>
+    </div>
+</div>
+
 <img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
 <?php
-print($getDatais);
 if($getDatais == 'Grade') {
     ?>
 <div class="margin_left_right">
@@ -34,6 +62,7 @@ if($getDatais == 'Grade') {
         </thead>
     </table>
 </div>
+
 <?php
 } else {
     ?>
@@ -52,6 +81,8 @@ if($getDatais == 'Grade') {
 <?php
 }
 ?>
+</div>
+</div>
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>
 <script>
@@ -72,14 +103,14 @@ if(getType == 'Grade') {
     serverSide: true,
     searchable: true,
     ajax : {
-    url : path + '/show_alldepartment_datatbl',
+    url : path + '/show_grade_datatbl',
     type : 'post',
     data : {_token: CSRF_TOKEN},
     },
     columns: [
         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-        { data: 'DEPARTMENT_NAME', name: 'DEPARTMENT_NAME' },
-         { data: 'DEPARTMENT_NAME', name: 'DEPARTMENT_NAME' },
+        { data: 'GRADE_NAME', name: 'GRADE_NAME' },
+         { data: 'GRADE_DESCRIPTION', name: 'GRADE_DESCRIPTION' },
         { data: 'action', name: 'action' }
 
 
@@ -102,14 +133,14 @@ if(getType == 'Grade') {
     serverSide: true,
     searchable: true,
     ajax : {
-    url : path + '/show_alldepartment_datatbl',
+    url : path + '/show_levels_datatbl',
     type : 'post',
     data : {_token: CSRF_TOKEN},
     },
     columns: [
         { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-        { data: 'DEPARTMENT_NAME', name: 'DEPARTMENT_NAME' },
-         { data: 'DEPARTMENT_NAME', name: 'DEPARTMENT_NAME' },
+        { data: 'LEVEL_NAME', name: 'LEVEL_NAME' },
+         { data: 'LEVEL_DESCRIPTION', name: 'LEVEL_DESCRIPTION' },
         { data: 'action', name: 'action' }
 
 
@@ -117,7 +148,7 @@ if(getType == 'Grade') {
 })
 }
 
-   function deleteDepartments(id,event) {
+   function deleteLeveles(id,event) {
     event.preventDefault(); // prevent form submit
 
     $('#loading-image').show();
@@ -128,14 +159,49 @@ if(getType == 'Grade') {
                 }
             });
             $.ajax({
-                url: '/deletethisDepartment/' + id ,
+                url: '/deletethisLevel/' + id ,
                 type: 'get',
                 success: function(data) {
                         console.log('Data', data);
                         //return;
                          var response = data.trim();
                          if(response == 'Done'){
-                            alert('Department Deleted Sucessfuly');
+                            alert('Level Deleted Sucessfuly');
+                         } else {
+                             alert('Something Went Wrong');
+                         }
+                         location.reload();
+                },
+                complete: function() {
+                    $('#loading-image').hide();
+				}
+                });
+           //  alert(id);
+        } else {
+              alert("You Cancel The Request");
+            txt = "You pressed Cancel!";
+        }
+}
+
+function deleteGrade(id,event) {
+    event.preventDefault(); // prevent form submit
+
+    $('#loading-image').show();
+        if (confirm("Are You Sure You Want to Delete Grade!")) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/deletethisGrade/' + id ,
+                type: 'get',
+                success: function(data) {
+                        console.log('Data', data);
+                        //return;
+                         var response = data.trim();
+                         if(response == 'Done'){
+                            alert('Grade Deleted Sucessfuly');
                          } else {
                              alert('Something Went Wrong');
                          }

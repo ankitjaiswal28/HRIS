@@ -62,15 +62,17 @@ class LoginController extends Controller
                     $request->session()->put('databasename', 'hris_management');
                     $retVal = $role_Id .'_,';
                 } elseif ($role_Id == 2) {
-                   // print_r($details);exit;
+                  // print_r($details);exit;
                     $user_name = $details['username'];
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
                     $CLIENT_ID = $details['CLIENT_ID'];
+                    $EMP_CODE = $details['EMP_CODE'];
                     $setDatabasename = strtolower($database).'_management';
                     $request->session()->put('CLIENT_ID', $CLIENT_ID);
                     $request->session()->put('orignaldb', 'hris_management');
                     $request->session()->put('databasename', $setDatabasename);
+                    $request->session()->put('emp_code', $EMP_CODE);
                     $checklogin = $login->checkFirtstLogin($setDatabasename, $user_id);
                   ///  print_r($details['roleId']);exit;
 
@@ -97,9 +99,11 @@ class LoginController extends Controller
                     $userImage = $details['user_image'];
                     $database = $details['CLIENT_PREFIX'];
                     $CLIENT_ID = $details['CLIENT_ID'];
+                    $EMP_CODE = $details['EMP_CODE'];
                     $setDatabasename = strtolower($database).'_management';
                     $request->session()->put('CLIENT_ID', $CLIENT_ID);
                     $request->session()->put('orignaldb', 'hris_management');
+                    $request->session()->put('emp_code', $EMP_CODE);
                     $request->session()->put('databasename', $setDatabasename);
                     $checklogin = $login->checkFirtstLogin($setDatabasename, $user_id);
                     // print_r($checklogin);exit;

@@ -9,7 +9,7 @@
         font-size: 18px;">Add Function</span></a><i class="fa fa-close" aria-hidden="true"
             style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
-<div class="flip-card-3D-wrapper" style="width: 35% !important;">
+<div class="flip-card-3D-wrapper" style="width: 45% !important;">
     <div class="columns">
         <div class="inner-column" id="flip-card">
             <div class="flip-card-front" style="padding-top: 10px;">

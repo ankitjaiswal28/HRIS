@@ -6,7 +6,7 @@
             <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor"
                     href="{{ url('/Superadmin/role') }}"><i class="fa fa-chevron-left" aria-hidden="true"
                         style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
-        font-size: 18px;">Add Departments</span></a><i class="fa fa-close" aria-hidden="true"
+        font-size: 18px;">Add Grades</span></a><i class="fa fa-close" aria-hidden="true"
                     style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
         </div>
         <div class="flip-card-3D-wrapper" style="width: 45% !important;">
@@ -16,8 +16,7 @@
                         <div class="">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <h1 class="left_border font_grey" style="float: left;">Add Departments</h1>
-
+                                    <h1 class="left_border font_grey" style="float: left;">Add Grades</h1>
                                 </div>
                                 <div class="col-md-2">
                                     <button id="flip-card-btn-turn-to-back" data-tooltip="Import"
@@ -27,68 +26,20 @@
                             </div>
                             <div class="padding_20" style="padding: 0px 35px;">
                                 <div class="row">
-                                    <div class="col-sm-12 col-xs-12 col-md-12">
-                                        {{-- <div class="container">
-                                    <div class="avatar-upload">
-                                        <div class="avatar-edit">
-                                            <input type='file' id="role_icon" accept=".png, .jpg, .jpeg" />
-                                            <label for="role_icon"></label>
-                                        </div>
-                                        <div class="avatar-preview">
-                                            <div id="imagePreview"
-                                                style="background-image: url(/asset/images/Avatar/user.png);">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                        {{-- <div id="avatars">
-                                    <form action="#" name="addRole_form" id="addRole_form" class="form_class" data-parsley-validate autocomplete="off">
-                                        <label style="">Select Icon</label>
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user.png" checked />
-                                            <img src="/asset/images/Avatar/user.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-1.png" />
-                                            <img src="/asset/images/Avatar/user-1.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-2.png" />
-                                            <img src="/asset/images/Avatar/user-2.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-3.png" />
-                                            <img src="/asset/images/Avatar/user-3.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-4.png" />
-                                            <img src="/asset/images/Avatar/user-4.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-5.png" />
-                                            <img src="/asset/images/Avatar/user-5.png" alt="" />
-                                        </label>
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-6.png" />
-                                            <img src="/asset/images/Avatar/user-6.png" alt="" />
-                                        </label>
-                                    </form>
-
-                                </div> --}}
-                                    </div>
                                     <div class=" col-sm-12 col-xs-12 col-md-12">
-                                        <input type="hidden" id="departmentid" value={{$departnments->DEPARTMENT_ID}}>
                                         <div class="colll-3 input-effect">
                                             <input class="effect-16" type="text" placeholder="" style="clear:both"
-                                                id="department_name" data-parsley-trigger="blur" required=""
-                                                value={{$departnments->DEPARTMENT_NAME}}>
-                                            <label>Department Name</label>
-                                            <span class="focus-border"></span>
+                                                id="grade_name" data-parsley-trigger="blur" required=""
+                                                data-parsley-errors-container=".errorsGrade">
+                                            <label>Grade Name</label>
+                                            <span class="errorsGrade"></span>
+                                        </div>
+                                        <div class="colll-3 input-effect">
+                                            <input class="effect-16" type="text" placeholder="" style="clear:both"
+                                                id="description" data-parsley-trigger="blur" required=""
+                                                data-parsley-errors-container=".erroslevelsdescryption">
+                                            <label>Grade Desricption</label>
+                                            <span class="erroslevelsdescryption"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -152,27 +103,14 @@
         $('input').parsley();
         $("#submit_form").click(function() {
             event.preventDefault();
-            /*{{-- var role_icon = $("#role_icon")[0].files[0];
-            let roleIconImages = '';
-            if(role_icon != undefined) {
-
-                var path = "/asset/images/UploadsIcons/";
-                roleIconImages = path + $("#role_icon")[0].files[0].name;
-            } else {
-                 roleIconImages = $('input[name="avatar"]:checked').val();
-            }
-          console.log(roleIconImages);
-            //return;
-        // Validate all input fields. --}}*/
         var isValid = true;
         $('input').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
         if (isValid) {
-            // console.log( $("#role_icon")[0].files[0].FILE);
-            var department_name = $("#department_name").val();
-             var departmentid = $("#departmentid").val();
 
+            var description = $("#description").val();
+            var grade_name = $("#grade_name").val();
             // var role_avatar = $('input[name="avatar"]:checked').val();
             $('#loading-image').show();
            //  var formData = new FormData($("#addRole_form")[0]);
@@ -182,11 +120,11 @@
                 }
             });
             $.ajax({
-                url: '/updateDepartments',
+                url: '/craeteGrades',
                 type: 'POST',
                data: {
-                    department_name: department_name,
-                    departmentid: departmentid,
+                    grade_name: grade_name,
+                    description: description,
                     // logo: role_icon,
                     },
                     success: function(data) {
@@ -194,12 +132,12 @@
                          //return;
                          var response = data.trim();
                          if(response == 'Done') {
-                             alert('Department Updeted Sucessfuly');
-                             var url = '{{ route("Admin/Departments") }}';
+                             alert('Grades Added Sucessfuly');
+                             var url = '{{ route("Admin/LevelsorGrade") }}';
                              window.location.href = url;
                          } else if(response == 'Already') {
-                             alert('Department Already  Exits');
-                             $("#department_name").val('');
+                             alert('Grades Already  Exits');
+                             $("#grade_name").val('');
                          } else {
                              alert('Something Went Wrong');
                              // window.location.href = 'SuperAdmin/superadmindahboard';
@@ -278,20 +216,15 @@ fileInput.addEventListener( "change", function( event ) {
 </script>
 <script>
     $(window).load(function(){
-        var inputs = document.getElementsByTagName('input'),
-        empty = 0;
+		$(".colll-3 input").val("");
 
-    for (var i = 0, len = inputs.length; i < len; i++) {
-        empty += !inputs[i].value;
-        var tag = inputs[i];
-        if(inputs[i].value != '') {
-            var id = $(tag).attr('id');
-            $('#' + id).addClass("has-content");
-        } else {
-            var id = $(tag).attr('id');
-            $('#' + id).removeClass("has-content");
-        }
-    }
+		$(".input-effect input").focusout(function(){
+			if($(this).val() != ""){
+				$(this).addClass("has-content");
+			}else{
+				$(this).removeClass("has-content");
+			}
+		})
 	});
 
 </script>

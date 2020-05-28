@@ -6,7 +6,7 @@
             <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor"
                     href="{{ url('/Superadmin/role') }}"><i class="fa fa-chevron-left" aria-hidden="true"
                         style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
-        font-size: 18px;">Add Departments</span></a><i class="fa fa-close" aria-hidden="true"
+        font-size: 18px;">Edit Shits</span></a><i class="fa fa-close" aria-hidden="true"
                     style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
         </div>
         <div class="flip-card-3D-wrapper" style="width: 45% !important;">
@@ -16,8 +16,7 @@
                         <div class="">
                             <div class="row">
                                 <div class="col-md-10">
-                                    <h1 class="left_border font_grey" style="float: left;">Add Departments</h1>
-
+                                    <h1 class="left_border font_grey" style="float: left;">Edit Shifts</h1>
                                 </div>
                                 <div class="col-md-2">
                                     <button id="flip-card-btn-turn-to-back" data-tooltip="Import"
@@ -28,70 +27,29 @@
                             <div class="padding_20" style="padding: 0px 35px;">
                                 <div class="row">
                                     <div class="col-sm-12 col-xs-12 col-md-12">
-                                        {{-- <div class="container">
-                                    <div class="avatar-upload">
-                                        <div class="avatar-edit">
-                                            <input type='file' id="role_icon" accept=".png, .jpg, .jpeg" />
-                                            <label for="role_icon"></label>
-                                        </div>
-                                        <div class="avatar-preview">
-                                            <div id="imagePreview"
-                                                style="background-image: url(/asset/images/Avatar/user.png);">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                        {{-- <div id="avatars">
-                                    <form action="#" name="addRole_form" id="addRole_form" class="form_class" data-parsley-validate autocomplete="off">
-                                        <label style="">Select Icon</label>
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user.png" checked />
-                                            <img src="/asset/images/Avatar/user.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-1.png" />
-                                            <img src="/asset/images/Avatar/user-1.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-2.png" />
-                                            <img src="/asset/images/Avatar/user-2.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-3.png" />
-                                            <img src="/asset/images/Avatar/user-3.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-4.png" />
-                                            <img src="/asset/images/Avatar/user-4.png" alt="" />
-                                        </label>
-
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-5.png" />
-                                            <img src="/asset/images/Avatar/user-5.png" alt="" />
-                                        </label>
-                                        <label class="avatars">
-                                            <input type="radio" name="avatar" value="/asset/images/Avatar/user-6.png" />
-                                            <img src="/asset/images/Avatar/user-6.png" alt="" />
-                                        </label>
-                                    </form>
-
-                                </div> --}}
                                     </div>
                                     <div class=" col-sm-12 col-xs-12 col-md-12">
-                                        <input type="hidden" id="departmentid" value={{$departnments->DEPARTMENT_ID}}>
                                         <div class="colll-3 input-effect">
                                             <input class="effect-16" type="text" placeholder="" style="clear:both"
-                                                id="department_name" data-parsley-trigger="blur" required=""
-                                                value={{$departnments->DEPARTMENT_NAME}}>
-                                            <label>Department Name</label>
-                                            <span class="focus-border"></span>
+                                                id="shifts_name" data-parsley-trigger="blur" required=""
+                                                data-parsley-errors-container=".errorsshiftname" value="{{$shiftDetais['SHIFT_NAME']}}">
+                                            <label>Shift Name</label>
+                                            <span class="errorsshiftname"></span>
                                         </div>
                                     </div>
+                                    {{-- <div class=" col-sm-12 col-xs-12 col-md-12"> --}}
+                                    <div class="col-md-6">
+                                        <label for="datepicker" style="width: 100%;" class="grey">START TIME
+                                            <input type="text" class="form-control" id="InitialTime" value= "{{$shiftDetais['START_TIME']}}"style="font-size: 20px; border-bottom: 1px solid #cecece !important;">
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="datepicker" style="width: 100%;" class="grey">END TIME
+                                            <input type="text" class="form-control" id="EndTime" value= "{{$shiftDetais['END_TIME']}}" style="font-size: 20px; border-bottom: 1px solid #cecece !important; ">
+                                        </label>
+                                    </div>
                                 </div>
+                                {{-- </div> --}}
                                 <div style="margin: 15px 0px;">
                                     <button type="button" class="btnn" id="submit_form"
                                         style="border: none;">Submit</button><img src="../asset/images/pageloader.gif"
@@ -142,7 +100,19 @@
 </div>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
+<script src="/asset/js/Timedropper.js"></script>
 <script>
+    $("#InitialTime").timeDropper({
+        format: 'H:mm A',
+        meridians: false,
+        setCurrentTime: false,
+    });
+
+    $("#EndTime").timeDropper({
+        format: 'H:mm A',
+        meridians: false,
+        setCurrentTime: false,
+    });
     $(document).ready(function(){
         $('#loading-image').bind('ajaxStart', function() {
          $(this).show();
@@ -152,27 +122,23 @@
         $('input').parsley();
         $("#submit_form").click(function() {
             event.preventDefault();
-            /*{{-- var role_icon = $("#role_icon")[0].files[0];
-            let roleIconImages = '';
-            if(role_icon != undefined) {
-
-                var path = "/asset/images/UploadsIcons/";
-                roleIconImages = path + $("#role_icon")[0].files[0].name;
-            } else {
-                 roleIconImages = $('input[name="avatar"]:checked').val();
-            }
-          console.log(roleIconImages);
-            //return;
-        // Validate all input fields. --}}*/
         var isValid = true;
         $('input').each( function() {
             if ($(this).parsley().validate() !== true) isValid = false;
         });
         if (isValid) {
             // console.log( $("#role_icon")[0].files[0].FILE);
-            var department_name = $("#department_name").val();
-             var departmentid = $("#departmentid").val();
+            var shifts_name = $("#shifts_name").val();
+            var InitialTime = $("#InitialTime").val().split(" ")[0];
+            var EndTime = $("#EndTime").val().split(" ")[0];
+            var url = window.location.href;
+            var id = url.substring(url.lastIndexOf('/') + 1);
+            // console.log(shifts_name);
+            // console.log(InitialTime);
+            // console.log(EndTime);
 
+
+            // return;
             // var role_avatar = $('input[name="avatar"]:checked').val();
             $('#loading-image').show();
            //  var formData = new FormData($("#addRole_form")[0]);
@@ -182,24 +148,25 @@
                 }
             });
             $.ajax({
-                url: '/updateDepartments',
+                url: '/updateShifts/'+ id,
                 type: 'POST',
                data: {
-                    department_name: department_name,
-                    departmentid: departmentid,
+                    shifts_name: shifts_name,
+                    InitialTime: InitialTime,
+                    EndTime: EndTime,
                     // logo: role_icon,
                     },
                     success: function(data) {
                         console.log('Data', data)
-                         //return;
+                        // return;
                          var response = data.trim();
                          if(response == 'Done') {
-                             alert('Department Updeted Sucessfuly');
-                             var url = '{{ route("Admin/Departments") }}';
+                             alert('Shift Updated Sucessfuly');
+                             var url = '{{ route("Admin/Shifts") }}';
                              window.location.href = url;
                          } else if(response == 'Already') {
-                             alert('Department Already  Exits');
-                             $("#department_name").val('');
+                             alert('Shift Already  Exits');
+                             $("#shifts_name").val('');
                          } else {
                              alert('Something Went Wrong');
                              // window.location.href = 'SuperAdmin/superadmindahboard';
@@ -278,10 +245,10 @@ fileInput.addEventListener( "change", function( event ) {
 </script>
 <script>
     $(window).load(function(){
-        var inputs = document.getElementsByTagName('input'),
+		var inputs = document.getElementsByTagName('input'),
         empty = 0;
 
-    for (var i = 0, len = inputs.length; i < len; i++) {
+    for (var i = 1, len = inputs.length - 1; i < len; i++) {
         empty += !inputs[i].value;
         var tag = inputs[i];
         if(inputs[i].value != '') {

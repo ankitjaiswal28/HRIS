@@ -7,8 +7,16 @@
                     href="{{ url('/Superadmin/role') }}"><i class="fa fa-chevron-left" aria-hidden="true"
                         style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
         font-size: 18px;">Add Function</span></a><i class="fa fa-close" aria-hidden="true"
-                    style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
-        </div>
+            style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
+</div>
+<div class="flip-card-3D-wrapper" style="width: 45% !important;">
+    <div class="columns">
+        <div class="inner-column" id="flip-card">
+            <div class="flip-card-front" style="padding-top: 10px;">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h1 class="left_border font_grey" style="float: left;">Add Function</h1>
 
         <div class="flip-card-3D-wrapper" style="width: 35% !important;">
             <div class="columns">

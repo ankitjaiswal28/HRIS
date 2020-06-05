@@ -33,9 +33,14 @@ class DashboardController extends Controller
         // print_r($_SERVER);
         // exit();
         $details = new mainModel();
-        $UserShift = '1 Shift';
+        //$UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');
-        // $timaestamp = date("Y-m-d H:i:s");
+        $shiftsdetails = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $UserId])->get()->first();
+        $UserShift = $shiftsdetails->SHIFT_ID;
+        $ADMINCLIENT_ID = $shiftsdetails->ADMINCLIENT_ID;
+
+        // print_r();exit;
+        $timaestamp = date("Y-m-d H:i:s");
         $date = date('Y-m-d');
         $time = date(' H:i:s');
         $data['user_id'] = $UserId;
@@ -43,10 +48,16 @@ class DashboardController extends Controller
         $data['in_Date'] = $date;
         $data['in_time'] = $time;
         $data['Stutus'] = 'IN';
-        $id = $details->insertRecords($data,'mst_tbl_add_attdencence');
-        $message = '';
-        $retVal = ($id != '') ? $message = 'Done' : $message = 'Error';
-        return $retVal;
+        $data['Flag'] = 'Show';
+        $data['CREATED_BY'] = $UserId;
+        $data['created_at'] = $timaestamp;
+        $data['assgin_user_toclient'] = $ADMINCLIENT_ID;
+        $response = $details->saveAttendence($data);
+        return $response;
+        // $id = $details->insertRecords($data,'mst_tbl_add_attdencence');
+        // $message = '';
+        // $retVal = ($id != '') ? $message = 'Done' : $message = 'Error';
+        // return $retVal;
     }
     /**
      * This Function Will Will Put Logout  The Atttendence
@@ -59,6 +70,7 @@ class DashboardController extends Controller
         $details = new mainModel();
         $UserShift = '1 Shift';
         $UserId = $request->session()->get('userid');
+
         // $timaestamp = date("Y-m-d H:i:s");
         $date = date('Y-m-d');
         $time = date(' H:i:s');
@@ -98,12 +110,12 @@ class DashboardController extends Controller
     public function getAttendence(Request $request)
     {
         $userId = $request['userId'];
-        $countdetails= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId])->get()->count();
+        $countdetails= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId, 'Flag' => 'Show'])->get()->count();
         // print_r($countdetails);
         // exit;
         $Status = '';
         if ($countdetails != 0) {
-            $details= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId])->get()->first();
+            $details= DB::table('mst_tbl_add_attdencence')->where('in_Date', '>=', Carbon::today())->where(['user_id'=>$userId, 'Flag' => 'Show'])->get()->first();
             $Status = $details->Stutus;
         } else {
             $Status = '';

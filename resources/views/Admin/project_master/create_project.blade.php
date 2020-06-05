@@ -19,12 +19,10 @@
 <div class="new-wrapper">
     <div id="main">
         <div class="main_card">
-            <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor"
-                    href="{{ url('project/showdata') }}">
+            <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('project/showdata') }}">
                     <i class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i>
                     <span class="bold_text" style="font-size: 18px;">ADD PROJECT</span></a>
-                <i class="fa fa-close" aria-hidden="true"
-                    style="position: relative;float:right;top: 2px;font-size:20px"></i>
+                <i class="fa fa-close" aria-hidden="true" style="position: relative;float:right;top: 2px;font-size:20px"></i>
             </div>
         </div>
         <div class="flip-card-3D-wrapper" style="width: 35% !important;">
@@ -49,16 +47,14 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
-                                                    <input class="effect-16" type="text" id="PROJECT_NAME"
-                                                        placeholder="" style="clear:both">
+                                                    <input class="effect-16" type="text" id="PROJECT_NAME" placeholder="" style="clear:both">
                                                     <label>Project Name</label>
                                                     <span class="focus-border"></span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
-                                                    <input class="effect-16" type="text" id="PROJECT_DESCRIPTION"
-                                                        placeholder="" style="clear:both">
+                                                    <input class="effect-16" type="text" id="PROJECT_DESCRIPTION" placeholder="" style="clear:both">
                                                     <label>Project Description</label>
                                                     <span class="focus-border"></span>
                                                 </div>
@@ -68,16 +64,14 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
-                                                    <input class="effect-16" type="text" id="PROJECT_TARGET_HR"
-                                                        placeholder="" style="clear:both">
+                                                    <input class="effect-16" type="text" id="PROJECT_TARGET_HR" placeholder="" style="clear:both">
                                                     <label>Project Target Hours</label>
                                                     <span class="focus-border"></span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
-                                                    <input class="effect-16" type="text" id="PROJECT_COST"
-                                                        placeholder="" style="clear:both">
+                                                    <input class="effect-16" type="text" id="PROJECT_COST" placeholder="" style="clear:both">
                                                     <label>Project Cost</label>
                                                     <span class="focus-border"></span>
                                                 </div>
@@ -87,8 +81,7 @@
                                     </div>
                                 </div>
                                 <div style="margin: 15px 0px;">
-                                    <button type="submit" class="btnn" id="submit_form"
-                                        style="border: none;">Submit</button>
+                                    <button type="submit" class="btnn" id="submit_form" style="border: none;">Submit</button>
 
                                 </div>
                             </div>
@@ -160,20 +153,20 @@
 
                 },
                 success: function(data) {
-                        console.log('Data', data)
-                       //  return;
-                        var response = data.trim();
-                         if(response == 'Done'){
-                             alert('Project Created Successfully.')
-                             var url = '{{ route("project/showdata") }}';
-                              window.location.href = url;
-                         } else if(response == 'Already') {
-                             alert('Project Name Already Exits');
-                              $('#PROJECT_NAME').val('');
-                         } else {
-                             alert('Something Went Wrong')
-                         }
+                    console.log('Data', data)
+                    //  return;
+                    var response = data.trim();
+                    if (response == 'Done') {
+                        alert('Project Created Successfully.')
+                        var url = '{{ route("project/showdata") }}';
+                        window.location.href = url;
+                    } else if (response == 'Already') {
+                        alert('Project Name Already Exits');
+                        $('#PROJECT_NAME').val('');
+                    } else {
+                        alert('Something Went Wrong')
                     }
+                }
             });
 
         });

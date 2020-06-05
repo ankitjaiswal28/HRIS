@@ -5,34 +5,72 @@
         <div class="main_card">
             <div class="neuphormic_shadow fst_card">
                 <div class="fst_card_cntnt">
-                    <h3 class="h3_header_prt" style=""><a class="white_anchor"
-                            href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">Project's</label>
+                    <h3 class="h3_header_prt" style=""><a class="white_anchor" href="{{ url('/Superadmin/dashboard') }}"><i class="typcn typcn-home-outline" aria-hidden="true"></i></a> | <label class="ralway_font">Project's</label>
                     </h3>
                 </div>
                 <div style="float:right;">
-                    <a href="{{ url('project/create') }}" class="btnn"><i class="fa fa-plus"
-                            style="padding-right: 10px;" aria-hidden="true"></i>ADD PROJECT</a>
+                    <a href="{{ url('project/create') }}" class="btnn"><i class="fa fa-plus" style="padding-right: 10px;" aria-hidden="true"></i>ADD PROJECT</a>
                 </div>
             </div>
         </div>
 
-<div class="margin_left_right">
-    <table id="client-table" class="table table-hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Project Name</th>
-                 <th>Project Description</th>
-                <th>Project Target Hours</th>
-                <th>Project Cost</th>
-                <th>Action</th>
-            </tr>
-        </thead>
+        <div class="margin_left_right">
+            <table id="client-table" class="table table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Project Name</th>
+                        <th>Project Description</th>
+                        <th>Project Target Hours</th>
+                        <th>Project Cost</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
 
-    </table>
-</div></div></div>
+            </table>
+        </div>
+    </div>
+</div>
 <script src="/asset/js/jquery.js"></script>
 <script src="/asset/js/datatables.min.js"></script>
+
+<script>
+    function deleteDepartments(id, event) {
+        event.preventDefault(); // prevent form submit
+
+        $('#loading-image').show();
+        if (confirm("Are You Sure You Want to Delete Client!")) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/deleted_project/' + id,
+                type: 'get',
+                success: function(data) {
+                    console.log('Data', data);
+                    // return;
+                    var response = data.trim();
+                    if (response == 'Done') {
+                        alert('Project Deleted Succesfully.');
+                    } else {
+                        alert('Something Went Wrong');
+                    }
+                    location.reload();
+                },
+                complete: function() {
+                    $('#loading-image').hide();
+                }
+            });
+            //  alert(id);
+        } else {
+            alert("You Cancel The Request");
+            txt = "You pressed Cancel!";
+        }
+    }
+</script>
+
 <script>
    $(function() {
         var path = {!! json_encode(url('/')) !!};
@@ -67,42 +105,5 @@
 });
 
 </script>
-<script>
-    function deleteFunction(id,event) {
-        alert("dvdffs");
 
-		event.preventDefault(); // prevent form submit
-
-		swal({
-			title: "Are you sure?",
-			text: "You won't be able to revert this!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes, delete it!",
-			cancelButtonText: "No, cancel!",
-			closeOnConfirm: false,
-			closeOnCancel: true
-		});
-		/*function(isConfirm){
-			if (isConfirm) {
-
-				var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-				var base_url = {!! json_encode(url('/')) !!};
-				$.ajax({
-					url: base_url+'/user/delete/'+id,
-					type: 'post',
-					data:{
-					      id:id,_token:CSRF_TOKEN,
-						 },
-					success:function(data)
-					{
-						swal("User Deleted " , "info");
-						$('#table_id').DataTable().ajax.reload();
-					}
-				});
-				}
-			}*/
-	}
-</script>
 @endsection

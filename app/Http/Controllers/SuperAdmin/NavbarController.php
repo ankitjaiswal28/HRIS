@@ -110,6 +110,7 @@ class NavbarController extends Controller
          $email = $request->email;
          $prefix = $request->prefix;
          $pwd = $request->pwd;
+         $empcode = $request->empcode;
          $orignaldatabase = $request->session()->get('databasename');
          $encryptPassword = Crypt::encrypt($pwd);
          $data['companyname'] = $companyname;
@@ -119,6 +120,7 @@ class NavbarController extends Controller
          $data['prefix'] = $prefix;
          $data['pwd'] = $encryptPassword;
          $data['orignaldatabase'] = $orignaldatabase;
+         $data['EMP_CODE'] = $empcode;
         $responsemessg = $details->clientCreation($data);
         // print_r($responsemessg);
         return  $responsemessg;

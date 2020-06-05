@@ -1,35 +1,34 @@
 @extends('Layout.app')
 @section('content')
-<style>
-
-</style>
-<div class="main_card">
-    <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/Superadmin/role') }}"><i
-                class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i><span
-                class="bold_text" style="
+<div class="new-wrapper">
+    <div id="main">
+        <div class="main_card">
+            <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor"
+                    href="{{ url('/Superadmin/role') }}"><i class="fa fa-chevron-left" aria-hidden="true"
+                        style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
         font-size: 18px;">Add Departments</span></a><i class="fa fa-close" aria-hidden="true"
-            style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
-</div>
-<div class="flip-card-3D-wrapper" style="width: 35% !important;">
-    <div class="columns">
-        <div class="inner-column" id="flip-card">
-            <div class="flip-card-front" style="padding-top: 10px;">
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Add Departments</h1>
+                    style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
+        </div>
+        <div class="flip-card-3D-wrapper" style="width: 45% !important;">
+            <div class="columns">
+                <div class="inner-column" id="flip-card">
+                    <div class="flip-card-front" style="padding-top: 10px;">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h1 class="left_border font_grey" style="float: left;">Add Departments</h1>
 
-                        </div>
-                        <div class="col-md-2">
-                            <button id="flip-card-btn-turn-to-back" data-tooltip="Import" class="box circle"><img
-                                    src="/asset/css/zondicons/zondicons/inbox-download.svg" alt="Import"
-                                    style="width: 20px;margin-right: 0px;"></button>
-                        </div>
-                    </div>
-                    <div class="padding_20" style="padding: 0px 35px;">
-                        <div class="row">
-                            <div class="col-sm-12 col-xs-12 col-md-12">
-                                {{-- <div class="container">
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="flip-card-btn-turn-to-back" data-tooltip="Import"
+                                        class="box circle"><img src="/asset/css/zondicons/zondicons/inbox-download.svg"
+                                            alt="Import" style="width: 20px;margin-right: 0px;"></button>
+                                </div>
+                            </div>
+                            <div class="padding_20" style="padding: 0px 35px;">
+                                <div class="row">
+                                    <div class="col-sm-12 col-xs-12 col-md-12">
+                                        {{-- <div class="container">
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
                                             <input type='file' id="role_icon" accept=".png, .jpg, .jpeg" />
@@ -42,7 +41,7 @@
                                         </div>
                                     </div>
                                 </div> --}}
-                                {{-- <div id="avatars">
+                                        {{-- <div id="avatars">
                                     <form action="#" name="addRole_form" id="addRole_form" class="form_class" data-parsley-validate autocomplete="off">
                                         <label style="">Select Icon</label>
                                         <label class="avatars">
@@ -81,57 +80,63 @@
                                     </form>
 
                                 </div> --}}
-                            </div>
-                            <div class=" col-sm-12 col-xs-12 col-md-12">
-                            <input type="hidden" id = "departmentid" value = {{$departnments->DEPARTMENT_ID}}>
-                                <div class="colll-3 input-effect">
-                                    <input class="effect-16" type="text" placeholder="" style="clear:both"
-                                        id="department_name" data-parsley-trigger="blur" required="" value = {{$departnments->DEPARTMENT_NAME}}>
-                                    <label>Department Name</label>
-                                    <span class="focus-border"></span>
+                                    </div>
+                                    <div class=" col-sm-12 col-xs-12 col-md-12">
+                                        <input type="hidden" id="departmentid" value={{$departnments->DEPARTMENT_ID}}>
+                                        <div class="colll-3 input-effect">
+                                            <input class="effect-16" type="text" placeholder="" style="clear:both"
+                                                id="department_name" data-parsley-trigger="blur" required=""
+                                                value={{$departnments->DEPARTMENT_NAME}}>
+                                            <label>Department Name</label>
+                                            <span class="focus-border"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin: 15px 0px;">
+                                    <button type="button" class="btnn" id="submit_form"
+                                        style="border: none;">Submit</button><img src="../asset/images/pageloader.gif"
+                                        id="loading-image" style="display:none; width: 40px;">
+                                    {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
                                 </div>
                             </div>
                         </div>
-                        <div style="margin: 15px 0px;">
-                            <button type="button" class="btnn" id="submit_form" style="border: none;">Submit</button><img src="../asset/images/pageloader.gif" id="loading-image" style="display:none; width: 40px;">
-                            {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
-                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="flip-card-back">
-                <div class="">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h1 class="left_border font_grey" style="float: left;">Import Role</h1>
-                        </div>
-                        <div class="col-md-2">
-                            <button id="flip-card-btn-turn-to-front" data-tooltip="Entry Form" class="box circle"><img
-                                    src="/asset/css/zondicons/zondicons/edit-pencil.svg" alt="Import"
-                                    style="width: 20px;margin-right: 0px;"></button>
-                        </div>
-                    </div>
-                    <br>
-                    <div style="text-align: -webkit-center;">
-                        <form action="#">
-                            <h4>Choose Csv file</h4>
-                            <div class="input-file-container">
-                                <input class="input-file" id="my-file" type="file">
-                                <label tabindex="0" for="my-file" class="input-file-trigger">Select a file...</label>
+                    <div class="flip-card-back">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h1 class="left_border font_grey" style="float: left;">Import Role</h1>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="flip-card-btn-turn-to-front" data-tooltip="Entry Form"
+                                        class="box circle"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"
+                                            alt="Import" style="width: 20px;margin-right: 0px;"></button>
+                                </div>
                             </div>
-                            <p class="file-return"></p>
                             <br>
-                            <div style="margin: 15px 0px;">
-                                <button type="submit" class="btnn" style="border: none;">Submit</button>
-                                {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
+                            <div style="text-align: -webkit-center;">
+                                <form action="#">
+                                    <h4>Choose Csv file</h4>
+                                    <div class="input-file-container">
+                                        <input class="input-file" id="my-file" type="file">
+                                        <label tabindex="0" for="my-file" class="input-file-trigger">Select a
+                                            file...</label>
+                                    </div>
+                                    <p class="file-return"></p>
+                                    <br>
+                                    <div style="margin: 15px 0px;">
+                                        <button type="submit" class="btnn" style="border: none;">Submit</button>
+                                        {{-- <a href="/Superadmin/my_account" class="btnn">My Account</a> --}}
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {{-- <div >
+                    {{-- <div >
 
             </div> --}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -272,7 +277,7 @@ fileInput.addEventListener( "change", function( event ) {
 });
 </script>
 <script>
-        $(window).load(function(){
+    $(window).load(function(){
         var inputs = document.getElementsByTagName('input'),
         empty = 0;
 

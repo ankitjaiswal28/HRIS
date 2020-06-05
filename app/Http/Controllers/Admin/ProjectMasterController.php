@@ -25,7 +25,6 @@ class ProjectMasterController extends Controller
     {
         $addmodule = new mainModel();
         date_default_timezone_set('Asia/Kolkata');
-        // $time = date("h:i:sa");
         $timaestamp = date("Y-m-d H:i:s");
         $user_id = session('userid');
 
@@ -54,21 +53,27 @@ class ProjectMasterController extends Controller
         $details = new mainModel();
         $projectDetails = $details->showallproject();
 
-        return Datatables::of($projectDetails)->addIndexColumn()->addColumn('action', function ($query) {
-            return '<a href="' . action('Admin\ProjectMasterController@edit_project', Crypt::encrypt($query->PROJECT_ID)) . '"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
-            <a href="dfdsfdfdsdsfdf"><img src="/asset/css/zondicons/zondicons/close.svg"
-            style="width: 15px;    filter: invert(0.5);" alt=""></a>';
-        })
-            ->rawColumns(['action'])->make(true);
+        return Datatables::of($projectDetails)
+            ->addIndexColumn()
+            ->addColumn('action', function ($query) {
+                $id = Crypt::encrypt($query->PROJECT_ID);
+                return '<a href="' . action('Admin\ProjectMasterController@edit_project', Crypt::encrypt($query->PROJECT_ID)) . '"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>
+                <a href="javascript:void(0)" onclick="deleteDepartments(' . "'$id'" . ',event)"><img src="/asset/css/zondicons/zondicons/close.svg"
+                style="width: 15px;    filter: invert(0.5);" alt=""></a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     public function edit_project($projectid)
     {
         $project_id  = Crypt::decrypt($projectid);
 
-        // echo $project_id;
-
-        $getdata = DB::table('mst_tbl_project_master')->where(['FLAG' => 'Show', 'PROJECT_ID' => $project_id])->get()->first();
+        $getdata = DB::table('mst_tbl_project_master')
+            ->where(
+                ['FLAG' => 'Show', 'PROJECT_ID' => $project_id]
+            )->get()
+            ->first();
         $prodata['PROJECT_ID'] = $getdata->PROJECT_ID;
         $prodata['PROJECT_NAME'] = $getdata->PROJECT_NAME;
         $prodata['PROJECT_DESCRIPTION'] = $getdata->PROJECT_DESCRIPTION;
@@ -77,7 +82,6 @@ class ProjectMasterController extends Controller
 
         $allprodata = (object) $prodata;
 
-        // print_r($allprodata);
         return view('Admin.project_master.edit_project', compact('allprodata'));
     }
 
@@ -97,7 +101,20 @@ class ProjectMasterController extends Controller
 
         $retmsg = $prodetails->updateproject($data);
         return $retmsg;
+    }
 
-        //print_r($retmsg);
+    public function deleted_project($id)
+    {
+        $addmodel = new mainModel();
+        date_default_timezone_set('Asia/Kolkata');
+        $timaestamp = date("Y-m-d H:i:s");
+        $user_id = session('userid');
+
+        $id = Crypt::decrypt($id);
+        $data['UPDATE_BY'] = $user_id;
+        $data['UPDATE_AT'] = $timaestamp;
+        $data['FLAG'] = 'Deleted';
+        $response = $addmodel->deletedproject($id, $data);
+        return $response;
     }
 }

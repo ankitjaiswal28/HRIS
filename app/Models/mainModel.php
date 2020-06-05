@@ -880,7 +880,7 @@ class mainModel extends Model
         $EMPLOYE_TYPE = $data['EMPLOYE_TYPE'];
         $DESIGNATION_ID = $data['DESIGNATION_ID'];
         $ADMINCLIENT_ID = $data['ADMINCLIENT_ID'];
-        $GRADEORLEVEL_ID = $data['GRADEORLEVEL_ID'];
+        $GRADEORLEVEL_ID =$data['GRADEORLEVEL_ID'];
         $EMPLOYEE_ID = $data['EMPLOYEE_ID'];
         $empCodeformat = $data['empCodeformat'];
         $SHIFT_ID = $data['SHIFT_ID'];
@@ -1073,43 +1073,45 @@ class mainModel extends Model
             $firstuserId = $dyanimicfetchdeatails->userId;
             $dynamiclientnewUser = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'emailId' => $email])->where('emailId', '!=', $firstEmail)->get()->count();
             if ($dynamiclientnewUser == 0) {
-                $newdata['emailId'] = $email;
-                $newdata['passwords'] = $encryptPassword;
-                $newdata['username'] = $username;
-                $newdata['updated_at'] = $timaestamp;
-                $userId = DB::table('sup_tbl_all_client_user')->where(['Flag' => 'Show', 'userId' => $firstuserId])->update($newdata);
-                if ($userId != '') {
-                    Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
-                    Config::set('database.default', 'dynamicsql');
-                    $userdata['username'] = $username;
-                    $userdata['emailId'] = $email;
-                    $userdata['passwords'] = $encryptPassword;
-                    $userdata['updated_at'] = $timaestamp;
-                    $userdata['CREATED_BY'] = $userid;
-                    $userdata['master_roleId'] = $MASTER_ROLE_ID;
-                    $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
-                    $userdata['PRIMARY_MANGER'] = $PRIMARY_MANGER;
-                    $userdata['DOJ'] = $DOJ;
-                    $userdata['FUNCTION_NAME_ID'] = $FUNCTION_NAME_ID;
-                    $userdata['DEPARTMENTS_ID'] = $DEPARTMENTS_ID;
-                    $userdata['GRADEORLEVEL_ID'] = $GRADEORLEVEL_ID;
-                    $userdata['DESIGNATION_ID'] = $DESIGNATION_ID;
-                    $userdata['EMPLOYE_TYPE'] = $EMPLOYE_TYPE;
-                    $userdata['ADMINCLIENT_ID'] = $ADMINCLIENT_ID;
-                    $userdata['SHIFT_ID'] = $SHIFT_ID;
-                    $clintsuserId = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $clientuserId])->update($userdata);
-                    if ($clintsuserId != '') {
-                        $message = 'Done';
+                    $newdata['emailId'] = $email;
+                    $newdata['passwords'] = $encryptPassword;
+                    $newdata['username'] = $username;
+                    $newdata['updated_at'] = $timaestamp;
+                    $userId = DB::table('sup_tbl_all_client_user')->where(['Flag'=>'Show','userId'=>$firstuserId])->update($newdata);
+                    if ($userId != '') {
+                        Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
+                        Config::set('database.default', 'dynamicsql');
+                        $userdata['username'] = $username;
+                        $userdata['emailId'] = $email;
+                        $userdata['passwords'] = $encryptPassword;
+                        $userdata['updated_at'] = $timaestamp;
+                        $userdata['CREATED_BY'] = $userid;
+                        $userdata['master_roleId'] = $MASTER_ROLE_ID;
+                        $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
+                        $userdata['PRIMARY_MANGER'] = $PRIMARY_MANGER;
+                        $userdata['DOJ'] = $DOJ;
+                        $userdata['FUNCTION_NAME_ID'] = $FUNCTION_NAME_ID;
+                        $userdata['DEPARTMENTS_ID'] = $DEPARTMENTS_ID;
+                        $userdata['GRADEORLEVEL_ID'] = $GRADEORLEVEL_ID;
+                        $userdata['DESIGNATION_ID'] = $DESIGNATION_ID;
+                        $userdata['EMPLOYE_TYPE'] = $EMPLOYE_TYPE;
+                        $userdata['ADMINCLIENT_ID'] = $ADMINCLIENT_ID;
+                        $userdata['SHIFT_ID'] = $SHIFT_ID;
+                        $clintsuserId = DB::table('mst_user_tbl')->where(['Flag'=>'Show','userId'=>$clientuserId])->update($userdata);
+                        if ($clintsuserId !='') {
+                            $message = 'Done';
+                        } else {
+                            $message = 'Erorr';
+                        }
                     } else {
                         $message = 'Erorr';
                     }
-                } else {
-                    $message = 'Erorr';
-                }
             } else {
                 $message = 'Already';
             }
-        } else {
+
+
+        }else {
             $message = 'Already';
         }
         return $message;
@@ -1432,7 +1434,7 @@ class mainModel extends Model
         return $deatils;
     }
 
-    /**
+     /**
      * This Function will Check Level Name  Exit Or Not If Not Then It will Create The Leveles
      * @param $data \Illuminate\Http\Request  $data It will be The Data Of Leveles To Create
      * @return \Illuminate\Http\Response Return The Messge That Leveles Craeted Or Already Exits
@@ -1445,9 +1447,9 @@ class mainModel extends Model
         if ($levelesDetails == 0) {
             $insertLeveles = $this->insertRecords($data, 'mst_tbl_levels');
             if ($insertLeveles != '') {
-                $message = 'Done';
+               $message = 'Done';
             } else {
-                $message = 'Error';
+               $message = 'Error';
             }
         } else {
             $message = 'Already';
@@ -1614,7 +1616,7 @@ class mainModel extends Model
      */
     public function deleteShifts($id, $data)
     {
-        $updateDepatments = DB::table('mst_tbl_shifts')->where(['Flag' => 'Show', 'SHIFT_ID' => $id])->update($data);
+        $updateDepatments = DB::table('mst_tbl_shifts')->where(['Flag'=>'Show','SHIFT_ID'=>$id])->update($data);
         $message = '';
         if ($updateDepatments != '') {
             $message = 'Done';
@@ -1694,5 +1696,76 @@ class mainModel extends Model
             ->orderBy('mst_tbl_timesheet.TIMESHEET_ID', 'DESC')
             ->get();
         return $showdata;
+    }
+    /**
+     * This Function will Check Attedence of User For Date and If Not Then It will Add Attendence
+     * @param $data \Illuminate\Http\Request  $data It will be The Data of User
+     * @return \Illuminate\Http\Response Return The Messge That Attendence For Date Is Exits Or Not
+     */
+    public function saveAttendence($data)
+    {
+        $in_Date = $data['in_Date'];
+        $user_id = $data['user_id'];
+        // DB::enableQuerylog();
+        $responese = DB::table('mst_tbl_add_attdencence')
+        ->where(['Flag' => 'Show', 'user_id' => $user_id])
+        ->where('in_Date','=', $in_Date)->get();
+        // $aa= DB::getQuerylog();
+        //  print_r($aa);exit;
+        $message = '';
+        if($responese->count() == 0) {
+            $insertAttendence = $this->insertRecords($data, 'mst_tbl_add_attdencence');
+            if ($insertAttendence != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Delete Attendence
+     * @param $tablename \Illuminate\Http\Request  $id Will Have Attendence To be Deleted
+     * @return \Illuminate\Http\Response Return the Response that Attendence Is  Deleted
+     */
+    public function deleteAttendence($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_add_attdencence')->where(['Flag'=>'Show','attendenceId'=>$id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Check Attendence For This Is Not Their If Not  Then Update  The Attendence
+     * @param $data \Illuminate\Http\Request  $data It will be The Data  To Update
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Attendence To Update
+     * @return \Illuminate\Http\Response Return The Messge That Attendence Updeted Or Already Exits
+     */
+    public function updateAttedencence($data, $id, $columnName, $Date)
+    {
+        $myDate = $Date;
+        $user_id = $data['user_id'];
+        $responese = DB::table('mst_tbl_add_attdencence')
+        ->where(['Flag' => 'Show','user_id' => $user_id])
+        ->where($columnName,'=', $myDate)->where('attendenceId', '!=', $id)->get();
+        $message = '';
+        if($responese->count() == 0) {
+            $updateAttendence = DB::table('mst_tbl_add_attdencence')->where(['Flag'=>'Show','attendenceId'=>$id])->update($data);
+            if ($updateAttendence != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
     }
 }

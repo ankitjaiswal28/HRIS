@@ -34,7 +34,7 @@ class Login extends Model
             if ($newUser != 0) {
                 $flag = "Show";
                 //DB::enableQuerylog();
-                $getallDetails = DB::table('sup_tbl_all_client_user as cu')->select('cu.userId','cu.CLIENT_ID','cu.emailId','cu.passwords','cu.roleId','cu.username','su.user_image','su.CLIENT_PREFIX')->leftJoin('sup_tbl_client as su','su.CLIENT_ID', '=', 'cu.CLIENT_ID') ->where(['cu.Flag'=> $flag ,'cu.emailId'=>$username])->get()->first();
+                $getallDetails = DB::table('sup_tbl_all_client_user as cu')->select('cu.userId','cu.CLIENT_ID','cu.emailId','cu.passwords','cu.roleId','cu.username','su.user_image','su.CLIENT_PREFIX','cu.EMP_CODE')->leftJoin('sup_tbl_client as su','su.CLIENT_ID', '=', 'cu.CLIENT_ID') ->where(['cu.Flag'=> $flag ,'cu.emailId'=>$username])->get()->first();
                // $aa= DB::getQuerylog();
                 // print_r($aa);exit;
                 foreach ($getallDetails as $key => $value){
@@ -42,6 +42,7 @@ class Login extends Model
                 }
                 $prefix = $aaryofDetails['CLIENT_PREFIX'];
                 $CLIENT_ID = $aaryofDetails['CLIENT_ID'];
+                $EMP_CODE = $aaryofDetails['EMP_CODE'];
                 $getDatBasename = strtolower($aaryofDetails['CLIENT_PREFIX']). '_management';
                 // Set Dynamic Database.
                 Config::set('database.connections.dynamicsql.database', $getDatBasename);
@@ -55,6 +56,7 @@ class Login extends Model
                 }
                 $aaryofDetails['CLIENT_PREFIX'] = $prefix;
                 $aaryofDetails['CLIENT_ID'] = $CLIENT_ID;
+                $aaryofDetails['EMP_CODE'] = $EMP_CODE;
                 //echo "Connected sucessfully to database ".DB::connection()->getDatabaseName().".";
                //  print_r($getDatBasename);
             }

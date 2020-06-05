@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Stream;
+use App\Models\mainModel;
+use Yajra\DataTables\Facades\DataTables;
 
 class TimesheetReportController extends Controller
 {
@@ -109,6 +111,25 @@ class TimesheetReportController extends Controller
         );
 
         echo json_encode($json_data);
+    }
 
+
+    public function show_all_tsreport()
+    {
+        return view('Admin.time_sheet.show_timesheet_report');
+    }
+
+    public function show_all_tsdata()
+    {
+        $addmodel = new mainModel();
+        $alltimesheetDetails = $addmodel->showalltsdata();
+
+        return Datatables::of($alltimesheetDetails)
+            ->addIndexColumn()
+            ->addColumn('action', function ($query) {
+                return '<a onclick=""><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"  style="width: 15px;margin-right: 20px;    filter: invert(0.5);" alt=""></a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 }

@@ -98,6 +98,7 @@ class mainModel extends Model
         $adminname = $data['adminname'];
         $mobileno = $data['mobileno'];
         $email = $data['email'];
+        $EMP_CODE = $data['EMP_CODE'];
         $prefix = strtolower($data['prefix']);
         $pwd = $data['pwd'];
         $databsename = $prefix . '_management';
@@ -132,6 +133,7 @@ class mainModel extends Model
                     $columnname['PASSWORDS'] = $pwd;
                     $columnname['Flag'] = 'Show';
                     $columnname['created_at'] = $timaestamp;
+                    $columnname['EMP_CODE'] = $EMP_CODE;
                     //print_r($columnname);
                     $ClinetID = $this->insertRecords($columnname, 'sup_tbl_client');
                     if ($ClinetID > 0) {
@@ -142,6 +144,7 @@ class mainModel extends Model
                         $newdata['username'] = $adminname;
                         $newdata['Flag'] = 'Show';
                         $newdata['created_at'] = $timaestamp;
+                        $newdata['EMP_CODE'] = $EMP_CODE;
                         $userId = $this->insertRecords($newdata, 'sup_tbl_all_client_user');
                         if ($userId > 0) {
 
@@ -878,6 +881,10 @@ class mainModel extends Model
         $DESIGNATION_ID = $data['DESIGNATION_ID'];
         $ADMINCLIENT_ID = $data['ADMINCLIENT_ID'];
         $GRADEORLEVEL_ID = $data['GRADEORLEVEL_ID'];
+        $EMPLOYEE_ID = $data['EMPLOYEE_ID'];
+        $empCodeformat = $data['empCodeformat'];
+        $SHIFT_ID = $data['SHIFT_ID'];
+
 
 
         $timaestamp = date("Y-m-d H:i:s");
@@ -907,6 +914,9 @@ class mainModel extends Model
                 $userdata['DESIGNATION_ID'] = $DESIGNATION_ID;
                 $userdata['ADMINCLIENT_ID'] = $ADMINCLIENT_ID;
                 $userdata['GRADEORLEVEL_ID'] = $GRADEORLEVEL_ID;
+                $userdata['EMPLOYEE_ID'] = $EMPLOYEE_ID;
+                $userdata['SHIFT_ID'] = $SHIFT_ID;
+
 
                 $cilentuserId = $this->insertRecords($userdata, 'mst_user_tbl');
                 if ($cilentuserId != '') {
@@ -919,6 +929,7 @@ class mainModel extends Model
                     $newdata['username'] = $username;
                     $newdata['Flag'] = 'Show';
                     $newdata['created_at'] = $timaestamp;
+                    $newdata['EMP_CODE'] = $empCodeformat;
                     $userId = $this->insertRecords($newdata, 'sup_tbl_all_client_user');
                     if ($userId != '') {
                         Config::set('database.connections.dynamicsql.database', $dynamicdatabase);
@@ -1026,6 +1037,7 @@ class mainModel extends Model
     }
     public function updateUserCraetion($data)
     {
+        //  print_r($data);exit;
         $orignalDb = $data['orignalDb'];
         $CLIENT_ID = $data['CLIENT_ID'];
         $clientuserId = $data['clientuserId'];
@@ -1035,11 +1047,21 @@ class mainModel extends Model
         $username = $data['username'];
         $MASTER_ROLE_ID = $data['MASTER_ROLE_ID'];
         $REPORTING_MANAGER = $data['REPORTING_MANAGER'];
+        //
+        $DOJ = $data['DOJ'];
+        $FUNCTION_NAME_ID = $data['FUNCTION_NAME_ID'];
+        $DEPARTMENTS_ID = $data['DEPARTMENTS_ID'];
+        $GRADEORLEVEL_ID = $data['GRADEORLEVEL_ID'];
+        $DESIGNATION_ID = $data['DESIGNATION_ID'];
+        $EMPLOYE_TYPE = $data['EMPLOYE_TYPE'];
+        $ADMINCLIENT_ID = $data['ADMINCLIENT_ID'];
+        $PRIMARY_MANGER = $data['PRIMARY_MANGER'];
         $dynamicdatabase = $data['dynamicdatabase'];
+        $SHIFT_ID = $data['SHIFT_ID'];
         $timaestamp = date("Y-m-d H:i:s");
         $fetchdeatails = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $clientuserId])->get()->first();
         $firstEmail = $fetchdeatails->emailId;
-        $clientREPORTING_MANGERS = $fetchdeatails->REPORTING_MANGERS;
+        // $clientREPORTING_MANGERS = $fetchdeatails->REPORTING_MANGERS;
         // DB::enableQuerylog();
         $clientnewUser = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'emailId' => $email])->where('emailId', '!=', $firstEmail)->get()->count();
         // $aa= DB::getQuerylog();
@@ -1066,11 +1088,15 @@ class mainModel extends Model
                     $userdata['CREATED_BY'] = $userid;
                     $userdata['master_roleId'] = $MASTER_ROLE_ID;
                     $userdata['REPORTING_MANGERS'] = $REPORTING_MANAGER;
-                    if ($clientREPORTING_MANGERS != $REPORTING_MANAGER) {
-                        $userdata['PRIMARY_MANGER'] = null;
-                        $userdata['SECOND_MANGER'] = null;
-                        $userdata['THIRD_MANGER'] = null;
-                    }
+                    $userdata['PRIMARY_MANGER'] = $PRIMARY_MANGER;
+                    $userdata['DOJ'] = $DOJ;
+                    $userdata['FUNCTION_NAME_ID'] = $FUNCTION_NAME_ID;
+                    $userdata['DEPARTMENTS_ID'] = $DEPARTMENTS_ID;
+                    $userdata['GRADEORLEVEL_ID'] = $GRADEORLEVEL_ID;
+                    $userdata['DESIGNATION_ID'] = $DESIGNATION_ID;
+                    $userdata['EMPLOYE_TYPE'] = $EMPLOYE_TYPE;
+                    $userdata['ADMINCLIENT_ID'] = $ADMINCLIENT_ID;
+                    $userdata['SHIFT_ID'] = $SHIFT_ID;
                     $clintsuserId = DB::table('mst_user_tbl')->where(['Flag' => 'Show', 'userId' => $clientuserId])->update($userdata);
                     if ($clintsuserId != '') {
                         $message = 'Done';
@@ -1406,6 +1432,198 @@ class mainModel extends Model
         return $deatils;
     }
 
+    /**
+     * This Function will Check Level Name  Exit Or Not If Not Then It will Create The Leveles
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Leveles To Create
+     * @return \Illuminate\Http\Response Return The Messge That Leveles Craeted Or Already Exits
+     */
+    public function addLeveles($data)
+    {
+        $LEVEL_NAME = $data['LEVEL_NAME'];
+        $levelesDetails = DB::table('mst_tbl_levels')->where(['Flag' => 'Show', 'LEVEL_NAME' => $LEVEL_NAME])->get()->count();
+        $message = '';
+        if ($levelesDetails == 0) {
+            $insertLeveles = $this->insertRecords($data, 'mst_tbl_levels');
+            if ($insertLeveles != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Check Level Name  Exit Or Not If Not Then Update  The level Name
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of level Name To Update
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Level Name To Update
+     * @return \Illuminate\Http\Response Return The Messge That Level Name Updeted Or Already Exits
+     */
+    public function updateLevel($data, $id)
+    {
+        $LEVEL_NAME = $data['LEVEL_NAME'];
+        $levelNameDetaials = DB::table('mst_tbl_levels')->where(['Flag' => 'Show', 'LEVEL_NAME' => $LEVEL_NAME])->where('LEVEL_ID', '!=', $id)->get()->count();
+        $message = '';
+        if ($levelNameDetaials == 0) {
+            $updateLeveles = DB::table('mst_tbl_levels')->where(['Flag' => 'Show', 'LEVEL_ID' => $id])->update($data);
+            // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
+            if ($updateLeveles != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Delete Levele
+     * @param $id  $id Will Have Level id  To be Deleted
+     * @param $data   Will Have Deleted By And Deleted At What Time
+     * @return \Illuminate\Http\Response Return the Response that level Is  Deleted
+     */
+    public function deleteLeveles($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_levels')->where(['Flag' => 'Show', 'LEVEL_ID' => $id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Check Grade Name  Exit Or Not If Not Then It will Create The Grade
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Grade To Create
+     * @return \Illuminate\Http\Response Return The Messge That Grade Craeted Or Already Exits
+     */
+    public function addGrades($data)
+    {
+        $GRADE_NAME = $data['GRADE_NAME'];
+        $gradeDetails = DB::table('mst_tbl_grade')->where(['Flag' => 'Show', 'GRADE_NAME' => $GRADE_NAME])->get()->count();
+        $message = '';
+        if ($gradeDetails == 0) {
+            $insertGrade = $this->insertRecords($data, 'mst_tbl_grade');
+            if ($insertGrade != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Check Grade Name  Exit Or Not If Not Then Update  The Grade Details
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Grade Details To Update
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Grade Details To Update
+     * @return \Illuminate\Http\Response Return The Messge That Grade Name Updeted Or Already Exits
+     */
+    public function updateGrade($data, $id)
+    {
+        $GRADE_NAME = $data['GRADE_NAME'];
+        $gradeNameDetails = DB::table('mst_tbl_grade')->where(['Flag' => 'Show', 'GRADE_NAME' => $GRADE_NAME])->where('GRADE_ID', '!=', $id)->get()->count();
+        $message = '';
+        if ($gradeNameDetails == 0) {
+            $updateDetails = DB::table('mst_tbl_grade')->where(['Flag' => 'Show', 'GRADE_ID' => $id])->update($data);
+            // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
+            if ($updateDetails != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Delete Grade
+     * @param $id  $id Will Have Grade id  To be Deleted
+     * @param $data   Will Have Deleted By And Deleted At What Time
+     * @return \Illuminate\Http\Response Return the Response that Grade Is  Deleted
+     */
+    public function deleteGrade($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_grade')->where(['Flag' => 'Show', 'GRADE_ID' => $id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Check Shits Name Exit Or Not If Not Then It will Create The Shifts
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Shifts To Create
+     * @return \Illuminate\Http\Response Return The Messge That SHifts Craeted Or Already Exits
+     */
+    public function addShifts($data)
+    {
+        $SHIFT_NAME = $data['SHIFT_NAME'];
+        $shiftsDetails = DB::table('mst_tbl_shifts')->where(['Flag' => 'Show', 'SHIFT_NAME' => $SHIFT_NAME])->get()->count();
+        $message = '';
+        if ($shiftsDetails == 0) {
+            $insertDepartment = $this->insertRecords($data, 'mst_tbl_shifts');
+            if ($insertDepartment != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Check Shift Name  Exit Or Not If Not Then Update  The Shift Details
+     * @param $data \Illuminate\Http\Request  $data It will be The Data Of Shift Details To Update
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Shift Details To Update
+     * @return \Illuminate\Http\Response Return The Messge That Shift Name Updeted Or Already Exits
+     */
+    public function updateShifts($data, $id)
+    {
+        $SHIFT_NAME = $data['SHIFT_NAME'];
+        $shiftDetails = DB::table('mst_tbl_shifts')->where(['Flag' => 'Show', 'SHIFT_NAME' => $SHIFT_NAME])->where('SHIFT_ID', '!=', $id)->get()->count();
+        $message = '';
+        if ($shiftDetails == 0) {
+            $updateDetails = DB::table('mst_tbl_shifts')->where(['Flag' => 'Show', 'SHIFT_ID' => $id])->update($data);
+            // $insertDepartment = $this->insertRecords($data, 'mst_tbl_departments');
+            if ($updateDetails != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Delete SHifts
+     * @param $tablename \Illuminate\Http\Request  $id Will Have Shifts  To be Deleted  Id
+     * @return \Illuminate\Http\Response Return the Response that Shifts Is  Deleted
+     */
+    public function deleteShifts($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_shifts')->where(['Flag' => 'Show', 'SHIFT_ID' => $id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+    }
+
     /** Admin client module /////////////////////////////////////////////////////////////////////////*/
     public function addclientdata($data)
     {
@@ -1463,5 +1681,18 @@ class mainModel extends Model
             $message = 'Error';
         }
         return $message;
+    }
+
+    public function showalltsdata()
+    {
+        $showdata = DB::table('mst_tbl_timesheet')
+            ->select('*')
+            ->leftjoin('mst_user_tbl', 'mst_user_tbl.userId', '=', 'mst_tbl_timesheet.USER_ID')
+            ->leftjoin('mst_tbl_project_master', 'mst_tbl_project_master.PROJECT_ID', '=', 'mst_tbl_timesheet.PROJECT_ID')
+            ->leftjoin('mst_tbl_activity_master', 'mst_tbl_activity_master.ACTIVITY_ID', '=', 'mst_tbl_timesheet.ACTIVITY_TYPE')
+            ->where(['mst_tbl_timesheet.FLAG' => 'Show'])
+            ->orderBy('mst_tbl_timesheet.TIMESHEET_ID', 'DESC')
+            ->get();
+        return $showdata;
     }
 }

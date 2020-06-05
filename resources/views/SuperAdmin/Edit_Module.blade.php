@@ -3,7 +3,7 @@
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/Superadmin/role') }}"><i class="fa fa-chevron-left" aria-hidden="true"
             style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
-        font-size: 18px;">Add Module<?php print_r($clinetDetais); ?></span></a><i class="fa fa-close" aria-hidden="true"
+        font-size: 18px;">Add Module</span></a><i class="fa fa-close" aria-hidden="true"
             style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
 <div class="container-fluid">

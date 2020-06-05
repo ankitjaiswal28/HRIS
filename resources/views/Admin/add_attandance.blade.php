@@ -7,7 +7,7 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        right: -215px !important;
+        right: -227px !important;
     }
 
     .select2-container--open .select2-dropdown--below {
@@ -33,7 +33,7 @@
     }
 
     .select2-container {
-        right: 150px !important;
+        right: 270px !important;
     }
 
     #datepicker {
@@ -41,7 +41,7 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        right: -120px !important;
+        right: -250px !important;
     }
 </style>
 <link rel="stylesheet" href="/asset/css/Calender.css">
@@ -71,7 +71,7 @@
                     </select>
                     {{-- </div> --}}
                     <div id="datepicker">
-                        <button id="datepicker-button">Open Datepicker</button>
+                        <button id="datepicker-button" class="btnn" style="padding-top: 7px;padding-bottom: 7px;">Open Datepicker</button>
                         <div id="datepicker-container">
                             <div class="datepicker-header">
                                 <button class="datepicker-button-change" id="datepicker-previous-button"> - </button>

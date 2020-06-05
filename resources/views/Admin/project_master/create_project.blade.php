@@ -27,16 +27,27 @@
                     style="position: relative;float:right;top: 2px;font-size:20px"></i>
             </div>
         </div>
-        <div class="flip-card-3D-wrapper" style="width: 100% !important;">
+        <div class="flip-card-3D-wrapper" style="width: 35% !important;">
             <div class="columns">
                 <div class="inner-column" id="flip-card">
                     <div class="flip-card-front" style="padding-top: 10px;margin-bottom: 15px;">
                         <div class="">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h1 class="left_border font_grey" style="float: left;">Add Function</h1>
+
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="flip-card-btn-turn-to-back" data-tooltip="Import"
+                                        class="box circle"><img src="/asset/css/zondicons/zondicons/inbox-download.svg"
+                                            alt="Import" style="width: 20px;margin-right: 0px;"></button>
+                                </div>
+                            </div>
                             <div class="padding_20" style="padding: 0px 35px;">
                                 <div class="row">
-                                    <div class="col-sm-6 col-xs-12 col-md-8">
+                                    <div class="col-sm-6 col-xs-12 col-md-12">
                                         <div class="row">
-                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                            <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
                                                     <input class="effect-16" type="text" id="PROJECT_NAME"
                                                         placeholder="" style="clear:both">
@@ -44,7 +55,7 @@
                                                     <span class="focus-border"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                            <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
                                                     <input class="effect-16" type="text" id="PROJECT_DESCRIPTION"
                                                         placeholder="" style="clear:both">
@@ -55,7 +66,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                            <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
                                                     <input class="effect-16" type="text" id="PROJECT_TARGET_HR"
                                                         placeholder="" style="clear:both">
@@ -63,7 +74,7 @@
                                                     <span class="focus-border"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-xs-12 col-md-6">
+                                            <div class="col-sm-12 col-xs-12 col-md-12">
                                                 <div class="colll-3 input-effect">
                                                     <input class="effect-16" type="text" id="PROJECT_COST"
                                                         placeholder="" style="clear:both">
@@ -83,7 +94,36 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="flip-card-back">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h1 class="left_border font_grey" style="float: left;">Import Role</h1>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="flip-card-btn-turn-to-front" data-tooltip="Entry Form"
+                                        class="box circle"><img src="/asset/css/zondicons/zondicons/edit-pencil.svg"
+                                            alt="Import" style="width: 20px;margin-right: 0px;"></button>
+                                </div>
+                            </div>
+                            <br>
+                            <div style="text-align: -webkit-center;">
+                                {{-- <form action="#"> --}}
+                                    <h4>Choose Csv file</h4>
+                                    <div class="input-file-container">
+                                        <input class="input-file" id="my-file" type="file">
+                                        <label tabindex="0" for="my-file" class="input-file-trigger">Select a
+                                            file...</label>
+                                    </div>
+                                    <p class="file-return"></p>
+                                    <br>
+                                    <div style="margin: 15px 0px;">
+                                        <button type="submit" class="btnn" style="border: none;">Submit</button>
+                                    </div>
+                                {{-- </form> --}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -189,19 +229,19 @@
     });
 </script>
 <script>
-    // document.addEventListener('DOMContentLoaded', function(event) {
+    document.addEventListener('DOMContentLoaded', function(event) {
 
-    //     document.getElementById('flip-card-btn-turn-to-back').style.visibility = 'visible';
-    //     document.getElementById('flip-card-btn-turn-to-front').style.visibility = 'visible';
+        document.getElementById('flip-card-btn-turn-to-back').style.visibility = 'visible';
+        document.getElementById('flip-card-btn-turn-to-front').style.visibility = 'visible';
 
-    //     document.getElementById('flip-card-btn-turn-to-back').onclick = function() {
-    //         document.getElementById('flip-card').classList.toggle('do-flip');
-    //     };
+        document.getElementById('flip-card-btn-turn-to-back').onclick = function() {
+            document.getElementById('flip-card').classList.toggle('do-flip');
+        };
 
-    //     document.getElementById('flip-card-btn-turn-to-front').onclick = function() {
-    //         document.getElementById('flip-card').classList.toggle('do-flip');
-    //     };
+        document.getElementById('flip-card-btn-turn-to-front').onclick = function() {
+            document.getElementById('flip-card').classList.toggle('do-flip');
+        };
 
-    // });
+    });
 </script>
 @endsection

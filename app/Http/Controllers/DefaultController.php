@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
+use App\Models\Login;
+use Illuminate\Support\Facades\Config;
 class DefaultController extends Controller
 {
     /**
@@ -48,14 +51,24 @@ class DefaultController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the Page For The Change Password
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id User Id of The user
+     * @return \Illuminate\Http\Response Page Of The user
      */
-    public function show($id)
+    public function ShowChangePassword($id)
     {
-        //
+
+         $userId = Crypt::decrypt($id);
+        $orignamlDB = session()->get('orignaldb');
+        $getDatBasename = session()->get('databasename');
+        Config::set('database.connections.dynamicsql.database', $getDatBasename);
+        Config::set('database.default', 'dynamicsql');
+        $getclientDetails = DB::table('mst_user_tbl')->where(['flag'=>'Show','userId'=>$userId])->get()->first();
+        $Password = Crypt::decrypt($getclientDetails->passwords);
+        Config::set('database.connections.dynamicsql.database', $orignamlDB);
+        Config::set('database.default', 'dynamicsql');
+        return view('ChangePassword.changePassword', compact('Password'));
     }
 
     /**
@@ -70,15 +83,34 @@ class DefaultController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the PassWord of User  in Database
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatePassword(Request $request, $id)
     {
-        //
+        $login = new Login();
+        $userId = Crypt::decrypt($id);
+        $oldPassWord = Crypt::encrypt($request->oldPassword);
+        // $oldPassWord = $request->oldPassword;
+        $encryptPassWord = Crypt::encrypt($request->newPassword);
+
+        $orignamlDB = session()->get('orignaldb');
+        $dynamicDb = session()->get('databasename');
+        // $xxxx = Crypt::decrypt($encryptPassWord);
+        // print_r($xxxx);
+
+        // exit;
+        $data['UserId'] = $userId;
+        $data['oldPassWord'] = $oldPassWord;
+        $data['newPassword'] = $encryptPassWord;
+        $data['orignamlDB'] = $orignamlDB;
+        $data['dynamicDb'] = $dynamicDb;
+        $returnVal = $login->UpdatePassWord($data);
+        $request->session()->flush();
+        return $returnVal;
     }
 
     /**

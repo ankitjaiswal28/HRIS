@@ -1,5 +1,7 @@
 @extends('Layout.app')
 @section('content')
+<div class="new-wrapper">
+    <div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/Superadmin/role') }}"><i class="fa fa-chevron-left" aria-hidden="true"
             style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
@@ -47,7 +49,7 @@
             <button type="button" class="btnn" id="submit_form" style="border: none;width: 150px;">Submit</button>
              <img src="../../asset/images/pageloader.gif" id="loading-image" style=" display:none;width: 40px;">
         </div>
-</div>
+</div></div></div>
 <script src="/asset/js/jquery.min.js"></script>
 <script>
 var getmoduleIds = "<?php print_r($getmoduleIds);?>";

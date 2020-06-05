@@ -1,6 +1,8 @@
 @extends('Layout.app')
 @section('content')
 <link rel="stylesheet" href="/asset/css/Calender.css">
+<div class="new-wrapper">
+<div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><a class="black_anchor" href="{{ url('/') }}"><i
                 class="fa fa-chevron-left" aria-hidden="true" style="font-size: 18px;margin-right: 20px;"></i><span
@@ -31,12 +33,14 @@
                             <div id="datepicker">
                                 <div id="datepicker-container">
                                     <div class="datepicker-header">
-                                        <button class="datepicker-button-change" id="datepicker-previous-button"><span
-                                                style="position: absolute;font-size: 40px;">
+                                        <button class="datepicker-button-change" id="datepicker-previous-button" style="
+                                        margin-left: 15px;
+                                    "><span
+                                            style="position: relative;font-size: 25px;">
                                                 <</span> </button> <div id="datepicker-indicator">
                                     </div>
-                                    <button class="datepicker-button-change" id="datepicker-next-button"><span
-                                            style="position: absolute;font-size: 40px;">></span></button>
+                                    <button class="datepicker-button-change" id="datepicker-next-button" style="margin-right:15px;"><span
+                                        style="position: relative;font-size: 25px;">></span></button>
                                 </div>
                                 <ul id="datepicker-week-title"></ul>
                                 <div id="datepicker-body"></div>
@@ -207,6 +211,7 @@
         </div>
     </div>
 </div>
+</div></div>
 </div>
 {{-- //////////////////////////         Calender datepicker  Script      ////////////////////////////// --}}
 <script src="/asset/js/jquery.min.js"></script>

@@ -1,13 +1,14 @@
 @extends('Layout.app')
 @section('content')
-
+<div class="new-wrapper">
+    <div id="main">
 <div class="main_card">
     <div class="neuphormic_shadow" style="padding:10px"><i class="fa fa-chevron-left" aria-hidden="true"
             style="font-size: 18px;margin-right: 20px;"></i><span class="bold_text" style="
         font-size: 18px;">Edit User<?php print_r($details);?></span><i class="fa fa-close" aria-hidden="true"
             style="position: relative;float:right;top: 2px;font-size:20px"></i></div>
 </div>
-<div class="flip-card-3D-wrapper" style="width: 35% !important;">
+<div class="flip-card-3D-wrapper" style="width: 45% !important;">
     <div class="columns">
         <div class="inner-column" id="flip-card">
             <div class="flip-card-front" style="padding-top: 10px;">
@@ -134,7 +135,7 @@
             </div> --}}
         </div>
     </div>
-</div>
+</div></div></div>
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> --}}
 <script src="/asset/js/jquery_213.min.js"></script>
 <script>

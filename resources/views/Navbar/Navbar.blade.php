@@ -96,7 +96,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-            <div class="switch_box box_3 theme-switch">
+            {{-- <div class="switch_box box_3 theme-switch">
                 <div class="toggle_switch switch">
                     <input type="checkbox" class="switch_3" name="Darkmode" id="Darkmode" onclick="apply_dark()"
                         checked>
@@ -115,7 +115,7 @@
             </div>
             <li class="nav-item active">
                 <a class="nav-link" href="/User/Chat_UI">Message</a>
-            </li>
+            </li> --}}
             @if (session('roleId') == '1')
             {{-- <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -412,21 +412,131 @@
             <h2 class="h2_font_side_header">Abhishek</h2>
             {{-- <img src="/asset/images/sharedocs_enterpriser.png" style="width: 185px;background: white;" alt=""> --}}
         </a>
+        <div class="overflow-container">
+            <div class="scrollbar" style="height: 640px;overflow-y: auto;" id="style-1">
+                <div class="force-overflow">
+                    <ul class="menu-dropdown">
+
+                        <li><a class="nav-link" href="/SuperAdmin/superadmindahboard">Dasboard</a><span class="icon"><i
+                                    class="fa fa-dashboard"></i></span></li>
+                        <li><a class="nav-link" href="/SuperAdmin/Show_client">Client</a><span class="icon"><i
+                                    class="fa fa-dashboard"></i></span></li>
+                        <li><a class="nav-link" href="/SuperAdmin/Show_Module">Module</a><span class="icon"><i
+                                    class="fa fa-dashboard"></i></span></li>
+                        {{-- <li style="top: calc(53vh - 10px);"><a href="#">Settings</a><span class="icon"><i
+                                    class="fa fa-gear"></i></span></li> --}}
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
         @endif
         @if (session('roleId') == '2')
         <a class="navbar-brand left_marge_logo" href="{{ url('Admin/admindahboard') }}" style="margin-right: 0px;">
             <h2 class="h2_font_side_header">Abhishek</h2>
             {{-- <img src="/asset/images/sharedocs_enterpriser.png" style="width: 185px;background: white;" alt=""> --}}
         </a>
+        <div class="overflow-container">
+            <div class="scrollbar" style="height: 640px;overflow-y: auto;" id="style-1">
+                <div class="force-overflow">
+                    <ul class="menu-dropdown">
+                        <li><a class="nav-link" href="/Admin/admindahboard">Dashboard</a><span class="icon"><i
+                                    class="fa fa-dashboard"></i></span></li>
+
+                        <li class="menu-hasdropdown">
+                            <span class="icon"><i class="fa fa-gear"></i></span>
+
+                            <label title="toggle menu" for="Module">
+                                <a>Module</a>
+                                <span class="downarrow"><i class="fa fa-caret-down"></i></span>
+                            </label>
+                            <input type="checkbox" class="sub-menu-checkbox" id="Module" />
+                            <ul class="sub-menu-dropdown">
+                                <li><a href="/Leave_manage">Leave</a></li>
+                                <li><a href="/project/showdata">Project Master</a></li>
+                                <li><a href="/Admin/role">Role</a></li>
+                                <li><a href="/Admin/Module">Module</a></li>
+                                <li><a href="/Admin/Shifts">Shifts</a></li>
+                                <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li>
+                                <li><a href="/Admin/User">User</a></li>
+                                <li><a href="/Admin/Departments">Department</a></li>
+                                <li><a href="/Admin/Functions">Function</a></li>
+                                <li><a href="/Admin/Designation">Designation</a></li>
+                                <li><a  href="/showclient">Admin-Client</a></li>
+                                <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="nav-link" href="/Admin/add_attendance">Show Atendence</a><span class="icon"><i
+                            class="fa fa-dashboard"></i></span></li>
+
+                        <li class="menu-hasdropdown">
+                            <span class="icon"><i class="fa fa-gear"></i></span>
+
+                            <label title="toggle menu" for="settings">
+                                <a>Settings</a>
+                                <span class="downarrow"><i class="fa fa-caret-down"></i></span>
+                            </label>
+                            <input type="checkbox" class="sub-menu-checkbox" id="settings" />
+
+                            <ul class="sub-menu-dropdown">
+                                <li><a href="">Profile</a></li>
+                                <li><a href="">Security</a></li>
+                                <li><a href="">Account</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-hasdropdown">
+                            <span class="icon"><i class="fa fa-gear"></i></span>
+
+                            <label title="toggle menu" for="settings">
+                                <a>Settings</a>
+                                <span class="downarrow"><i class="fa fa-caret-down"></i></span>
+                            </label>
+                            <input type="checkbox" class="sub-menu-checkbox" id="settings" />
+
+                            <ul class="sub-menu-dropdown">
+                                <li><a href="">Profile</a></li>
+                                <li><a href="">Security</a></li>
+                                <li><a href="">Account</a></li>
+                            </ul>
+                        </li>
+
+
+                        {{-- <li style="top: calc(53vh - 10px);"><a href="#">Settings</a><span class="icon"><i
+                                    class="fa fa-gear"></i></span></li> --}}
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
         @endif
         @if (session('roleId') == '3')
         <a class="navbar-brand left_marge_logo" href="{{ url('Admin/admindahboard') }}" style="margin-right: 0px;">
             <h2 class="h2_font_side_header">Abhishek</h2>
             {{-- <img src="/asset/images/sharedocs_enterpriser.png" style="width: 185px;background: white;" alt=""> --}}
         </a>
+        <div class="overflow-container">
+            <div class="scrollbar" style="height: 640px;overflow-y: auto;" id="style-1">
+                <div class="force-overflow">
+                    <ul class="menu-dropdown">
+
+                        <li><a class="nav-link" href="/User/dashboard">Dasboard</a><span class="icon"><i
+                                    class="fa fa-dashboard"></i></span></li>
+                        <li><a class="nav-link" href="/User/show_atendence">Show Attendence</a><span class="icon"><i
+                                    class="fa fa-dashboard"></i></span></li>
+
+                        {{-- <li style="top: calc(53vh - 10px);"><a href="#">Settings</a><span class="icon"><i
+                                    class="fa fa-gear"></i></span></li> --}}
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
         @endif
 
-        <div class="overflow-container">
+        {{-- <div class="overflow-container">
             <div class="scrollbar" style="height: 640px;overflow-y: auto;" id="style-1">
                 <div class="force-overflow">
                     <ul class="menu-dropdown">
@@ -447,11 +557,19 @@
                                 <li><a href="/project/showdata">Project Master</a></li>
                                 <li><a href="/Admin/role">Role</a></li>
                                 <li><a href="/Admin/Module">Module</a></li>
+                                <li><a href="/Admin/Shifts">Shifts</a></li>
+                                <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li>
                                 <li><a href="/Admin/User">User</a></li>
                                 <li><a href="/Admin/Departments">Department</a></li>
                                 <li><a href="/Admin/Functions">Function</a></li>
+                                <li><a href="/Admin/Designation">Designation</a></li>
+                                <li><a  href="/showclient">Admin-Client</a></li>
+                                <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li>
+
                             </ul>
                         </li>
+
+                        <li><a class="nav-link" href="/Admin/add_attendance">Show Atendence</a><span class="icon"><i class="fa fa-dashboard"></i></span></li>
 
                         <li class="menu-hasdropdown">
                             <span class="icon"><i class="fa fa-gear"></i></span>
@@ -476,7 +594,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
     </nav>
 </div></div></div>
 

@@ -14,7 +14,8 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^4.1",
-        "yajra/laravel-datatables-oracle": "^9.9"
+        "yajra/laravel-datatables-oracle": "^9.9",
+        "symfony/translation": "4.3.8"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

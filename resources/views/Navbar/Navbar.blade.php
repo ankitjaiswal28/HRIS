@@ -378,7 +378,7 @@
                                 <li><a href="/Admin/role">Role</a></li>
                                 <li><a href="/Admin/Module">Module</a></li>
                                 <li><a href="/Admin/Shifts">Shifts</a></li>
-                                <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li>
+                                {{-- <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li> --}}
                                 <li><a href="/Admin/User">User</a></li>
                                 <li><a href="/Admin/Departments">Department</a></li>
                                 <li><a href="/Admin/Functions">Function</a></li>
@@ -387,6 +387,8 @@
                                 <li><a href="/Admin/LevelsorGrade">Levels/Grade</a></li>
                             </ul>
                         </li>
+                        <li><a class="nav-link" href="/Admin/add_attendance">Show Atendence</a><span class="icon"><i
+                            class="fa fa-dashboard"></i></span></li>
 
                         <li class="menu-hasdropdown">
                             <span class="icon"><i class="fa fa-gear"></i></span>

@@ -632,6 +632,10 @@ function AddAtendence() {
                 $("#sw_start").click();
 
                //  window.location.href = 'Admin/admindahboard';
+             } else if(response == 'Already') {
+                $("#checkin").hide();
+                $("#checkout").show();
+                $("#sw_start").click();
             }else {
                 alert('Some Thing Went Wrong')
             }
@@ -661,7 +665,7 @@ function LeaveAttendence() {
             if(response =='Done') {
                 // location.reload();
                // $('#sw_reset').click();
-                $("#checkin").show();
+                $("#checkin").hide();
                 $("#checkout").hide();
                 $('#resume').hide();
                 /*$("#checkin").hide();

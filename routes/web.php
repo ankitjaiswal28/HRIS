@@ -197,7 +197,7 @@ Route::group(['middleware' => ['athuthenticate']], function () {
         Route::post('/update_client', 'Admin\AdminClientController@update_client')->name('/update_client');
         Route::get('deleted_client/{id}', 'Admin\AdminClientController@deleted_client')->name('/deleted_client');
         //////////////////////////////////////////////////////////////////////////
-        Route::get('Admin/add_attendance', 'Admin\UserController@add_attendance')->name('Admin/add_attendance');
+
 
         // Show All Shifts Craeteed.
         Route::get('Admin/Shifts', 'Admin\AddShiftsController@listofShits')->name('Admin/Shifts');
@@ -219,6 +219,35 @@ Route::group(['middleware' => ['athuthenticate']], function () {
 
         // Delete The leveles
         Route::get('deletethisShifts/{id}', 'Admin\AddShiftsController@deleteShifts')->name('deletethisShifts');
+
+        // Get Atendence Records Page
+        Route::get('Admin/add_attendance', 'Admin\AttendenceController@showAttendence')->name('Admin/add_attendance');
+
+        // Get All Atendence Of Records
+        Route::post('/showallAttendence', 'Admin\AttendenceController@show_atendence_datatbl')->name('showallAttendence');
+
+        // Show the Form For The Create Atendence
+        Route::get('Admin/Create', 'Admin\AttendenceController@CreateAtendence')->name('Admin/Create');
+
+        // Save The Attendence Records In The Data Base
+        Route::post('/saveAtttendence', 'Admin\AttendenceController@saveAtttendence')->name('/saveAtttendence');
+
+        // Delete The leveles
+        Route::get('deleteAttendence/{id}', 'Admin\AttendenceController@deleteAttendence')->name('deletethisShifts');
+
+        // Show The Edit Page Of The Grade
+        Route::get('/editAttendence/{id}', 'Admin\AttendenceController@editAttendence')->name('/editAttendence');
+
+        // Update The Edit Page Of The Leveles
+        Route::post('/updateInTime/{id}', 'Admin\AttendenceController@updateTimes')->name('/updateInTime');
+
+        // Show The Edit Page Of The Grade
+        Route::get('/editoutAttendence/{id}', 'Admin\AttendenceController@editoutAttendence')->name('/editoutAttendence');
+
+        // Update The Edit Page Of The Leveles
+        Route::post('/updateoutTime/{id}', 'Admin\AttendenceController@updateOutTimes')->name('/updateoutTime');
+
+
 
     });
 

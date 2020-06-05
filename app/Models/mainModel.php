@@ -1684,4 +1684,76 @@ class mainModel extends Model
         }
         return $message;
     }
+
+    /**
+     * This Function will Check Attedence of User For Date and If Not Then It will Add Attendence
+     * @param $data \Illuminate\Http\Request  $data It will be The Data of User
+     * @return \Illuminate\Http\Response Return The Messge That Attendence For Date Is Exits Or Not
+     */
+    public function saveAttendence($data)
+    {
+        $in_Date = $data['in_Date'];
+        $user_id = $data['user_id'];
+        // DB::enableQuerylog();
+        $responese = DB::table('mst_tbl_add_attdencence')
+        ->where(['Flag' => 'Show', 'user_id' => $user_id])
+        ->where('in_Date','=', $in_Date)->get();
+        // $aa= DB::getQuerylog();
+        //  print_r($aa);exit;
+        $message = '';
+        if($responese->count() == 0) {
+            $insertAttendence = $this->insertRecords($data, 'mst_tbl_add_attdencence');
+            if ($insertAttendence != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
+    /**
+     * This Function will Delete Attendence
+     * @param $tablename \Illuminate\Http\Request  $id Will Have Attendence To be Deleted
+     * @return \Illuminate\Http\Response Return the Response that Attendence Is  Deleted
+     */
+    public function deleteAttendence($id, $data)
+    {
+        $updateDepatments = DB::table('mst_tbl_add_attdencence')->where(['Flag'=>'Show','attendenceId'=>$id])->update($data);
+        $message = '';
+        if ($updateDepatments != '') {
+            $message = 'Done';
+        } else {
+            $message = 'Error';
+        }
+        return $message;
+    }
+
+    /**
+     * This Function will Check Attendence For This Is Not Their If Not  Then Update  The Attendence
+     * @param $data \Illuminate\Http\Request  $data It will be The Data  To Update
+     * @param $id \Illuminate\Http\Request  $id It will be The Id Of Attendence To Update
+     * @return \Illuminate\Http\Response Return The Messge That Attendence Updeted Or Already Exits
+     */
+    public function updateAttedencence($data, $id, $columnName, $Date)
+    {
+        $myDate = $Date;
+        $user_id = $data['user_id'];
+        $responese = DB::table('mst_tbl_add_attdencence')
+        ->where(['Flag' => 'Show','user_id' => $user_id])
+        ->where($columnName,'=', $myDate)->where('attendenceId', '!=', $id)->get();
+        $message = '';
+        if($responese->count() == 0) {
+            $updateAttendence = DB::table('mst_tbl_add_attdencence')->where(['Flag'=>'Show','attendenceId'=>$id])->update($data);
+            if ($updateAttendence != '') {
+                $message = 'Done';
+            } else {
+                $message = 'Error';
+            }
+        } else {
+            $message = 'Already';
+        }
+        return $message;
+    }
 }
